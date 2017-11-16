@@ -1,0 +1,1538 @@
+{
+	".swf": {
+		"icon": "as",
+		"text": "ActionScript"
+	},
+	".as": {
+		"icon": "as",
+		"text": "ActionScript"
+	},
+	".jsfl": {
+		"icon": "as",
+		"text": "ActionScript"
+	},
+	".swc": {
+		"icon": "as",
+		"text": "ActionScript"
+	},
+	"/\\.(ada|adb|ads)$/i": {
+		"icon": "ada",
+		"text": "Ada"
+	},
+	"/^angular[^.]*\\.js$/i": {
+		"icon": "angular",
+		"text": "Angular"
+	},
+	".ino": {
+		"icon": "arduino",
+		"text": "Arduino"
+	},
+	".asp": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	".asax": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	".ascx": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	".ashx": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	".asmx": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	".aspx": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	".axd": {
+		"icon": "asp",
+		"text": "ASP.net"
+	},
+	"/\\.(l?a|[ls]?o|out|s|a51|asm|axf|elf|prx|puff|z80)$/i": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".agc": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".ko": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".lst": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	"/\\.((c([+px]{2}?)?-?)?objdump|bsdiff|bin|dat|pak|pdb)$/i": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".d-objdump": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	"/\\.gcode|\\.gco/i": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	"/\\.rpy[bc]$/i": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	"/\\.py[co]$/i": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".swp": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".DS_Store": {
+		"icon": "binary",
+		"text": "Assembly"
+	},
+	".ahk": {
+		"icon": "ahk",
+		"text": "AutoHotkey"
+	},
+	".ahkl": {
+		"icon": "ahk",
+		"text": "AutoHotkey"
+	},
+	".au3": {
+		"icon": "autoit",
+		"text": "AutoIt"
+	},
+	"/^backbone([-.]min|dev)?\\.js$/i": {
+		"icon": "backbone",
+		"text": "Backbone"
+	},
+	".cbx": {
+		"icon": "bibtex",
+		"text": "BibTeX"
+	},
+	".bbx": {
+		"icon": "bibtex",
+		"text": "BibTeX"
+	},
+	".bib": {
+		"icon": "bibtex",
+		"text": "BibTeX"
+	},
+	".bst": {
+		"icon": "bibtex",
+		"text": "BibTeX"
+	},
+	".boo": {
+		"icon": "boo",
+		"text": "Boo"
+	},
+	"/^(\\.bowerrc|bower\\.json|Bowerfile)$/i": {
+		"icon": "bower",
+		"text": "Bower"
+	},
+	"/\\.bf?$/i": {
+		"icon": "brain",
+		"text": "Brainfuck"
+	},
+	"/^Gemfile(\\.lock)?$/i": {
+		"icon": "bundler",
+		"text": "Bundler"
+	},
+	"/\\.c[+px]{2}$|\\.cc$/i": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	"/\\.h[+px]{2}$/i": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	"/\\.[it]pp$/i": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	"/\\.(tcc|inl)$/i": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".cats": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".idc": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".w": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".nc": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".upc": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".xpm": {
+		"icon": "cpp",
+		"text": "C++"
+	},
+	".cs": {
+		"icon": "csharp",
+		"text": "C#"
+	},
+	".csx": {
+		"icon": "csscript",
+		"text": "C#-Script"
+	},
+	".caffemodel": {
+		"icon": "caffe",
+		"text": "Caffe"
+	},
+	".clj": {
+		"icon": "clojure",
+		"text": "Clojure"
+	},
+	".cl2": {
+		"icon": "clojure",
+		"text": "Clojure"
+	},
+	".cljc": {
+		"icon": "clojure",
+		"text": "Clojure"
+	},
+	".cljx": {
+		"icon": "clojure",
+		"text": "Clojure"
+	},
+	".hic": {
+		"icon": "clojure",
+		"text": "Clojure"
+	},
+	"/\\.cljs(cm)?$/i": {
+		"icon": "cljs",
+		"text": "ClojureScript"
+	},
+	".cmake": {
+		"icon": "cmake",
+		"text": "CMake"
+	},
+	"/^CMakeLists\\.txt$/": {
+		"icon": "cmake",
+		"text": "CMake"
+	},
+	"/\\.(cob|ccp|cbl|cobol|cpy)$/i": {
+		"icon": "cobol",
+		"text": "COBOL"
+	},
+	".coffee": {
+		"icon": "coffee",
+		"text": "CoffeeScript"
+	},
+	".cjsx": {
+		"icon": "coffee",
+		"text": "CoffeeScript"
+	},
+	".coffee.ecr": {
+		"icon": "coffee",
+		"text": "CoffeeScript"
+	},
+	".coffee.erb": {
+		"icon": "coffee",
+		"text": "CoffeeScript"
+	},
+	".litcoffee": {
+		"icon": "coffee",
+		"text": "CoffeeScript"
+	},
+	".iced": {
+		"icon": "coffee",
+		"text": "CoffeeScript"
+	},
+	".cl": {
+		"icon": "cl",
+		"text": "Common Lisp"
+	},
+	"/\\.e?cr$/i": {
+		"icon": "crystal",
+		"text": "Crystal"
+	},
+	".css": {
+		"icon": "css3",
+		"text": "CSS"
+	},
+	".less": {
+		"icon": "css3",
+		"text": "CSS"
+	},
+	"/\\.(styl|stylus)$/i": {
+		"icon": "css3",
+		"text": "CSS"
+	},
+	".scss": {
+		"icon": "css3",
+		"text": "CSS"
+	},
+	".sass": {
+		"icon": "css3",
+		"text": "CSS"
+	},
+	".cu": {
+		"icon": "nvidia",
+		"text": "CUDA"
+	},
+	".cuh": {
+		"icon": "nvidia",
+		"text": "CUDA"
+	},
+	"/^\\.curlrc$/i": {
+		"icon": "curl",
+		"text": "cURL"
+	},
+	"/\\.di?$/i": {
+		"icon": "dlang",
+		"text": "D"
+	},
+	".dart": {
+		"icon": "dart",
+		"text": "Dart"
+	},
+	"/\\.(h|geo|topo)?json$/i": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/\\.ya?ml$/i": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".cson": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".json5": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".http": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".ndjson": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".fea": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".json.eex": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".proto": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".pytb": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".pydeps": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/\\.pot?$/i": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".ejson": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".edn": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".eam.fs": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".qml": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".qbs": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".ston": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".ttl": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".rviz": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".syntax": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".webmanifest": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/^pkginfo$/": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/^mime\\.types$/i": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/^METADATA\\.pb$/": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/[\\/\\\\](?:magic[\\/\\\\]Magdir|file[\\/\\\\]magic)[\\/\\\\][-.\\w]+$/i": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/(\\\\|\\/)dev[-\\w]+\\1(?:[^\\\\\\/]+\\1)*(?!DESC|NOTES)(?:[A-Z][-A-Z]*)(?:\\.in)?$/": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"lib/icons/.icondb.js": {
+		"icon": "database",
+		"text": "Data"
+	},
+	"/\\.git[\\/\\\\](.*[\\/\\\\])?(HEAD|ORIG_HEAD|packed-refs|logs[\\/\\\\](.+[\\/\\\\])?[^\\/\\\\]+)$/": {
+		"icon": "database",
+		"text": "Data"
+	},
+	".dfm": {
+		"icon": "delphi",
+		"text": "Delphi"
+	},
+	".dpr": {
+		"icon": "delphi",
+		"text": "Delphi"
+	},
+	"/^(Dockerfile|docker-compose)|\\.docker(file|ignore)$/i": {
+		"icon": "docker",
+		"text": "Docker"
+	},
+	"/^docker-sync\\.yml$/i": {
+		"icon": "docker",
+		"text": "Docker"
+	},
+	".ex": {
+		"icon": "elixir",
+		"text": "Elixir"
+	},
+	"/\\.(exs|eex)$/i": {
+		"icon": "elixir",
+		"text": "Elixir"
+	},
+	"/^mix\\.(exs?|lock)$/i": {
+		"icon": "elixir",
+		"text": "Elixir"
+	},
+	"/^ember(\\.|(-[^.]+)?-(\\d+\\.)+(debug\\.)?)js$/i": {
+		"icon": "ember",
+		"text": "Ember"
+	},
+	".erl": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	".beam": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	".hrl": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	".xrl": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	".yrl": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	".app.src": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	"/^Emakefile$/": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	"/^rebar(\\.config)?\\.lock$/i": {
+		"icon": "erlang",
+		"text": "Erlang"
+	},
+	".f": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".f90": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".f03": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".f08": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".f77": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".f95": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".for": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	".fpp": {
+		"icon": "fortran",
+		"text": "Fortran"
+	},
+	"/\\.fs[xi]?$/i": {
+		"icon": "fsharp",
+		"text": "FSharp"
+	},
+	".gml": {
+		"icon": "gml",
+		"text": "GameMaker Language"
+	},
+	"/^\\.git|^\\.keep$|\\.mailmap$/i": {
+		"icon": "git",
+		"text": "Git"
+	},
+	".go": {
+		"icon": "go",
+		"text": "Go"
+	},
+	".gradle": {
+		"icon": "gradle",
+		"text": "Gradle"
+	},
+	"gradlew": {
+		"icon": "gradle",
+		"text": "Gradle"
+	},
+	"/\\.(groovy|grt|gtpl|gsp|gvy)$/i": {
+		"icon": "groovy",
+		"text": "Groovy"
+	},
+	".hh": {
+		"icon": "hack",
+		"text": "Hack"
+	},
+	".hs": {
+		"icon": "haskell",
+		"text": "Haskell"
+	},
+	".hsc": {
+		"icon": "haskell",
+		"text": "Haskell"
+	},
+	".c2hs": {
+		"icon": "haskell",
+		"text": "Haskell"
+	},
+	".lhs": {
+		"icon": "haskell",
+		"text": "Haskell"
+	},
+	"/\\.x?html?$/i": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".cshtml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".gohtml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".html.eex": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".jsp": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".kit": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".latte": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".phtml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".shtml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".scaml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".swig": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".vash": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".xht": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".dtml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	"/\\.html?\\.ecr$/i": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	"/\\.(html?\\.erb(\\.deface)?|rhtml)$/i": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	"/\\.(hbs|handlebars|(mu)?stache)$/i": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".pug": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".jade": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".ejs": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".haml": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".hamlc": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".haml.deface": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".soy": {
+		"icon": "html5",
+		"text": "HTML"
+	},
+	".java": {
+		"icon": "java",
+		"text": "Java"
+	},
+	".js": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	"._js": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".jsb": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".jsm": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".jss": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".es6": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".es": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".mjs": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".sjs": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".ssjs": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".xsjs": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".xsjslib": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".dust": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".js.ecr": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".js.erb": {
+		"icon": "js",
+		"text": "JavaScript"
+	},
+	".jsx": {
+		"icon": "jsx",
+		"text": "JSX"
+	},
+	".kt": {
+		"icon": "kotlin",
+		"text": "Kotlin"
+	},
+	".ktm": {
+		"icon": "kotlin",
+		"text": "Kotlin"
+	},
+	".kts": {
+		"icon": "kotlin",
+		"text": "Kotlin"
+	},
+	".lsp": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".lisp": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".l": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".nl": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".ny": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".podsl": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".sexp": {
+		"icon": "lisp",
+		"text": "Lisp"
+	},
+	".ll": {
+		"icon": "llvm",
+		"text": "LLVM"
+	},
+	"/\\.clang-(format|tidy)$/i": {
+		"icon": "llvm",
+		"text": "LLVM"
+	},
+	"/^ubsan\\.blacklist$/i": {
+		"icon": "llvm",
+		"text": "LLVM"
+	},
+	".lua": {
+		"icon": "lua",
+		"text": "Lua"
+	},
+	".pd_lua": {
+		"icon": "lua",
+		"text": "Lua"
+	},
+	".rbxs": {
+		"icon": "lua",
+		"text": "Lua"
+	},
+	".wlua": {
+		"icon": "lua",
+		"text": "Lua"
+	},
+	"/^Makefile/": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^mk\\.config$/": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/\\.(mk|mak|make)$/i": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^BSDmakefile$/i": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^GNUmakefile$/i": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^makefile\\.sco$/i": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^Kbuild$/": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^makefile$/": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^mkfile$/i": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^\\.?qmake$/i": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	".am": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	".bb": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/^DEPS$/": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	".mms": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	".mmk": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	".pri": {
+		"icon": "checklist",
+		"text": "Makefile"
+	},
+	"/\\.(1([bcmstx]|has|in)?|[24568]|3(avl|bsm|cfgadm|in|[cmx]|qt)?|7(d|fs|i|ipp|m|p)?|9[efps]?|chem|eqn|groff|man|mandoc|mdoc|me|mom|nr?|nroff|pic|roff?|tmac|tmac-u|tr|troff)$/i": {
+		"icon": "manpage",
+		"text": "Manual Page"
+	},
+	"/\\.(rnh|rno|run|runoff)$/i": {
+		"icon": "manpage",
+		"text": "Manual Page"
+	},
+	"/^tmac\\.|^(mmn|mmt|toc\\.entries)$/i": {
+		"icon": "manpage",
+		"text": "Manual Page"
+	},
+	"/([\\\\\\/])(?:man(\\w+)\\1[^\\\\\\/]+\\.\\2|(?:tmac|eqnchar)\\.d\\1(?:ms\\.)?[^\\\\\\/.]+(?:\\.in)?)$/": {
+		"icon": "manpage",
+		"text": "Manual Page"
+	},
+	"/\\.(md|mdown|markdown|mkd|mkdown|mdwn|mkdn|rmd|ron|pmd)$/i": {
+		"icon": "markdown",
+		"text": "Markdown"
+	},
+	".nsi": {
+		"icon": "nsis",
+		"text": "NSIS"
+	},
+	".nsh": {
+		"icon": "nsis",
+		"text": "NSIS"
+	},
+	"/\\.mm?$/i": {
+		"icon": "objc",
+		"text": "Objective-C"
+	},
+	".pch": {
+		"icon": "objc",
+		"text": "Objective-C"
+	},
+	".x": {
+		"icon": "objc",
+		"text": "Objective-C"
+	},
+	".ml": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".mli": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".eliom": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".eliomi": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".ml4": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".mll": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".mly": {
+		"icon": "ocaml",
+		"text": "OCaml"
+	},
+	".opencl": {
+		"icon": "opencl",
+		"text": "OpenCL"
+	},
+	"/^(GLSL|GLslang)$/i": {
+		"icon": "opengl",
+		"text": "OpenGL"
+	},
+	"/\\.(glslv?|gsh|gshader)$/i": {
+		"icon": "opengl",
+		"text": "OpenGL"
+	},
+	"/\\.(vert|vrx|vertex|vsh(ader)?)$/i": {
+		"icon": "opengl",
+		"text": "OpenGL"
+	},
+	"/\\.(fra?g|fp|fsh|fshader)$/i": {
+		"icon": "opengl",
+		"text": "OpenGL"
+	},
+	"/\\.pas(cal)?$/i": {
+		"icon": "pascal",
+		"text": "Pascal"
+	},
+	".lpr": {
+		"icon": "pascal",
+		"text": "Pascal"
+	},
+	"/\\.p(er)?l$/i": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".al": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".ph": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".plx": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".pm": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	"/\\.(psgi|xs)$/i": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".pl6": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	"/\\.[tp]6$|\\.6pl$/i": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	"/\\.(pm6|p6m)$/i": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".6pm": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".nqp": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".p6l": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	".pod6": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	"/^Rexfile$/": {
+		"icon": "perl",
+		"text": "Perl"
+	},
+	"/\\.php([st\\d]|_cs)?$/i": {
+		"icon": "php",
+		"text": "PHP"
+	},
+	"/^Phakefile/": {
+		"icon": "php",
+		"text": "PHP"
+	},
+	".ps1": {
+		"icon": "powershell",
+		"text": "PowerShell"
+	},
+	".psd1": {
+		"icon": "powershell",
+		"text": "PowerShell"
+	},
+	".psm1": {
+		"icon": "powershell",
+		"text": "PowerShell"
+	},
+	".ps1xml": {
+		"icon": "powershell",
+		"text": "PowerShell"
+	},
+	".pde": {
+		"icon": "processing",
+		"text": "Processing"
+	},
+	".pro": {
+		"icon": "prolog",
+		"text": "Prolog"
+	},
+	".prolog": {
+		"icon": "prolog",
+		"text": "Prolog"
+	},
+	".yap": {
+		"icon": "prolog",
+		"text": "Prolog"
+	},
+	".py": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".ipy": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".isolate": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".pep": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".gyp": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".gypi": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".pyde": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".pyp": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".pyt": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".py3": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".pyi": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".pyw": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".tac": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".wsgi": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".xpy": {
+		"icon": "python",
+		"text": "Python"
+	},
+	".rpy": {
+		"icon": "python",
+		"text": "Python"
+	},
+	"/\\.?(pypirc|pythonrc|python-venv)$/i": {
+		"icon": "python",
+		"text": "Python"
+	},
+	"/^(SConstruct|SConscript)$/": {
+		"icon": "python",
+		"text": "Python"
+	},
+	"/^(Snakefile|WATCHLISTS)$/": {
+		"icon": "python",
+		"text": "Python"
+	},
+	"/^wscript$/": {
+		"icon": "python",
+		"text": "Python"
+	},
+	"/\\.(r|Rprofile|rsx|rd)$/i": {
+		"icon": "r",
+		"text": "R"
+	},
+	"/^README(\\b|_)|^(licen[sc]es?(\\.mysql)?|(read|readme|click|delete|keep|test)\\.me)$|\\.(readme|1st|licen[sc]es?)$/i": {
+		"icon": "book",
+		"text": "Readme"
+	},
+	"/^(notice|bugs|changes|change[-_]?log([-._]?\\d+)?|contribute|contributing|contributors|copying(\\.regex)?|hacking|history|install|maintainers|manifest|more\\.stuff|notes|problems|projects|revision|terms|thanks|warnings)(_\\w+)?$/i": {
+		"icon": "book",
+		"text": "Readme"
+	},
+	"/\\b(changelog|copying(v?\\d)?|install|read[-_]?me)\\b|^licen[sc]es?[-._]/i": {
+		"icon": "book",
+		"text": "Readme"
+	},
+	"/^news([-_.]?[-\\d]+)?$/i": {
+		"icon": "book",
+		"text": "Readme"
+	},
+	"/\\.regexp?$/i": {
+		"icon": "regex",
+		"text": "RegExp"
+	},
+	".rss": {
+		"icon": "rss",
+		"text": "RSS"
+	},
+	"/\\.(rb|ru|ruby|erb|gemspec|god|mspec|pluginspec|podspec|rabl|rake|opal)$/i": {
+		"icon": "ruby",
+		"text": "Ruby"
+	},
+	"/^\\.?(irbrc|gemrc|pryrc|ruby-(gemset|version))$/i": {
+		"icon": "ruby",
+		"text": "Ruby"
+	},
+	"/^(Appraisals|(Rake|[bB]uild|Cap|Danger|Deliver|Fast|Guard|Jar|Maven|Pod|Puppet|Snap)file(\\.lock)?)$/": {
+		"icon": "ruby",
+		"text": "Ruby"
+	},
+	"/\\.(jbuilder|rbuild|rb[wx]|builder)$/i": {
+		"icon": "ruby",
+		"text": "Ruby"
+	},
+	"/^rails$/": {
+		"icon": "ruby",
+		"text": "Ruby"
+	},
+	".watchr": {
+		"icon": "ruby",
+		"text": "Ruby"
+	},
+	".rs": {
+		"icon": "rust",
+		"text": "Rust"
+	},
+	".rlib": {
+		"icon": "rust",
+		"text": "Rust"
+	},
+	"/\\.(sc|scala)$/i": {
+		"icon": "scala",
+		"text": "Scala"
+	},
+	".scm": {
+		"icon": "scheme",
+		"text": "Scheme"
+	},
+	".sld": {
+		"icon": "scheme",
+		"text": "Scheme"
+	},
+	".sps": {
+		"icon": "scheme",
+		"text": "Scheme"
+	},
+	"/\\.(sh|rc|bats|bash|tool|install|command)$/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/^(\\.?bash(rc|[-_]?(profile|login|logout|history|prompt))|_osc|config|install-sh|PKGBUILD)$/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/\\.(ksh|mksh|pdksh)$/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	".sh-session": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/\\.zsh(-theme|_history)?$|^\\.?(antigen|zpreztorc|zlogin|zlogout|zprofile|zshenv|zshrc)$/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/\\.fish$|^\\.fishrc$/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/^\\.?(login|profile)$/": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	".inputrc": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	".tmux": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/^(configure|config\\.(guess|rpath|status|sub)|depcomp|libtool|compile)$/": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/^\\/(private\\/)?etc\\/([^\\/]+\\/)*(profile$|nanorc$|rc\\.|csh\\.)/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/^\\.?cshrc$/i": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	".profile": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	".tcsh": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	".csh": {
+		"icon": "terminal",
+		"text": "Shell"
+	},
+	"/\\.(my)?sql$/i": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".ddl": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".udf": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".hql": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".viw": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".prc": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".cql": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".db2": {
+		"icon": "sql",
+		"text": "SQL"
+	},
+	".svg": {
+		"icon": "svg",
+		"text": "SVG"
+	},
+	".swift": {
+		"icon": "swift",
+		"text": "Swift"
+	},
+	".tex": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".ltx": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".aux": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".sty": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".dtx": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".cls": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".ins": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".lbx": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".mkiv": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".mkvi": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".mkii": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	".texi": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	"/^hyphen(ex)?\\.(cs|den|det|fr|sv|us)$/": {
+		"icon": "tex",
+		"text": "TeX"
+	},
+	"/\\.te?xt$/i": {
+		"icon": "text",
+		"text": "Text"
+	},
+	"/\\.log$|^Terminal[-_\\s]Saved[-_\\s]Output$/i": {
+		"icon": "text",
+		"text": "Text"
+	},
+	"/\\.git[\\/\\\\]description$/": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".err": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".rtf": {
+		"icon": "text",
+		"text": "Text"
+	},
+	"/\\.i?nfo$/i": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".abt": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".ans": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".brf": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".dri": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".etx": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".gpi": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".irclog": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".more": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".msg": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".no": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".rpt": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".srt": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".sub": {
+		"icon": "text",
+		"text": "Text"
+	},
+	"/^(bug-report|fdl|for-release|tests)$/i": {
+		"icon": "text",
+		"text": "Text"
+	},
+	"/\\.(utxt|utf8)$/i": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".weechatlog": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".uof": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".uot": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".uos": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".uop": {
+		"icon": "text",
+		"text": "Text"
+	},
+	".tsx": {
+		"icon": "tsx",
+		"text": "TSX"
+	},
+	".ts": {
+		"icon": "ts",
+		"text": "TypeScript"
+	},
+	".anim": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".asset": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".mat": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".meta": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".prefab": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".unity": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".unityproj": {
+		"icon": "unity3d",
+		"text": "Unity3D"
+	},
+	".uc": {
+		"icon": "unreal",
+		"text": "UnrealScript"
+	},
+	".vue": {
+		"icon": "vue",
+		"text": "Vue"
+	},
+	"/\\.was?t$/i": {
+		"icon": "wasm",
+		"text": "WebAssembly"
+	},
+	".wasm": {
+		"icon": "wasm",
+		"text": "WebAssembly"
+	},
+	".bat": {
+		"icon": "windows",
+		"text": "Windows"
+	},
+	".cmd": {
+		"icon": "windows",
+		"text": "Windows"
+	},
+	"/\\.(exe|com|msi)$/i": {
+		"icon": "windows",
+		"text": "Windows"
+	},
+	".reg": {
+		"icon": "windows",
+		"text": "Windows"
+	}
+}
