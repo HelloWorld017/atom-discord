@@ -1,0 +1,10 @@
+{
+	"working-project": "Travaille sur %projectName%",
+	"working-no-project": "Travaille sur un projet",
+	"editing-file": "Modifie %fileName%",
+	"editing-idle": "Inactif",
+	"atom-description": "Travaille avec Atom",
+	"type-description": "Modifie un fichier %type%",
+	"type-unknown": "Modifie un fichier",
+	"developer-idle": "Un développeur, ça a besoin de REPOs !"
+}
