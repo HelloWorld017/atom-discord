@@ -1,0 +1,10 @@
+{
+	"working-project": "%projectName% 프로젝트 작업 중",
+	"working-no-project": "할 것들 작업 중",
+	"editing-file": "%fileName% 편집 중",
+	"editing-idle": "쉬는 중",
+	"atom-description": "아톰으로 코딩 중",
+	"type-description": "%type% 파일을 편집하고 있습니다.",
+	"type-unknown": "파일 편집 중",
+	"developer-idle": "개발자가 잠시 치킨을 뜯으러 간 것 같습니다."
+}

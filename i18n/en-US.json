@@ -1,0 +1,10 @@
+{
+	"working-project": "Working on %projectName%",
+	"working-no-project": "Working on some stuffs",
+	"editing-file": "Editing %fileName%",
+	"editing-idle": "Idle",
+	"atom-description": "Working with Atom",
+	"type-description": "Editing a %type% file",
+	"type-unknown": "Editing a file",
+	"developer-idle": "The Developer is RESTful enough to rest!"
+}

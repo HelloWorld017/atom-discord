@@ -1,5 +1,5 @@
 const {ipcRenderer, remote} = require('electron');
-const matched = require('./matched.json');
+const matched = require('../data/matched.json');
 const path = require('path');
 const {promisifyAll} = require('bluebird');
 const Registry = require('winreg');
@@ -9,7 +9,6 @@ const DISCORD_ID = '380510159094546443';
 const REGISTRY_BASEPATH = `\\Software\\Classes\\discord-${DISCORD_ID}`;
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 const RPC_PATH = require.resolve('discord-rpc');
-const IS_REGEX_PATH = require.resolve('is-regex');
 
 const getRegistry = (path) => {
 	return promisifyAll(new Registry({
@@ -43,11 +42,22 @@ const initializeSender = () => {
 };
 
 const initializeRpc = () => {
-	ipcRenderer.send('discord-setup', {
+	ipcRenderer.send('atom-discord.discord-setup', {
 		discordId: DISCORD_ID,
 		rpcPath: RPC_PATH,
-		isRegexPath: IS_REGEX_PATH,
 		matchData: matched
+	});
+};
+
+const updateConfig = (
+	i18n = atom.config.get('atom-discord.i18n'),
+	privacy = atom.config.get('atom-discord.privacy')
+) => {
+	const i18nValue = require(`../i18n/${i18n}.json`);
+
+	ipcRenderer.send('atom-discord.config-update', {
+		i18n: i18nValue,
+		privacy
 	});
 };
 
@@ -66,7 +76,7 @@ const createLoop = async () => {
 	let projectName = null;
 
 	const updateData = () => {
-		ipcRenderer.send('data-update', {
+		ipcRenderer.send('atom-discord.data-update', {
 			currEditor,
 			projectName
 		});
@@ -98,10 +108,71 @@ const createLoop = async () => {
 	updateData();
 };
 
+atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
+	updateConfig(newValue);
+});
+
+atom.config.onDidChange('atom-discord.privacy', ({newValue}) => {
+	updateConfig(undefined, newValue);
+});
+
 module.exports = {
 	activate() {
 		initializeSender();
-		createLoop();
 		initializeRpc();
+		updateConfig();
+		createLoop();
+	},
+
+	config: {
+		i18n: {
+			title: "i18n",
+			description: "Select Language",
+			type: "string",
+			default: "en-US",
+			enum: [
+				{
+					value: "en-US",
+					description: "United States"
+				},
+
+				{
+					value: "ko-KR",
+					description: "South Korea"
+				}
+			],
+
+			order: 1
+		},
+
+		privacy: {
+			title: "Privacy",
+			description: "Select things to integrate",
+			type: "object",
+			properties: {
+				sendFilename: {
+					title: "Send File name",
+					description: "Integrate file name.",
+					type: "boolean",
+					default: true
+				},
+
+				sendProject: {
+					title: "Send Project name",
+					description: "Integrate project name.",
+					type: "boolean",
+					default: true
+				},
+
+				sendFileType: {
+					title: "Send file type",
+					description: "Integrate type of files.",
+					type: "boolean",
+					default: true
+				}
+			},
+
+			order: 2
+		}
 	}
 };
