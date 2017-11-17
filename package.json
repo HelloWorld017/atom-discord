@@ -9,15 +9,12 @@
     "atom": ">0.50.0"
   },
   "scripts": {
-	  "test": "electron dataspy/main.js"
+    "test": "electron dataspy/main.js"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
     "discord-rpc": "^3.0.0-beta.2",
-    "electron": "^1.7.9",
-    "express": "^4.16.2",
-    "promisify-node": "^0.4.0",
-    "request": "^2.83.0",
+    "is-regex": "^1.0.4",
     "winreg": "^1.2.4"
   }
 }
