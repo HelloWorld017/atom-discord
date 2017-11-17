@@ -133,12 +133,17 @@ module.exports = {
 			enum: [
 				{
 					value: "en-US",
-					description: "United States"
+					description: "English"
 				},
 
 				{
 					value: "ko-KR",
-					description: "South Korea"
+					description: "Korean"
+				},
+				
+				{
+					value: "fr-FR",
+					description: "French"
 				}
 			],
 
