@@ -51,13 +51,15 @@ const initializeRpc = () => {
 
 const updateConfig = (
 	i18n = atom.config.get('atom-discord.i18n'),
-	privacy = atom.config.get('atom-discord.privacy')
+	privacy = atom.config.get('atom-discord.privacy'),
+	 small_icon_value = atom.config.get('atom-discord.small_icon_toggle')
 ) => {
 	const i18nValue = require(`../i18n/${i18n}.json`);
 
 	ipcRenderer.send('atom-discord.config-update', {
 		i18n: i18nValue,
-		privacy
+		privacy,
+		 small_icon_value
 	});
 };
 
@@ -112,6 +114,10 @@ atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
 	updateConfig(newValue);
 });
 
+atom.config.onDidChange('atom-discord.small_icon_toggle', ({newValue}) => {
+updateConfig()
+});
+
 atom.config.onDidChange('atom-discord.privacy', ({newValue}) => {
 	updateConfig(undefined, newValue);
 });
@@ -140,7 +146,7 @@ module.exports = {
 					value: "ko-KR",
 					description: "Korean"
 				},
-				
+
 				{
 					value: "fr-FR",
 					description: "French"
@@ -148,6 +154,14 @@ module.exports = {
 			],
 
 			order: 1
+		},
+
+		 small_icon_toggle: {
+			title: "Display small Atom logo",
+			description: "",
+			type: "boolean",
+			default: true,
+			order: 2
 		},
 
 		privacy: {
@@ -177,7 +191,7 @@ module.exports = {
 				}
 			},
 
-			order: 2
+			order: 3
 		}
 	}
 };
