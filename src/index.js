@@ -138,8 +138,18 @@ module.exports = {
 			default: "en-US",
 			enum: [
 				{
+					value: "nl-NL",
+					description: "Dutch (Netherlands)"
+				},
+
+				{
 					value: "en-US",
 					description: "English"
+				},
+
+				{
+					value: "fr-FR",
+					description: "French"
 				},
 
 				{
@@ -148,8 +158,8 @@ module.exports = {
 				},
 
 				{
-					value: "fr-FR",
-					description: "French"
+					value: "pt-BR",
+					description: "Portuguese (Brazil)"
 				}
 			],
 

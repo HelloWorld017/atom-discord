@@ -1,5 +1,5 @@
 # atom-discord
-![Logo](resources/atom-discord.png)
+![Logo](https://i.imgur.com/3lXT3XJ.png)
 
 [![David](https://img.shields.io/david/HelloWorld017/atom-discord.svg?style=flat-square)](https://david-dm.org/HelloWorld017/atom-discord)
 [![license](https://img.shields.io/github/license/HelloWorld017/atom-discord.svg?style=flat-square)](https://github.com/HelloWorld017/atom-discord/blob/master/LICENSE)
@@ -11,10 +11,11 @@ Integrate your __atom__ with __Discord__ and show _Rich Presence_ information
 ## Installation
 `$ apm install atom-discord`
 
-## Warning
-* You should add Atom to Discord game list to show rich presence.
+## Warning / Information
+* You should add Atom to Discord game list to show rich presence.  
+* You can get images from [fileicons-render](https://github.com/HelloWorld017/fileicons-render)
 
 ## Screenshots
-![Discord Integration](resources/screenshot.png)
+![Discord Integration](https://i.imgur.com/EMd4eZg.png)
 
-![Atom settings](resources/settings.png)
+![Atom settings](https://i.imgur.com/KHVrbw5.png)
