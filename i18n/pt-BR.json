@@ -1,0 +1,10 @@
+{
+	"working-project": "Trabalhando em %projectName%",
+	"working-no-project": "Trabalhando em algumas coisas",
+	"editing-file": "Editando %fileName%",
+	"editing-idle": "Inativo",
+	"atom-description": "Trabalhando com Atom",
+	"type-description": "Editando um arquivo %type%",
+	"type-unknown": "Editando um arquivo",
+	"developer-idle": "O desenvolvedor também precisa de descanso!"
+}
