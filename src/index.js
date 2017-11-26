@@ -52,7 +52,7 @@ const initializeRpc = () => {
 const updateConfig = (
 	i18n = atom.config.get('atom-discord.i18n'),
 	privacy = atom.config.get('atom-discord.privacy'),
-	 small_icon_value = atom.config.get('atom-discord.small_icon_toggle')
+	showSmallIcon = atom.config.get('atom-discord.smallIconToggle')
 ) => {
 	const i18nValue = require(`../i18n/${i18n}.json`);
 
@@ -114,8 +114,8 @@ atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
 	updateConfig(newValue);
 });
 
-atom.config.onDidChange('atom-discord.small_icon_toggle', ({newValue}) => {
-updateConfig()
+atom.config.onDidChange('atom-discord.smallIconToggle', ({newValue}) => {
+	updateConfig()
 });
 
 atom.config.onDidChange('atom-discord.privacy', ({newValue}) => {
@@ -156,7 +156,7 @@ module.exports = {
 			order: 1
 		},
 
-		 small_icon_toggle: {
+		 smallIconToggle: {
 			title: "Display small Atom logo",
 			description: "",
 			type: "boolean",

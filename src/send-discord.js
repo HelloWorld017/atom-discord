@@ -7,7 +7,7 @@ let currEditor = null;
 let largeImage = null;
 let translations = {};
 let privacySettings = {};
-let small_icon_toggle = null;
+let showSmallIcon = true;
 
 let matchData;
 let matchKeys = [];
@@ -58,7 +58,7 @@ const setupRpc = (Client) => {
 
 			let smallImageKey = 'atom';
 
-			if(!small_icon_toggle) smallImageKey = undefined;
+
 			if(!privacySettings.sendProject) state = getTranslation('working-no-project');
 			if(!privacySettings.sendFilename) details = getTranslation('type-unknown');
 			if(!privacySettings.sendFileType) largeImageInner = {
@@ -66,15 +66,20 @@ const setupRpc = (Client) => {
 					text: getTranslation('type-unknown')
 				};
 
-			rpc.setActivity({
+			const packet = {
 				state,
 				details,
 				startTimestamp,
 				largeImageKey: largeImageInner.icon,
 				largeImageText: largeImageInner.text,
-				smallImageKey,
-				smallImageText: getTranslation('atom-description')
-			});
+			};
+
+			if(showSmallIcon) {
+				packet.smallImageKey = smallImageKey;
+				packet.smallImageText = getTranslation('atom-description')
+			}
+
+			rpc.setActivity(packet);
 
 			setTimeout(loop, 3000);
 		};
@@ -120,10 +125,10 @@ ipcMain.on('atom-discord.data-update', (event, arg) => {
 	}
 });
 
-ipcMain.on('atom-discord.config-update', (event, {i18n, privacy, small_icon_value}) => {
+ipcMain.on('atom-discord.config-update', (event, {i18n, privacy, showSmallIcon: _showSmallIcon}) => {
 	translations = i18n;
 	privacySettings = privacy;
-	 small_icon_toggle = small_icon_value
+	showSmallIcon = _showSmallIcon
 });
 
 ipcMain.on('atom-discord.discord-setup', (event, arg) => {
