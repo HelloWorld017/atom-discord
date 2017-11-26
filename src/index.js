@@ -2,40 +2,11 @@ const {ipcRenderer, remote} = require('electron');
 const matched = require('../data/matched.json');
 const path = require('path');
 const {promisifyAll} = require('bluebird');
-const Registry = require('winreg');
 
 const ATOM_PATH = process.execPath;
 const DISCORD_ID = '380510159094546443';
-const REGISTRY_BASEPATH = `\\Software\\Classes\\discord-${DISCORD_ID}`;
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 const RPC_PATH = require.resolve('discord-rpc');
-
-const getRegistry = (path) => {
-	return promisifyAll(new Registry({
-		hive: Registry.HKCU,
-		key: `${REGISTRY_BASEPATH}${path}`
-	}));
-};
-
-const setupDiscord = async () => {
-	const regKey = getRegistry('');
-	const iconKey = getRegistry('\\DefaultIcon');
-	const openKey = getRegistry('\\shell\\open\\command');
-
-	if(await regKey.keyExistsAsync()) {
-		if(await openKey.getAsync(Registry.DEFAULT_VALUE) === ATOM_PATH) return;
-	} else {
-		await regKey.createAsync();
-		await regKey.setAsync(Registry.DEFAULT_VALUE, "REG_SZ", `URL:Run game ${DISCORD_ID} protocol`);
-		await regKey.setAsync("URL Protocol", "REG_SZ", "");
-	}
-
-	await iconKey.createAsync();
-	await iconKey.setAsync(Registry.DEFAULT_VALUE, "REG_SZ", ATOM_PATH);
-
-	await openKey.createAsync();
-	await openKey.setAsync(Registry.DEFAULT_VALUE, "REG_SZ", ATOM_PATH);
-};
 
 const initializeSender = () => {
 	remote.require(SEND_DISCORD_PATH);
@@ -59,7 +30,7 @@ const updateConfig = (
 	ipcRenderer.send('atom-discord.config-update', {
 		i18n: i18nValue,
 		privacy,
-		 small_icon_value
+		showSmallIcon
 	});
 };
 
@@ -131,6 +102,14 @@ module.exports = {
 	},
 
 	config: {
+		smallIconToggle: {
+			title: "Display small Atom logo",
+			description: "",
+			type: "boolean",
+			default: true,
+			order: 1
+		},
+
 		i18n: {
 			title: "i18n",
 			description: "Select Language",
@@ -163,14 +142,6 @@ module.exports = {
 				}
 			],
 
-			order: 1
-		},
-
-		 smallIconToggle: {
-			title: "Display small Atom logo",
-			description: "",
-			type: "boolean",
-			default: true,
 			order: 2
 		},
 

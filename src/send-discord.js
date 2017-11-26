@@ -70,7 +70,6 @@ const setupRpc = (Client) => {
 				state,
 				details,
 				startTimestamp,
-				endTimestamp: startTimestamp + 3000,
 				largeImageKey: largeImageInner.icon,
 				largeImageText: largeImageInner.text,
 			};
