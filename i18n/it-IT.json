@@ -1,0 +1,10 @@
+{
+	"working-project": "Lavora su %projectName%",
+	"working-no-project": "Lavora su alcune cose",
+	"editing-file": "Sta modificando %fileName%",
+	"editing-idle": "Inattivo",
+	"atom-description": "Lavora con Atom",
+	"type-description": "Sta modificando un file %type%",
+	"type-unknown": "Sta modificando un file",
+	"developer-idle": "Si prende una pausa fermo al semaforo #FF0000."
+}
