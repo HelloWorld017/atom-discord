@@ -2,12 +2,14 @@ const {ipcMain} = require('electron');
 const path = require('path');
 const snekfetch = require("snekfetch")
 const startTimestamp = new Date().getTime() / 1000;
+
 let projectName = null;
 let currEditor = null;
 let largeImage = null;
+
 let translations = {};
 let privacySettings = {};
-let showSmallIcon = true;
+let behaviour = {};
 
 let matchData;
 let matchKeys = [];
@@ -69,19 +71,20 @@ const setupRpc = (Client) => {
 			const packet = {
 				state,
 				details,
-				startTimestamp,
 				largeImageKey: largeImageInner.icon,
-				largeImageText: largeImageInner.text,
+				largeImageText: largeImageInner.text
 			};
 
-			if(showSmallIcon) {
+			if(privacySettings.sendElapsed) packet.startTimestamp = startTimestamp;
+
+			if(behaviour.smallIconToggle) {
 				packet.smallImageKey = smallImageKey;
 				packet.smallImageText = getTranslation('atom-description')
 			}
 
 			rpc.setActivity(packet);
 
-			setTimeout(loop, 3000);
+			setTimeout(loop, behaviour.updateTick);
 		};
 
 		loop();
@@ -125,10 +128,10 @@ ipcMain.on('atom-discord.data-update', (event, arg) => {
 	}
 });
 
-ipcMain.on('atom-discord.config-update', (event, {i18n, privacy, showSmallIcon: _showSmallIcon}) => {
+ipcMain.on('atom-discord.config-update', (event, {i18n, privacy, behaviour: _behaviour}) => {
 	translations = i18n;
 	privacySettings = privacy;
-	showSmallIcon = _showSmallIcon
+	behaviour = _behaviour
 });
 
 ipcMain.on('atom-discord.discord-setup', (event, arg) => {

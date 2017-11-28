@@ -23,14 +23,14 @@ const initializeRpc = () => {
 const updateConfig = (
 	i18n = atom.config.get('atom-discord.i18n'),
 	privacy = atom.config.get('atom-discord.privacy'),
-	showSmallIcon = atom.config.get('atom-discord.smallIconToggle')
+	behaviour = atom.config.get('atom-discord.behaviour')
 ) => {
 	const i18nValue = require(`../i18n/${i18n}.json`);
 
 	ipcRenderer.send('atom-discord.config-update', {
 		i18n: i18nValue,
 		privacy,
-		showSmallIcon
+		behaviour
 	});
 };
 
@@ -85,7 +85,7 @@ atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
 	updateConfig(newValue);
 });
 
-atom.config.onDidChange('atom-discord.smallIconToggle', ({newValue}) => {
+atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
 	updateConfig()
 });
 
@@ -102,11 +102,25 @@ module.exports = {
 	},
 
 	config: {
-		smallIconToggle: {
-			title: "Display small Atom logo",
+		behaviour: {
+			title: "Behaviour",
 			description: "",
-			type: "boolean",
-			default: true,
+			type: "object",
+			properties: {
+				smallIconToggle: {
+					title: "Display small Atom logo",
+					description: "",
+					type: "boolean",
+					default: true
+				},
+
+				updateTick: {
+					title: "Update tick",
+					description: "Interval between state update (ms)",
+					type: "number",
+					default: 3000
+				}
+			},
 			order: 1
 		},
 
@@ -123,22 +137,37 @@ module.exports = {
 
 				{
 					value: "en-US",
-					description: "English"
+					description: "English (United States)"
 				},
 
 				{
 					value: "fr-FR",
-					description: "French"
+					description: "French (France)"
+				},
+
+				{
+					value: "de-DE",
+					description: "German (Germany)"
+				},
+
+				{
+					value: "it-IT",
+					description: "Italian (Italy)"
 				},
 
 				{
 					value: "ko-KR",
-					description: "Korean"
+					description: "Korean (Korea)"
 				},
 
 				{
 					value: "pt-BR",
 					description: "Portuguese (Brazil)"
+				},
+
+				{
+					value: "ru-RU",
+					description: "Russian (Russia)"
 				}
 			],
 
@@ -167,6 +196,13 @@ module.exports = {
 				sendFileType: {
 					title: "Send file type",
 					description: "Integrate type of files.",
+					type: "boolean",
+					default: true
+				},
+
+				sendElapsed: {
+					title: "Send elapsed time",
+					description: "Integrate elapsed time when you started coding.",
 					type: "boolean",
 					default: true
 				}
