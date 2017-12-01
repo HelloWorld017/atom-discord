@@ -1,0 +1,10 @@
+{
+	"working-project": "%projectName% עובד על ",
+	"working-no-project": "עובד על כמה דברים",
+	"editing-file": "%fileName% עורך",
+	"editing-idle": "לא עושה כלום",
+	"atom-description": "Atom עבוד עם",
+	"type-description": "%type% עורך קובץ",
+	"type-unknown": "עורך קובץ",
+	"developer-idle": "למפתח אין כח כדי לעבוד"
+}
