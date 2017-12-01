@@ -122,7 +122,7 @@ module.exports = {
 					title: "Update tick",
 					description: "Interval between state update (ms)",
 					type: "number",
-					default: 3000
+					default: 15e3
 				}
 			},
 			order: 1
