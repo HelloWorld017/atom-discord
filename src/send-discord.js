@@ -1,30 +1,8 @@
 const {ipcMain} = require('electron');
 const path = require('path');
-const snekfetch = require("snekfetch")
-const startTimestamp = new Date().getTime() / 1000;
+const snekfetch = require("snekfetch");
 
-let projectName = null;
-let currEditor = null;
-let largeImage = null;
-
-let translations = {};
-let privacySettings = {};
-let behaviour = {};
-
-let matchData;
-let matchKeys = [];
-let rpc;
-
-const REGEX_REGEX = /^\/(.*)\/([mgiy]+)$/;
-
-const getTranslation = (key, args = {}) => {
-	let tr = translations[key];
-	if(!tr) return "UNDEFINED_TRANSLATIONS";
-
-	Object.keys(args).forEach((i) => tr = tr.replace(new RegExp(`%${i}%`, 'g'), args[i]));
-
-	return tr;
-};
+const DISCORD_ID = '380510159094546443';
 
 if (!String.prototype.padStart) {
 	String.prototype.padStart = function padStart(targetLength,padString) {
@@ -43,105 +21,200 @@ if (!String.prototype.padStart) {
 	};
 }
 
-const setupRpc = (Client) => {
-	rpc = new Client({ transport: 'ipc' });
+// Setup configuration object
+const config = {
+	translations: {},
+	privacy: {},
+	behaviour: {},
+	getTranslation(key, args = {}) {
+		let tr = config.translations[key];
+		if(!tr) return "UNDEFINED_TRANSLATION";
 
-	rpc.on('ready', () => {
-		const loop = () => {
-			let state = projectName ? getTranslation('working-project', {
-				projectName
-			}) : getTranslation('working-no-project');
+		Object.keys(args).forEach((i) => tr = tr.replace(new RegExp(`%${i}%`, 'g'), args[i]));
 
-			let details = currEditor ? getTranslation('editing-file', {
-				fileName: currEditor
-			}) : getTranslation('editing-idle');
-
-			let largeImageInner = largeImage;
-
-			let smallImageKey = 'atom';
-
-
-			if(!privacySettings.sendProject) state = getTranslation('working-no-project');
-			if(!privacySettings.sendFilename) details = getTranslation('type-unknown');
-			if(!privacySettings.sendFileType) largeImageInner = {
-					icon: 'text',
-					text: getTranslation('type-unknown')
-				};
-
-			const packet = {
-				state,
-				details,
-				largeImageKey: largeImageInner.icon,
-				largeImageText: largeImageInner.text
-			};
-
-			if(privacySettings.sendElapsed) packet.startTimestamp = startTimestamp;
-
-			if(behaviour.smallIconToggle) {
-				packet.smallImageKey = smallImageKey;
-				packet.smallImageText = getTranslation('atom-description')
-			}
-
-			rpc.setActivity(packet);
-
-			setTimeout(loop, behaviour.updateTick);
-		};
-
-		loop();
-	});
+		return tr;
+	},
+	icon: Map()
 };
 
-ipcMain.on('atom-discord.data-update', (event, arg) => {
-	projectName = arg.projectName;
-	currEditor = arg.currEditor;
+const normalize = (object) => {
+	Object.keys(object).forEach((k) => {
+		if(object[k] === null){
+			delete object[k];
+		}
+	});
 
-	if(currEditor && matchKeys) {
-		largeImage = matchData[matchKeys.find((k) => {
-			if(k.startsWith('.') && currEditor.endsWith(k)) return true;
+	return object;
+};
 
-			let match = k.match(REGEX_REGEX);
-			if(!match) return false;
+class DiscordSender {
+	constructor() {
+		this.projectName = null;
+		this.fileName = null;
+		this.largeImage = null;
+		this.startTimestamp = new Date().getTime() / 1000;
 
-			const regex = new RegExp(match[1], match[2]);
-			return regex.test(currEditor);
-		})];
-
-		if(!largeImage) largeImage = {
-			icon: 'text',
-			text: path.extname(currEditor)
-		};
-
-		//Deep copying
-		largeImage = {
-			icon: largeImage.icon,
-			text: largeImage.text
-		};
-
-		largeImage.text = getTranslation('type-description', {
-			type: largeImage.text
-		});
-	} else {
-		largeImage = {
-			icon: 'text',
-			text: getTranslation('developer-idle')
-		};
+		this.onlineRenderers = {};
+		this.rpc = null;
 	}
-});
 
-ipcMain.on('atom-discord.config-update', (event, {i18n, privacy, behaviour: _behaviour}) => {
-	translations = i18n;
-	privacySettings = privacy;
-	behaviour = _behaviour
-});
+	setOnline(id) {
+		let sendAfter = !this.isRendererOnline;
+		this.onlineRenderers[id] = true;
+
+		if(sendAfter) this.sendActivity();
+	}
+
+	setOffline(id) {
+		this.onlineRenderers[id] = false;
+
+		if(!this.isRendererOnline) {
+			this.deleteActivity();
+		}
+	}
+
+	setupRpc(Client) {
+		rpc = Client({ transport: 'ipc' });
+		rpc.login(arg.discordId).catch(console.error);
+	}
+
+	sendActivity() {
+		// Set packet variables
+		let state = this.projectName ? config.getTranslation('working-project', {
+			projectName: this.projectName
+		}) : config.getTranslation('working-no-project');
+
+		let details = this.fileName ? config.getTranslation('editing-file', {
+			fileName: this.fileName
+		}) : config.getTranslation('editing-idle');
+
+		let largeImageKey = this.largeImage ? this.largeImage.icon : null;
+		let largeImageText = this.largeImage ? this.largeImage.text : null;
+
+		let smallImageKey = 'atom';
+		let smallImageText = config.getTranslation('atom-description');
+
+		let startTimestamp = this.startTimestamp;
+
+		// Remove privacy-related things
+		if(!config.privacy.sendProject) state = config.getTranslation('working-no-project')
+		if(!config.privacy.sendFilename) details = config.getTranslation('editing-idle')
+		if(!config.privacy.sendFileType) largeImageKey = null, largeImageText = null;
+		if(!config.privacy.sendElapsed) startTimestamp = null;
+
+		// Remove small icon
+		if(!config.behaviour.smallIconToggle) smallImageKey = null, smallImageText = null;
+
+		let packet = normalize({
+			state,
+			details,
+
+			largeImageKey,
+			largeImageText,
+
+			smallImageKey,
+			smallImageText,
+
+			startTimestamp
+		});
+
+		rpc.setActivity(packet);
+	}
+
+	updateActivity(projectName, fileName) {
+		this.projectName = projectName;
+		this.fileName = fileName;
+
+		if(this.fileName && icon.matchKeys) {
+			let found = false;
+
+			config.icon.forEach((value, test) => {
+				if(found) return;
+				result = false;
+
+				if(typeof test === 'string') result = this.fileName.endsWith(test);
+				else if(test.test) result = test.test(this.fileName);
+
+				if(result) {
+					found = true;
+					this.largeImage = value;
+				}
+			});
+
+			if(!found) this.largeImage = {
+				icon: 'text',
+				text: path.extname(this.fileName)
+			};
+
+			this.largeImage = {
+				icon: this.largeImage.icon,
+				text: getTranslation('type-description', {
+					type: this.largeImage.text
+				})
+			};
+
+		} else {
+			this.largeImage = {
+				icon: 'text',
+				text: getTranslation('developer-idle')
+			};
+		}
+	}
+
+	deleteActivity() {
+		rpc.setActivity({
+			details: ''
+		});
+	}
+
+	loop() {
+		if(this.isRendererOnline) this.sendActivity();
+
+		setTimeout(this.loopFunction, config.behaviour.updateTick);
+	}
+
+	get loopFunction() {
+		return this.loop.bind(this);
+	}
+
+	get isRendererOnline() {
+		return Object.keys(this.onlineRenderers).some((v) => this.onlineRenderers[v]);
+	}
+}
+
+const sender = new DiscordSender();
 
 ipcMain.on('atom-discord.discord-setup', (event, arg) => {
+	const REGEX_REGEX = /^\/(.*)\/([mgiy]+)$/;
+
+	config.icon = Map(Object.keys(icon.matchData).map((key) => {
+		let match = key.match(REGEX_REGEX);
+		if(!match) return [key, icon.matchData[key]];
+
+		return [new RegExp(match[1], match[2]), icon.matchData[key]];
+	}));
+
 	const {Client} = require(arg.rpcPath);
-	setupRpc(Client);
-
-	rpc.login(arg.discordId).catch(console.error);
-
-	matchData = arg.matchData;
-	matchKeys = Object.keys(matchData);
+	sender.setupRpc(Client);
+	sender.loop();
 
 	console.log("Set up discord RPC.");
+});
+
+ipcMain.on('atom-discord.config-update', (event, {i18n, privacy: _privacy, behaviour: _behaviour}) => {
+	config.translations = i18n;
+	config.behaviour = _behaviour;
+	config.privacy = _privacy;
+});
+
+ipcMain.on('atom-discord.data-update', (event, {projectName, fileName: currEditor}) => {
+	sender.updateActivity(projectName, fileName);
+});
+
+ipcMain.on('atom-discord.online', (event, {id}) => {
+	sender.setOnline(id);
+});
+
+ipcMain.on('atom-discord.offline', (event, {id}) => {
+	sender.setOffline(id);
 });

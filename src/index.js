@@ -3,8 +3,6 @@ const matched = require('../data/matched.json');
 const path = require('path');
 const {promisifyAll} = require('bluebird');
 
-const ATOM_PATH = process.execPath;
-const DISCORD_ID = '380510159094546443';
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 const RPC_PATH = require.resolve('discord-rpc');
 
@@ -14,7 +12,6 @@ const initializeSender = () => {
 
 const initializeRpc = () => {
 	ipcRenderer.send('atom-discord.discord-setup', {
-		discordId: DISCORD_ID,
 		rpcPath: RPC_PATH,
 		matchData: matched
 	});
@@ -35,7 +32,11 @@ const updateConfig = (
 };
 
 const createLoop = async () => {
+	const rendererId = Math.random().toString(36).slice(2);
+
 	let pluginOnline = true;
+
+	ipcRenderer.send('atom-discord.online', {id: rendererId});
 
 	atom.getCurrentWindow().on('blur', () => {
 		pluginOnline = false;
@@ -43,6 +44,10 @@ const createLoop = async () => {
 
 	atom.getCurrentWindow().on('focus', () => {
 		pluginOnline = true;
+	});
+
+	atom.getCurrentWindow().on('close', () => {
+		ipcRenderer.send('atom-discord.offline', {id: rendererId});
 	});
 
 	let currEditor = null;
@@ -66,7 +71,6 @@ const createLoop = async () => {
 		updateData();
 	});
 
-	//Get current project and subscribe updates.
 	atom.project.onDidChangePaths((projectPaths) => {
 		paths = atom.project.getPaths();
 		if(paths.length > 0) projectName = path.basename(paths[0]);
@@ -85,12 +89,12 @@ atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
 	updateConfig(newValue);
 });
 
-atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
-	updateConfig()
-});
-
 atom.config.onDidChange('atom-discord.privacy', ({newValue}) => {
 	updateConfig(undefined, newValue);
+});
+
+atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
+	updateConfig(undefined, undefined, newValue)
 });
 
 module.exports = {
