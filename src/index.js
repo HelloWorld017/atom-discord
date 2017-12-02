@@ -181,6 +181,21 @@ module.exports = {
 				},
 
 				{
+					value: "he-IL",
+					description: "Hebrew (Israel)"
+				},
+
+				{
+					value: "no-NO",
+					description: "Norwegian (Bokmal)"
+				},
+
+				{
+					value: "ro-RO",
+					description: "Romanian (Romania)"
+				},
+
+				{
 					value: "en-US",
 					description: "English (United States)"
 				},

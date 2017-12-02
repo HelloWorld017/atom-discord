@@ -1,0 +1,10 @@
+{
+	"working-project": "Lucrul pe %projectName%",
+	"working-no-project": "Lucrul pe unele materiale",
+	"editing-file": "Editare %fileName%",
+	"editing-idle": "Inactiv",
+	"atom-description": "Lucrând cu Atom",
+	"type-description": "Editarea unui fișier %type%",
+	"type-unknown": "Editarea unui fișier",
+	"developer-idle": "Dezvoltatorul este destul de rezistent pentru odihna!"
+}
