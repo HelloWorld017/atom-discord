@@ -2,7 +2,7 @@
 ![Logo](https://i.imgur.com/3lXT3XJ.png)
 
 [![David](https://img.shields.io/david/HelloWorld017/atom-discord.svg?style=flat-square)](https://david-dm.org/HelloWorld017/atom-discord)
-[![license](https://img.shields.io/github/license/HelloWorld017/atom-discord.svg?style=flat-square)](https://github.com/HelloWorld017/atom-discord/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/HelloWorld017/atom-discord.svg?style=flat-square)](https://github.com/HelloWorld017/atom-discord/blob/master/LICENSE.md)
 [![apm version](https://img.shields.io/apm/v/atom-discord.svg?style=flat-square)](https://atom.io/packages/atom-discord)
 [![apm downloads](https://img.shields.io/apm/dm/atom-discord.svg?style=flat-square)](https://atom.io/packages/atom-discord)
 
