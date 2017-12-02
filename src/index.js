@@ -48,6 +48,7 @@ const createLoop = async () => {
 
 	atom.getCurrentWindow().on('close', () => {
 		ipcRenderer.send('atom-discord.offline', {id: rendererId});
+		pluginOnline = false;
 	});
 
 	let currEditor = null;
@@ -111,8 +112,15 @@ module.exports = {
 			description: "",
 			type: "object",
 			properties: {
-				smallIconToggle: {
+				sendSmallImage: {
 					title: "Display small Atom logo",
+					description: "",
+					type: "boolean",
+					default: true
+				},
+
+				sendLargeImage: {
+					title: "Display large file type image",
 					description: "",
 					type: "boolean",
 					default: true
@@ -123,6 +131,39 @@ module.exports = {
 					description: "Interval between state update (ms)",
 					type: "number",
 					default: 15e3
+				},
+
+				alternativeIcon: {
+					title: "Atom Icon",
+					description: "Select icon for small icons",
+					type: "string",
+					enum: [
+						{
+							value: "atom-original",
+							description: "Original Atom Icon"
+						},
+
+						{
+							value: "atom",
+							description: "Atom Alternative Icon 1 (Monotone)"
+						},
+
+						{
+							value: "atom-2",
+							description: "Atom Alternative Icon 2 (Gradient)"
+						},
+
+						{
+							value: "atom-3",
+							description: "Atom Alternative Icon 3 (Polyhedron)"
+						},
+
+						{
+							value: "atom-5",
+							description: "Atom Alternative Icon 4 (Dark, Rhombus)"
+						}
+					],
+					default: "atom"
 				}
 			},
 			order: 1
