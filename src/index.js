@@ -126,6 +126,20 @@ module.exports = {
 					default: true
 				},
 
+				preferType: {
+					title: "Prefer file type",
+					description: "Send file type as description instead of file name.",
+					type: "boolean",
+					default: false
+				},
+
+				showFilenameOnLargeImage: {
+					title: "Show file name on large image",
+					description: "",
+					type: "boolean",
+					default: false
+				},
+
 				updateTick: {
 					title: "Update tick",
 					description: "Interval between state update (ms)",
@@ -164,6 +178,13 @@ module.exports = {
 						}
 					],
 					default: "atom"
+				},
+
+				useRestIcon: {
+					title: "Use rest icon",
+					description: "Use rest icon for idle status.",
+					type: "boolean",
+					default: true
 				}
 			},
 			order: 1

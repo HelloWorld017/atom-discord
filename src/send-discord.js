@@ -146,12 +146,24 @@ class DiscordSender {
 		let startTimestamp = this.startTimestamp;
 
 		// Remove privacy-related things
-		if(!config.privacy.sendProject) state = config.getTranslation('working-no-project')
-		if(!config.privacy.sendFilename) details = config.getTranslation('editing-idle')
+		if(!config.privacy.sendProject) state = config.getTranslation('working-no-project');
+		if(!config.privacy.sendFilename) details = config.getTranslation('type-unknown');
 		if(!config.privacy.sendFileType) largeImageKey = 'text', largeImageText = config.getTranslation('type-unknown');
 		if(!config.privacy.sendElapsed) startTimestamp = null;
 
-		// Remove small icon
+		// Respect behaviour setting
+		if(config.behaviour.preferType) {
+			if(this.largeImage.text === config.getTranslation('developer-idle'))
+				details = config.getTranslation('editing-idle');
+			else
+				details = this.largeImage.text;
+		}
+		if(config.behaviour.showFilenameOnLargeImage) {
+			largeImageText = this.fileName ? config.getTranslation('editing-file', {
+				fileName: this.fileName
+			}) : config.getTranslation('developer-idle');
+		}
+		if(config.behaviour.useRestIcon && !this.fileName) largeImageKey = 'rest';
 		if(!config.behaviour.sendSmallImage) smallImageKey = null, smallImageText = null;
 		if(!config.behaviour.sendLargeImage) largeImageKey = null, largeImageText = null;
 
