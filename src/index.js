@@ -202,21 +202,6 @@ module.exports = {
 				},
 
 				{
-					value: "he-IL",
-					description: "Hebrew (Israel)"
-				},
-
-				{
-					value: "no-NO",
-					description: "Norwegian (Bokmal)"
-				},
-
-				{
-					value: "ro-RO",
-					description: "Romanian (Romania)"
-				},
-
-				{
 					value: "en-US",
 					description: "English (United States)"
 				},
@@ -232,6 +217,11 @@ module.exports = {
 				},
 
 				{
+					value: "he-IL",
+					description: "Hebrew (Israel)"
+				},
+
+				{
 					value: "it-IT",
 					description: "Italian (Italy)"
 				},
@@ -242,13 +232,28 @@ module.exports = {
 				},
 
 				{
+					value: "no-NO",
+					description: "Norwegian (Bokmal)"
+				},
+
+				{
 					value: "pt-BR",
 					description: "Portuguese (Brazil)"
 				},
 
 				{
+					value: "ro-RO",
+					description: "Romanian (Romania)"
+				},
+
+				{
 					value: "ru-RU",
 					description: "Russian (Russia)"
+				},
+
+				{
+					value: "es-ES",
+					description: "Spanish (Spain)"
 				}
 			],
 

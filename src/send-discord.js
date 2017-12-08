@@ -82,15 +82,7 @@ class DiscordSender {
 		this.onlineRenderers[id] = false;
 
 		if(!this.isRendererOnline) {
-			console.log(`No editor remained, deleting activities...`);
-			this.deleteActivity();
-
-			/*setTimeout(() => {
-				// After grace period(5s), if there are no editors, destroy RPC.
-				if(!this.isRendererOnline) this.destroyRpc();
-			}, 5000);*/
-
-			// Just immediately destroying because the speed of closing atom is faster than 5s.
+			console.log(`No editor remained, destroying rpc clients...`);
 			this.destroyRpc();
 		}
 	}
@@ -221,13 +213,6 @@ class DiscordSender {
 				text: config.getTranslation('developer-idle')
 			};
 		}
-	}
-
-	deleteActivity() {
-		if(!this.rpc) return;
-
-		this.rpc.setActivity({});
-		console.log("Deleting remain activities...");
 	}
 
 	async loop() {
