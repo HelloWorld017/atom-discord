@@ -51,6 +51,11 @@ const createLoop = async () => {
 		pluginOnline = false;
 	});
 
+	atom.packages.getActivePackage('teletype').mainModule.getPortalBindingManager().onDidChange((v) => {
+		console.log(v)
+		ipcRenderer.send('atom-discord.teletype-update', v)
+	});
+
 	let currEditor = null;
 	let projectName = null;
 
