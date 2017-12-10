@@ -31,7 +31,7 @@ const updateConfig = (
 	});
 };
 
-const createLoop = async () => {
+const createLoop = () => {
 	const rendererId = Math.random().toString(36).slice(2);
 
 	let pluginOnline = true;
