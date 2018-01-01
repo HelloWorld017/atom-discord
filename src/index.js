@@ -237,6 +237,11 @@ module.exports = {
 				},
 
 				{
+					value: "pl-PL",
+					description: "Polish (Poland)"
+				},
+
+				{
 					value: "pt-BR",
 					description: "Portuguese (Brazil)"
 				},
