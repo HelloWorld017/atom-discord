@@ -4,7 +4,7 @@
 	"editing-file": "Editando %fileName%",
 	"editing-idle": "Libre",
 	"atom-description": "Trabajando con Atom",
-	"type-description": "Editando un archivo %type%",
+	"type-description": "Editando un archivo de tipo %type%",
 	"type-unknown": "Editando un archivo",
-	"developer-idle": "El desarrollador es suficientemente REST para descansar!"
+	"developer-idle": "El desarrollador es suficientemente descansado para descansar!"
 }
