@@ -51,6 +51,8 @@ const createLoop = () => {
 		pluginOnline = false;
 	});
 
+	//Get current editor and subscribe updates.
+	
 	let currEditor = null;
 	let projectName = null;
 
@@ -61,16 +63,22 @@ const createLoop = () => {
 		});
 	};
 
-	//Get current editor and subscribe updates.
-	let editor = atom.workspace.getActiveTextEditor();
-	if(editor && editor.getTitle) currEditor = editor.getTitle();
+
+	let onlineEditor = atom.workspace.getActiveTextEditor();
+	if(onlineEditor && onlineEditor.getTitle) currEditor = onlineEditor.getTitle();
+
+	const updateProjectName = () => {
+		if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
+			projectName = path.basename(atom.project.relativizePath(onlineEditor.buffer.file.path)[0]);
+		} else projectName = null;
+	};
 
 	atom.workspace.onDidChangeActiveTextEditor((editor) => {
+		onlineEditor = editor;
+
 		if(editor && editor.getTitle) {
 			currEditor = editor.getTitle();
-			if (editor.buffer != undefined) {
-				projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
-			}
+			updateProjectName()
 		}
 		else currEditor = null;
 
@@ -78,16 +86,11 @@ const createLoop = () => {
 	});
 
 	atom.project.onDidChangePaths((projectPaths) => {
-		if (editor.buffer != undefined) {
-			projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
-		}
+		updateProjectName()
 		updateData();
 	});
 
-	if (editor.buffer != undefined) {
-		projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
-	}
-	
+	updateProjectName()
 	updateData();
 };
 
