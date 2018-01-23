@@ -218,7 +218,9 @@ class DiscordSender {
 	async loop() {
 		try {
 			if(this.destroied) await this.setupRpc(Client)
-		} catch(e) {}
+		} catch(e) {
+			console.error(e);
+		}
 
 		if(this.isRendererOnline) this.sendActivity();
 
