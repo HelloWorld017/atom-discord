@@ -31,7 +31,7 @@ const updateConfig = (
 	});
 };
 
-const createLoop = async () => {
+const createLoop = () => {
 	const rendererId = Math.random().toString(36).slice(2);
 
 	let pluginOnline = true;
@@ -66,23 +66,28 @@ const createLoop = async () => {
 	if(editor && editor.getTitle) currEditor = editor.getTitle();
 
 	atom.workspace.onDidChangeActiveTextEditor((editor) => {
-		if(editor && editor.getTitle) currEditor = editor.getTitle();
+		if(editor && editor.getTitle) {
+			currEditor = editor.getTitle();
+			if (editor.buffer != undefined) {
+				projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+			}
+		}
 		else currEditor = null;
 
 		updateData();
 	});
 
 	atom.project.onDidChangePaths((projectPaths) => {
-		paths = atom.project.getPaths();
-		if(paths.length > 0) projectName = path.basename(paths[0]);
-		else projectName = null;
-
+		if (editor.buffer != undefined) {
+			projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+		}
 		updateData();
 	});
 
-	if(atom.project.getPaths().length > 0)
-		projectName = path.basename(atom.project.getPaths()[0]);
-
+	if (editor.buffer != undefined) {
+		projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+	}
+	
 	updateData();
 };
 
@@ -234,6 +239,11 @@ module.exports = {
 				{
 					value: "no-NO",
 					description: "Norwegian (Bokmal)"
+				},
+
+				{
+					value: "pl-PL",
+					description: "Polish (Poland)"
 				},
 
 				{
