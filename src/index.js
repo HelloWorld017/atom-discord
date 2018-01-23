@@ -68,7 +68,9 @@ const createLoop = () => {
 	atom.workspace.onDidChangeActiveTextEditor((editor) => {
 		if(editor && editor.getTitle) {
 			currEditor = editor.getTitle();
-			projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+			if (editor.buffer != undefined) {
+				projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+			}
 		}
 		else currEditor = null;
 
@@ -76,13 +78,16 @@ const createLoop = () => {
 	});
 
 	atom.project.onDidChangePaths((projectPaths) => {
-		projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
-
+		if (editor.buffer != undefined) {
+			projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+		}
 		updateData();
 	});
 
-	projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
-
+	if (editor.buffer != undefined) {
+		projectName = atom.project.relativizePath(editor.buffer.file.path)[0].split('\\').reverse()[0];
+	}
+	
 	updateData();
 };
 
