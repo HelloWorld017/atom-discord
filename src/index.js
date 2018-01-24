@@ -4,17 +4,9 @@ const path = require('path');
 const {promisifyAll} = require('bluebird');
 
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
-const RPC_PATH = require.resolve('discord-rpc');
 
 const initializeSender = () => {
 	remote.require(SEND_DISCORD_PATH);
-};
-
-const initializeRpc = () => {
-	ipcRenderer.send('atom-discord.discord-setup', {
-		rpcPath: RPC_PATH,
-		matchData: matched
-	});
 };
 
 const updateConfig = (
@@ -52,7 +44,7 @@ const createLoop = () => {
 	});
 
 	//Get current editor and subscribe updates.
-	
+
 	let currEditor = null;
 	let projectName = null;
 
@@ -69,7 +61,10 @@ const createLoop = () => {
 
 	const updateProjectName = () => {
 		if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
-			projectName = path.basename(atom.project.relativizePath(onlineEditor.buffer.file.path)[0]);
+			const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
+
+			if(!projectPath) projectName = null;
+			else projectName = projectPath;
 		} else projectName = null;
 	};
 
@@ -109,7 +104,6 @@ atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
 module.exports = {
 	activate() {
 		initializeSender();
-		initializeRpc();
 		updateConfig();
 		createLoop();
 	},

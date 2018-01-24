@@ -1,7 +1,7 @@
 const {ipcMain} = require('electron');
 const path = require('path');
-const snekfetch = require("snekfetch");
-let Client = undefined;
+const {Client} = require('../node_modules/discord-rpc/');
+const matched = require('../data/matched.json');
 
 const DISCORD_ID = '380510159094546443';
 
@@ -23,6 +23,8 @@ if (!String.prototype.padStart) {
 }
 
 // Setup configuration object
+const REGEX_REGEX = /^\/(.*)\/([mgiy]+)$/;
+
 const config = {
 	translations: {},
 	privacy: {},
@@ -35,7 +37,12 @@ const config = {
 
 		return tr;
 	},
-	icon: new Map()
+	icon: new Map(Object.keys(matched).map((key) => {
+		let match = key.match(REGEX_REGEX);
+		if(!match) return [key, matched[key]];
+
+		return [new RegExp(match[1], match[2]), matched[key]];
+	}))
 };
 
 const normalize = (object) => {
@@ -237,26 +244,8 @@ class DiscordSender {
 }
 
 const sender = new DiscordSender();
-
-ipcMain.on('atom-discord.discord-setup', (event, arg) => {
-	if(sender.rpc) return;
-
-	const REGEX_REGEX = /^\/(.*)\/([mgiy]+)$/;
-
-	config.icon = new Map(Object.keys(arg.matchData).map((key) => {
-		let match = key.match(REGEX_REGEX);
-		if(!match) return [key, arg.matchData[key]];
-
-		return [new RegExp(match[1], match[2]), arg.matchData[key]];
-	}));
-
-	Client = require(arg.rpcPath).Client;
-
-	(async () => {
-		await sender.setupRpc();
-		await sender.loop();
-		console.log("Set up discord RPC.");
-	})();
+sender.setupRpc().then((v) => {
+	sender.loop();
 });
 
 ipcMain.on('atom-discord.config-update', (event, {i18n, privacy: _privacy, behaviour: _behaviour}) => {
