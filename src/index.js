@@ -64,7 +64,7 @@ const createLoop = () => {
 			const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
 
 			if(!projectPath) projectName = null;
-			else projectName = projectPath;
+			else projectName = path.basename(projectPath);
 		} else projectName = null;
 	};
 
