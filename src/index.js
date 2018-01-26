@@ -4,17 +4,9 @@ const path = require('path');
 const {promisifyAll} = require('bluebird');
 
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
-const RPC_PATH = require.resolve('discord-rpc');
 
 const initializeSender = () => {
 	remote.require(SEND_DISCORD_PATH);
-};
-
-const initializeRpc = () => {
-	ipcRenderer.send('atom-discord.discord-setup', {
-		rpcPath: RPC_PATH,
-		matchData: matched
-	});
 };
 
 const updateConfig = (
@@ -31,7 +23,7 @@ const updateConfig = (
 	});
 };
 
-const createLoop = async () => {
+const createLoop = () => {
 	const rendererId = Math.random().toString(36).slice(2);
 
 	let pluginOnline = true;
@@ -66,28 +58,37 @@ const createLoop = async () => {
 		});
 	};
 
-	//Get current editor and subscribe updates.
-	let editor = atom.workspace.getActiveTextEditor();
-	if(editor && editor.getTitle) currEditor = editor.getTitle();
+
+	let onlineEditor = atom.workspace.getActiveTextEditor();
+	if(onlineEditor && onlineEditor.getTitle) currEditor = onlineEditor.getTitle();
+
+	const updateProjectName = () => {
+		if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
+			const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
+
+			if(!projectPath) projectName = null;
+			else projectName = path.basename(projectPath);
+		} else projectName = null;
+	};
 
 	atom.workspace.onDidChangeActiveTextEditor((editor) => {
-		if(editor && editor.getTitle) currEditor = editor.getTitle();
+		onlineEditor = editor;
+
+		if(editor && editor.getTitle) {
+			currEditor = editor.getTitle();
+			updateProjectName()
+		}
 		else currEditor = null;
 
 		updateData();
 	});
 
 	atom.project.onDidChangePaths((projectPaths) => {
-		paths = atom.project.getPaths();
-		if(paths.length > 0) projectName = path.basename(paths[0]);
-		else projectName = null;
-
+		updateProjectName()
 		updateData();
 	});
 
-	if(atom.project.getPaths().length > 0)
-		projectName = path.basename(atom.project.getPaths()[0]);
-
+	updateProjectName()
 	updateData();
 };
 
@@ -106,7 +107,6 @@ atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
 module.exports = {
 	activate() {
 		initializeSender();
-		initializeRpc();
 		updateConfig();
 		createLoop();
 	},
@@ -239,6 +239,11 @@ module.exports = {
 				{
 					value: "no-NO",
 					description: "Norwegian (Bokmal)"
+				},
+
+				{
+					value: "pl-PL",
+					description: "Polish (Poland)"
 				},
 
 				{
