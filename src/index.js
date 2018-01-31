@@ -106,6 +106,10 @@ module.exports = {
 		initializeSender();
 		updateConfig();
 		createLoop();
+
+		atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
+			ipcRenderer.send('atom-discord.toggle');
+		});
 	},
 
 	config: {

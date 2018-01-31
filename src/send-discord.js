@@ -65,6 +65,8 @@ class DiscordSender {
 		this.onlineRenderers = {};
 		this.rpc = null;
 		this.destroied = false;
+		this.pauseRequested = false;
+		this.paused = false;
 	}
 
 	setOnline(id) {
@@ -231,7 +233,32 @@ class DiscordSender {
 
 		if(this.isRendererOnline) this.sendActivity();
 
-		setTimeout(this.loopFunction, config.behaviour.updateTick);
+		if(!this.pauseRequested) {
+			setTimeout(this.loopFunction, config.behaviour.updateTick);
+		} else {
+			this.paused = true;
+		}
+	}
+
+	pause() {
+		if(this.pauseRequested) return;
+
+		this.pauseRequested = true;
+	}
+
+	resume() {
+		if(!this.pauseRequested) return;
+
+		if(this.paused) {
+			this.loop();
+		} else {
+			this.pauseRequested = false;
+		}
+	}
+
+	toggle() {
+		if(this.pauseRequested) return this.resume();
+		this.pause();
 	}
 
 	get loopFunction() {
@@ -264,4 +291,8 @@ ipcMain.on('atom-discord.online', (event, {id}) => {
 
 ipcMain.on('atom-discord.offline', (event, {id}) => {
 	sender.setOffline(id);
+});
+
+ipcMain.on('atom-discord.toggle', (event) => {
+	sender.toggle();
 });
