@@ -43,10 +43,21 @@ const createLoop = () => {
 		pluginOnline = false;
 	});
 
-	atom.packages.getActivePackage('teletype').mainModule.getPortalBindingManager().onDidChange((v) => {
-		console.log(v)
-		ipcRenderer.send('atom-discord.teletype-update', v)
-	});
+	const loadTeletype = (v)  => {
+		v.mainModule.getPortalBindingManager().onDidChange((v) => {
+			console.log(v);
+			ipcRenderer.send('atom-discord.teletype-update', v);
+		});
+	};
+
+	if(atom.packages.getActivePackage('teletype')) {
+		loadTeletype(atom.packages.getActivePackage('teletype'));
+	} else {
+		atom.packages.onDidActivatePackage((package) => {
+			if(package.name === 'teletype')
+				loadTeletype(atom.packages.getActivePackage('teletype'));
+		});
+	}
 
 	let currEditor = null;
 	let projectName = null;
