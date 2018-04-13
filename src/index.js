@@ -63,7 +63,8 @@ const createLoop = () => {
 		if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
 			const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
 
-			if(!projectPath) projectName = null;
+			if (customProject.value != null) projectName = customProject.value;
+			else if(!projectPath) projectName = null;
 			else projectName = path.basename(projectPath);
 		} else projectName = null;
 	};
@@ -118,6 +119,7 @@ module.exports = {
 			description: "",
 			type: "object",
 			properties: {
+
 				sendSmallImage: {
 					title: "Display small Atom logo",
 					description: "",
@@ -144,6 +146,14 @@ module.exports = {
 					description: "",
 					type: "boolean",
 					default: false
+				},
+
+
+				customProject: {
+					title: "Use Custom Project Name",
+					description: "Set your custom project name :P",
+					type: "string",
+					default: null
 				},
 
 				updateTick: {
