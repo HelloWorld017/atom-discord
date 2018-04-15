@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
-    "discord-rpc": "^3.0.0-beta.2"
+    "discord-rpc": "^3.0.0-beta.10"
   }
 }
