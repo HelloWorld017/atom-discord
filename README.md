@@ -46,3 +46,5 @@ May the source be with you.
 ![Discord Integration](https://i.imgur.com/EMd4eZg.png)
 
 ![Atom settings](https://i.imgur.com/KHVrbw5.png)
+
+![Custom project name](https://i.imgur.com/X90FfUP.png)
