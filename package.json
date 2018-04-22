@@ -8,9 +8,6 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "scripts": {
-    "test": "electron dataspy/main.js"
-  },
   "dependencies": {
     "discord-rpc": "^3.0.0-beta.10"
   }

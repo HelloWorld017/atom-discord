@@ -62,7 +62,15 @@ const createLoop = () => {
 		if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
 			const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
 
-			if(!projectPath) projectName = null;
+			var projectCName = atom.config.get('atom-discord.privacy.customProject');
+
+			if (projectCName != "null")
+			{
+				projectName = projectCName;
+				console.log("ProjectName: " + projectName);
+				updateData();
+			}
+			else if(!projectPath) projectName = null;
 			else projectName = path.basename(projectPath);
 		} else projectName = null;
 	};
@@ -117,6 +125,7 @@ module.exports = {
 			description: "",
 			type: "object",
 			properties: {
+
 				sendSmallImage: {
 					title: "Display small Atom logo",
 					description: "",
@@ -275,6 +284,13 @@ module.exports = {
 			description: "Select things to integrate",
 			type: "object",
 			properties: {
+				sendLargeImage: {
+					title: "Display large file type image",
+					description: "",
+					type: "boolean",
+					default: true
+				},
+
 				sendFilename: {
 					title: "Send File name",
 					description: "Integrate file name.",
@@ -284,9 +300,16 @@ module.exports = {
 
 				sendProject: {
 					title: "Send Project name",
-					description: "Integrate project name.",
+					description: "Integrate project name.  If you are using customProject set that **True**.",
 					type: "boolean",
 					default: true
+				},
+
+				customProject: {
+					title: "Use Custom Project Name",
+					description: "Set your custom project name :P\nIf you want your real ProjectName set it **null**",
+					type: "string",
+					default: "null"
 				},
 
 				sendFileType: {
