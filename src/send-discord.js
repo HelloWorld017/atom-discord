@@ -114,6 +114,7 @@ class DiscordSender {
 
 	async destroyRpc() {
 		if(this.destroied) return;
+		if(this.rpc === null) return;
 
 		console.log("Destroying RPC Client...");
 		this.destroied = true;
@@ -184,6 +185,16 @@ class DiscordSender {
 		this.rpc.setActivity(packet);
 	}
 
+	clearActivity() {
+		// TODO change when discord-rpc#25 is uploaded to npm
+		
+		const pid = process.pid;
+
+		this.rpc.request('SET_ACTIVITY', {
+			pid
+		});
+	}
+
 	updateActivity(projectName, fileName) {
 		this.projectName = projectName;
 		this.fileName = fileName;
@@ -250,6 +261,7 @@ class DiscordSender {
 		if(!this.pauseRequested) return;
 
 		if(this.paused) {
+			this.paused = false;
 			this.loop();
 		} else {
 			this.pauseRequested = false;

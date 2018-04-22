@@ -1,7 +1,6 @@
 const {ipcRenderer, remote} = require('electron');
 const matched = require('../data/matched.json');
 const path = require('path');
-const {promisifyAll} = require('bluebird');
 
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 
