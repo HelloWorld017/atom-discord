@@ -1,11 +1,168 @@
+const DisUI = require('./ui/DisUI');
+const fs = require('fs');
 const {ipcRenderer, remote} = require('electron');
 const matched = require('../data/matched.json');
 const path = require('path');
+const Vue = require('vue');
+
+const promisify = f => (...args) => new Promise((resolve, reject) => {
+	f(...args, (err, ...vals) => {
+		if(err) reject(err);
+
+		resolve(...vals);
+	});
+});
+
+const createVueElement = (name, elem, options) => {
+	const targetElem = document.createElement('div');
+	const vm = new Vue({
+		el: targetElem,
+		render(h) {
+			return h(elem)
+		},
+		...options
+	});
+
+	return {
+		elem: targetElem,
+		vm
+	};
+};
 
 const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
+const config = {
+	i18n: {
+		default: require('../i18n/en-US.json'),
+		value: {}
+	},
+	directory: path.join(atom.getConfigDirPath(), 'atom-discord'),
+	path: path.join(atom.getConfigDirPath(), 'atom-discord', 'customize.json'),
+	customization: {},
+	usable: true
+};
 
-const initializeSender = () => {
+
+const translate = (key, args = {}) => {
+	let tr = config.i18n.value[key];
+	if(!tr) tr = config.i18n.default[key] || 'UNDEFINED_TRANSLATION';
+
+	Object.keys(args).forEach((i) => tr = tr.replace(new RegExp(`%${i}%`, 'g'), args[i]));
+
+	return tr;
+};
+
+const showError = (key, args, detail) => {
+	atom.notifications.addError(
+		translate(key, args),
+		{
+			description: translate(`${key}-desc`, args),
+			detail: detail || translate(`${key}-detail`, args)
+		}
+	);
+};
+
+const initialize = async () => {
+	I18N_VALUE = require(`../i18n/${atom.config.get('atom-discord.i18n')}.json`);
 	remote.require(SEND_DISCORD_PATH);
+
+	// Generating directory
+	try {
+		const configStat = await promisify(fs.stat)(config.directory);
+
+		if(!configStat.isDirectory()) {
+			showError('error-is-file', {directory: config.directory});
+			config.usable = false;
+		}
+	} catch(err) {
+		try {
+			await promisify(fs.mkdir)(config.directory);
+		} catch(err) {
+			showError('generate-failed', {file: 'atom-discord'}, err.stack);
+			config.usable = false;
+		}
+	}
+
+	// Generating customize.json
+	if(config.usable) {
+		try {
+			const fileStat = await promisify(fs.stat)(config.path);
+
+			if(!fileStat.isFile()) {
+				showError('error-is-directory', {file: 'customize.json', fileFull: config.path});
+				config.usable = false;
+			}
+		} catch(err) {
+			await promisify(fs.writeFile)(config.path, JSON.stringify({
+				projects: {},
+				filetypes: {}
+			}));
+
+			showError('generate-failed', {file: 'customize.json'}, err.stack);
+			config.usable = false;
+		}
+	}
+
+	// Reading customize.json, rechecking availability
+	if(config.usable) {
+		try {
+			config.customization = JSON.parse(await promisify(fs.readFile)(config.path));
+		} catch(err) {
+			showError('read-failed', {file: 'customize.json'}, err.stack);
+			config.usable = false;
+		}
+	}
+};
+
+const showCustomizeProject = () => {
+	const {elem, vm} = createVueElement('custom-name-prompt', DisUI.DisPrompt, {
+		props: {
+			title: translate('custom-name'),
+			primary: translate('custom-name-primary'),
+			secondary: translate('custom-name-secondary')
+		}
+	});
+	const panel = atom.workspace.addModalPanel(elem);
+
+	let isInProject = false;
+
+	let onlineEditor = atom.workspace.getActiveTextEditor();
+	if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
+		const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
+
+		if(projectPath) {
+			projectName = path.basename(projectPath);
+			isInProject = true;
+		}
+	}
+
+	if(!isInProject) {
+		atom.notifications.addInfo(translate('not-in-project'));
+		return;
+	}
+
+	const destroy = () => {
+		vm.$destroy();
+		panel.hide();
+	};
+
+	vm.$on('primary', customName => {
+		if(!config.customization.projects) config.customization.projects = {};
+		config.customization.projects[projectName] = customName;
+	});
+
+	vm.$on('secondary', () => {
+		config.customization.projects[projectName];
+	});
+};
+
+const saveCustomization = async () => {
+	if(!config.usable) return;
+
+	try {
+		await promisify(fs.writeFile)('customize.json', JSON.stringify(config.customization));
+	} catch(err) {
+		showError('write-failed', {file: customize.json}, err.stack);
+	}
 };
 
 const updateConfig = (
@@ -13,21 +170,17 @@ const updateConfig = (
 	privacy = atom.config.get('atom-discord.privacy'),
 	behaviour = atom.config.get('atom-discord.behaviour')
 ) => {
-	const i18nValue = require(`../i18n/${i18n}.json`);
+	config.i18n.value = require(`../i18n/${i18n}.json`);
 
 	ipcRenderer.send('atom-discord.config-update', {
-		i18n: i18nValue,
+		i18n: config.i18n.value,
 		privacy,
 		behaviour
 	});
 };
 
 const createLoop = () => {
-	const rendererId = Math.random().toString(36).slice(2);
-
 	let pluginOnline = true;
-
-	ipcRenderer.send('atom-discord.online', {id: rendererId});
 
 	atom.getCurrentWindow().on('blur', () => {
 		pluginOnline = false;
@@ -62,16 +215,16 @@ const createLoop = () => {
 		if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
 			const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
 
-			var projectCName = atom.config.get('atom-discord.privacy.customProject');
+			if(!projectPath) projectName = null;
+			else {
+				projectName = path.basename(projectPath);
 
-			if (projectCName != "null")
-			{
-				projectName = projectCName;
-				console.log("ProjectName: " + projectName);
-				updateData();
+				if(config.usable && config.customization.projects) {
+					const customizedName = config.customization.projects[projectPath];
+
+					if(customizedName) projectName = customizedName;
+				}
 			}
-			else if(!projectPath) projectName = null;
-			else projectName = path.basename(projectPath);
 		} else projectName = null;
 	};
 
@@ -94,6 +247,9 @@ const createLoop = () => {
 
 	updateProjectName()
 	updateData();
+
+	const rendererId = Math.random().toString(36).slice(2);
+	ipcRenderer.send('atom-discord.online', {id: rendererId});
 };
 
 atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
@@ -110,12 +266,13 @@ atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
 
 module.exports = {
 	activate() {
-		initializeSender();
-		updateConfig();
-		createLoop();
+		initialize().then(() => {
+			updateConfig();
+			createLoop();
 
-		atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
-			ipcRenderer.send('atom-discord.toggle');
+			atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
+				ipcRenderer.send('atom-discord.toggle');
+			});
 		});
 	},
 
@@ -125,7 +282,6 @@ module.exports = {
 			description: "",
 			type: "object",
 			properties: {
-
 				sendSmallImage: {
 					title: "Display small Atom logo",
 					description: "",
@@ -300,16 +456,9 @@ module.exports = {
 
 				sendProject: {
 					title: "Send Project name",
-					description: "Integrate project name.  If you are using customProject set that **True**.",
+					description: "Integrate project name.",
 					type: "boolean",
 					default: true
-				},
-
-				customProject: {
-					title: "Use Custom Project Name",
-					description: "Set your custom project name :P\nIf you want your real ProjectName set it **null**",
-					type: "string",
-					default: "null"
 				},
 
 				sendFileType: {
