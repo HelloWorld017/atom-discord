@@ -1,4 +1,4 @@
-const DisUI = require('./ui/DisUI');
+const DisUI = require('../dist/disui.bundle.js');
 const fs = require('fs');
 const {ipcRenderer, remote} = require('electron');
 const matched = require('../data/matched.json');
@@ -15,13 +15,15 @@ const promisify = f => (...args) => new Promise((resolve, reject) => {
 
 const createVueElement = (name, elem, options) => {
 	const targetElem = document.createElement('div');
-	const vm = new Vue({
-		el: targetElem,
-		render(h) {
-			return h(elem)
-		},
-		...options
-	});
+	const vueElem = document.createElement('div');
+	targetElem.appendChild(vueElem);
+
+	const createOption = {
+		el: vueElem
+	};
+
+	Object.keys(options).forEach(k => createOption[k] = options[k]);
+	const vm = new (Vue.extend(elem))(createOption);
 
 	return {
 		elem: targetElem,
@@ -114,25 +116,13 @@ const initialize = async () => {
 };
 
 const showCustomizeProject = () => {
-	const {elem, vm} = createVueElement('custom-name-prompt', DisUI.DisPrompt, {
-		props: {
-			title: translate('custom-name'),
-			primary: translate('custom-name-primary'),
-			secondary: translate('custom-name-secondary')
-		}
-	});
-	const panel = atom.workspace.addModalPanel(elem);
-
 	let isInProject = false;
+	let projetPath = '';
 
 	let onlineEditor = atom.workspace.getActiveTextEditor();
 	if (onlineEditor && onlineEditor.buffer && onlineEditor.buffer.file) {
-		const projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
-
-		if(projectPath) {
-			projectName = path.basename(projectPath);
-			isInProject = true;
-		}
+		projectPath = atom.project.relativizePath(onlineEditor.buffer.file.path)[0];
+		isInProject = true;
 	}
 
 	if(!isInProject) {
@@ -140,18 +130,34 @@ const showCustomizeProject = () => {
 		return;
 	}
 
+	const {elem, vm} = createVueElement('custom-name-prompt', DisUI.DisPrompt, {
+		propsData: {
+			title: translate('custom-name'),
+			primary: translate('custom-name-primary'),
+			secondary: translate('custom-name-secondary')
+		}
+	});
+
+	const panel = atom.workspace.addModalPanel({
+		item: elem
+	});
+
 	const destroy = () => {
 		vm.$destroy();
-		panel.hide();
+		panel.destroy();
+		saveCustomization();
+		updater.updateProjectName();
 	};
 
 	vm.$on('primary', customName => {
 		if(!config.customization.projects) config.customization.projects = {};
-		config.customization.projects[projectName] = customName;
+		config.customization.projects[projectPath] = customName;
+		destroy();
 	});
 
 	vm.$on('secondary', () => {
-		config.customization.projects[projectName];
+		config.customization.projects[projectPath] = undefined;
+		destroy();
 	});
 };
 
@@ -159,7 +165,7 @@ const saveCustomization = async () => {
 	if(!config.usable) return;
 
 	try {
-		await promisify(fs.writeFile)('customize.json', JSON.stringify(config.customization));
+		await promisify(fs.writeFile)(config.path, JSON.stringify(config.customization));
 	} catch(err) {
 		showError('write-failed', {file: customize.json}, err.stack);
 	}
@@ -179,6 +185,7 @@ const updateConfig = (
 	});
 };
 
+const updater = {};
 const createLoop = () => {
 	let pluginOnline = true;
 
@@ -241,12 +248,15 @@ const createLoop = () => {
 	});
 
 	atom.project.onDidChangePaths((projectPaths) => {
-		updateProjectName()
+		updateProjectName();
 		updateData();
 	});
 
-	updateProjectName()
+	updateProjectName();
 	updateData();
+
+	updater.updateProjectName = updateProjectName;
+	updater.updateData = updateData;
 
 	const rendererId = Math.random().toString(36).slice(2);
 	ipcRenderer.send('atom-discord.online', {id: rendererId});
@@ -272,6 +282,10 @@ module.exports = {
 
 			atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
 				ipcRenderer.send('atom-discord.toggle');
+			});
+
+			atom.commands.add('atom-text-editor', "atom-discord:project-customize", (ev) => {
+				showCustomizeProject();
 			});
 		});
 	},

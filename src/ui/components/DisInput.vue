@@ -2,6 +2,7 @@
 	<div class="DisInput">
 		<label>
 			<input ref="input"
+				class="native-key-bindings"
 				v-model="_content"
 				:type="type"
 				:name="inputName"
@@ -43,6 +44,7 @@
 			padding: 15px;
 			font-size: 1.1rem;
 			font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+			font-weight: 400;
 			position: relative;
 			border-bottom: 2px solid rgba(255, 255, 255, .1);
 

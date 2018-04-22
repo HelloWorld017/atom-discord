@@ -24,7 +24,6 @@
 	.DisPrompt {
 		display: flex;
 		flex-direction: column;
-		width: 50vw;
 		height: 300px;
 		background: #303030;
 		font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
@@ -67,7 +66,7 @@
 		border: none;
 		outline: none;
 		color: #d1d2d3;
-		font-weight: 600;
+		font-weight: 400;
 		cursor: pointer;
 		transition: all .4s ease;
 		box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .3);

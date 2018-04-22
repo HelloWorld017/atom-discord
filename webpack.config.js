@@ -64,7 +64,7 @@ module.exports = {
 	},
 
 	plugins: [
-		new ExtractTextPlugin('[name].bundle.css')
+		new ExtractTextPlugin('[name].bundle.less') // To import in less
 	],
 
 	devtool: '#eval-source-map'
