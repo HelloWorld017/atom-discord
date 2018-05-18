@@ -10,7 +10,8 @@
 Integrate your __atom__ with __Discord__ and show _Rich Presence_ information
 
 ## Installation
-`$ apm install atom-discord` or `Atom Settings > Install > atom-discord`
+`$ apm install atom-discord` or `Atom Settings > Install > atom-discord`  
+To see effect, please restart atom!
 
 ## Warning / Information
 * You should add Atom to Discord game list to show rich presence.  
