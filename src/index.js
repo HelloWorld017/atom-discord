@@ -443,6 +443,11 @@ module.exports = {
 				{
 					value: "es-ES",
 					description: "Spanish (Spain)"
+				},
+
+				{
+					value: "ja-JP",
+					description: "Japanese (Japan)"
 				}
 			],
 

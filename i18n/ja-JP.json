@@ -1,0 +1,10 @@
+{
+	"working-project": "%projectName% で開発中",
+	"working-no-project": "何かを開発中",
+	"editing-file": "%fileName% を編集中",
+	"editing-idle": "退席中",
+	"atom-description": "Atom で開発中",
+	"type-description": "%type% ファイルを編集中",
+	"type-unknown": "ファイルを編集中",
+	"developer-idle": "開発者は休憩しています！"
+}
