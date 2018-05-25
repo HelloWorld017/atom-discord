@@ -6,5 +6,21 @@
 	"atom-description": "Atom で開発中",
 	"type-description": "%type% ファイルを編集中",
 	"type-unknown": "ファイルを編集中",
-	"developer-idle": "開発者は休憩しています！"
+	"developer-idle": "開発者は休憩しています！",
+	"generate-failed": "コンフィグディレクトリに %file% を作成できませんでした。",
+	"generate-failed-desc": "%file% を作成中にエラーが発生しました。",
+	"read-failed": "コンフィグディレクトリの %file% を読み込めませんでした。",
+	"read-failed-desc": "%file% を読み込み中にエラーが発生しました。",
+	"write-failed": "コンフィグディレクトリに %file% を作成できませんでした。",
+	"write-failed-desc": "%file% を作成中にエラーが発生しました。",
+	"error-is-file": "コンフィグディレクトリで atom-discord フォルダを開くことができませんでした。",
+	"error-is-file-desc": "atom-discord はフォルダではなくファイルです！",
+	"error-is-file-detail": "%directory% を確認してください。",
+	"error-is-directory": "コンフィグディレクトリで %file% を開くことができませんでした。",
+	"error-is-directory-desc": "%file% はファイルではなくディレクトリです！",
+	"error-is-directory-detail": "%directory% を確認してください。",
+	"not-in-project": "プロジェクトは開かれてません！",
+	"custom-name": "カスタムプロジェクト名",
+	"custom-name-primary": "OK",
+	"custom-name-secondary": "デフォルトを使用"
 }
