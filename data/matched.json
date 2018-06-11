@@ -147,6 +147,10 @@
 		"icon": "bundler",
 		"text": "Bundler"
 	},
+	"/\\.c$/i": {
+		"icon": "text",
+		"text": "C"
+	},
 	"/\\.c[+px]{2}$|\\.cc$/i": {
 		"icon": "cpp",
 		"text": "C++"
