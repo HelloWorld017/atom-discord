@@ -100,7 +100,7 @@ Names:
 # Install From Source
 It is fairly easy to install from the source code, here's how to do it!
 
-Navigate to your atom packages directory, then click `Git Bash Here`, then enter the following into the terminal:
+Navigate to your atom packages directory usually found at (`(UserDirectory)/.atom/packages/`), then click `Git Bash Here`, then enter the following into the terminal:
 
 ```
 git clone https://github.com/HelloWorld017/atom-discord.git
