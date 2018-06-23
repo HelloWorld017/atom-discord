@@ -9,7 +9,7 @@
 # FAQ
 
 * [Custom Playing Status](#playing-status)
-*
+* [Install From Source](#install-from-source)
 *
 
 ---
@@ -26,7 +26,26 @@
  ---
  
  ---
-
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
 
 
 
@@ -74,12 +93,23 @@ Names:
 * atom-3
 * atom-5
 
-> There, your done! Now you have a custom playing status, congratulations!
+> :tada: There, your done! Now you have a custom playing status, congratulations!
 
+---
 
+# Install From Source
+It is fairly easy to install from the source code, here's how to do it!
 
+Navigate to your atom packages directory, then click `Git Bash Here`, then enter the following into the terminal:
 
+```
+git clone https://github.com/HelloWorld017/atom-discord.git
+cd atom-discord
+npm i
+apm link
+```
 
+:tada: You installed atom-discord from the source
 
 
 
