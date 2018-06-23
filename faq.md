@@ -109,8 +109,8 @@ apm link
 # APM
 If you recieve the following error `idk the error` when installing atom-discord do the following
 
-Find your Atom Install Directory usually located at (%appdata%/../Local/atom/YOUR-VERSION/resources/app/apm/bin/apm.cmd).and instead of running the apm command, link the full directory instead!
+Find your Atom Install Directory usually located at (`%appdata%/../Local/atom/YOUR-VERSION/resources/app/apm/bin/apm.cmd`).and instead of running the apm command, link the full directory instead!
 
 Example: `C:\Users\derpd\AppData\Local\atom\app-1.28.0\resources\app\apm\bin\apm.cmd install atom-discord`
 
-You can execute the command by changing 'apm' to whole path of apm.
+You can execute the command by changing 'apm' to whole path of apm.cmd.
