@@ -27,7 +27,7 @@ Then restart atom to see the effects.
 
 # FAQ / Know Errors
 
-[Please visit here to see all the know errors / questions](http://link-to-faq-page)
+[Please visit here to see all the know errors / questions](https://github.com/DerpDays/atom-discord/blob/master/faq.md)
 
 
 # Todos
