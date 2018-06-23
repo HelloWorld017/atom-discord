@@ -19,41 +19,34 @@
 * [There is no `APM` command](#apm)
 *
 *
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
 
-
-
-
-
-
-
-
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
 
 # Playing Status
 To change the "Playing Atom Editor" text you will need to make a new [discord developer application](https://discordapp.com/developers/applications/me/create), you can do this by repeating the following steps:
@@ -111,15 +104,7 @@ apm link
 
 :tada: You installed atom-discord from the source
 
-
-
-
-
-
-
-
-
-
+---
 
 # APM
 If you recieve the following error `idk the error` when installing atom-discord do the following
