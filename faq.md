@@ -1,4 +1,4 @@
-[![Discord](https://s33.postimg.cc/savzs5uhb/atom-banner.png)](http://discord.gg/8nG3FkS)
+[![Discord](https://s33.postimg.cc/savzs5uhb/atom-banner.png)](http://discord.gg/zfEs3K6)
 
 <p align="center">
   <b><a href="https://github.com/HelloWorld017/atom-discord">Atom-Discord</a></b> / <a href="https://github.com/HelloWorld017/atom-discord/blob/master/faq.md">FAQ</a>
