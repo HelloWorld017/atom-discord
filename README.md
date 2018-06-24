@@ -57,7 +57,7 @@ npm i
 apm link
 ```
 
-Then add atom to discord game list and restart atom to see the effects.  
+Then **add atom to discord game list** and restart atom to see the effects.  
 
 :tada: You installed atom-discord.
 
