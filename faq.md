@@ -1,54 +1,37 @@
-[![Discord](https://s33.postimg.cc/savzs5uhb/atom-banner.png)](http://discord.gg/8nG3FkS)
+[![Discord](https://s33.postimg.cc/savzs5uhb/atom-banner.png)](http://discord.gg/zfEs3K6)
 
 <p align="center">
-  <b>Atom-Discord</b>
+  <b><a href="https://github.com/HelloWorld017/atom-discord">Atom-Discord</a></b> / <a href="https://github.com/HelloWorld017/atom-discord/blob/master/faq.md">FAQ</a>
 </p>
 
 ---
 
 # FAQ
 
-* [Custom Playing Status](#playing-status)
-* [Install From Source](#install-from-source)
-*
+* [Custom Playing Status](#playing-status)  
+* [Getting File Icons](#getting-file-icons)
 
 ---
 
-# Know Errors
+# Known Errors
 
-* [There is no `APM` command](#apm)
+* [There is no `apm` or `npm` command](#apm-npm-is-not-recognized)
 * [Doesn't show rich pressence](#not-showing)
-*
 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
- 
- ---
+
+----
 
 # Playing Status
+## Changable Text
+To change other texts like 'Editing a (name) file', follow this steps:
+
+1. **Open i18n file**
+Open file located in `(UserDirectory)/.atom/packages/atom-discord/i18n/(Currently Using Language).json`
+
+2. **Change desired text**
+Change content of the json file in order to change your desired text.
+
+## "Playing Atom Editor" Text
 To change the "Playing Atom Editor" text you will need to make a new [discord developer application](https://discordapp.com/developers/applications/me/create), you can do this by repeating the following steps:
 
 
@@ -90,30 +73,27 @@ Names:
 
 ---
 
-# Install From Source
-It is fairly easy to install from the source code, here's how to do it!
-
-Navigate to your atom packages directory usually found at (`(UserDirectory)/.atom/packages/`), then click `Git Bash Here`, then enter the following into the terminal:
-
-```
-git clone https://github.com/HelloWorld017/atom-discord.git
-cd atom-discord
-npm i
-apm link
-```
-
-:tada: You installed atom-discord from the source
+# Getting File Icons
+* You can get images from [fileicons-render](https://github.com/HelloWorld017/fileicons-render)  
 
 ---
 
-# APM
-If you recieve the following error `idk the error` when installing atom-discord do the following
+# apm, npm is not recognized
+If you recieve the following error when installing atom-discord do the following:
+```
+'apm (or npm)' is not recognized as an internal or external command,
+operable program or batch file.
+```
 
 Find your Atom Install Directory usually located at (`%appdata%/../Local/atom/YOUR-VERSION/resources/app/apm/bin/apm.cmd`).and instead of running the apm command, link the full directory instead!
 
-Example: `C:\Users\derpd\AppData\Local\atom\app-1.28.0\resources\app\apm\bin\apm.cmd install atom-discord`
+Example:
+```
+  C:\Users\USERNAME\AppData\Local\atom\app-1.28.0\resources\app\apm\bin\apm.cmd install atom-discord
+  C:\Users\USERNAME\AppData\Local\atom\app-1.28.0\resources\app\apm\bin\npm.cmd install
+```
 
-You can execute the command by changing 'apm' to whole path of apm.cmd.
+You can execute the command by changing 'apm' to whole path of apm.cmd, 'npm' to path of npm.cmd
 
 ---
 
