@@ -3,7 +3,7 @@
 <p align="center">
   <b>Atom-Discord</b><br>
   <a href="https://discordapp.com/invite/zfEs3K6">Support</a> |
-  <a href="your paypal.me link here ^^">Donate</a> |
+  <a href="http://donationlink.s^^">Donate</a> |
   <a href="https://www.atom.io">Atom</a>
   <br><br>
 </p>
