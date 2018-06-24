@@ -115,6 +115,7 @@ Example: `C:\Users\derpd\AppData\Local\atom\app-1.28.0\resources\app\apm\bin\apm
 
 You can execute the command by changing 'apm' to whole path of apm.cmd.
 
+---
 
 # Not Showing
 If you rich presence isn't showing in discord, make sure you have got Atom-Editor added as a program, and if that doesnt work try [installing from the source code](#installing-from-source), and if that doesn't work ask for help in our support server!
