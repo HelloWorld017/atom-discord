@@ -1,9 +1,10 @@
-[![Discord](https://s33.postimg.cc/savzs5uhb/atom-banner.png)](http://discord.gg/8nG3FkS)
+[![Discord](https://s33.postimg.cc/savzs5uhb/atom-banner.png)](http://discord.gg/zfEs3K6)
 
 <p align="center">
   <b>Atom-Discord</b><br>
-  <a href="https://discordapp.com/invite/zfEs3K6">Support</a> |
-  <a href="https://atom.io/packages/atom-discord">Atom</a>
+  <a href="https://discord.gg/zfEs3K6">Support</a> |
+  <a href="https://atom.io/packages/atom-discord">Atom</a> |
+  <a href="https://github.com/HelloWorld017/atom-discord/blob/master/faq.md">FAQ</a>
   <br><br>
 </p>
 
@@ -65,7 +66,7 @@ Then **add atom to discord game list** and restart atom to see the effects.
 
 # FAQ / Know Errors
 
-[Please visit here to see all the know errors / questions](https://github.com/DerpDays/atom-discord/blob/master/faq.md)
+[Please visit here to see all the known errors / questions](https://github.com/HelloWorld017/atom-discord/blob/master/faq.md)
 
 
 # Todos
