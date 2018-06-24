@@ -3,27 +3,65 @@
 <p align="center">
   <b>Atom-Discord</b><br>
   <a href="https://discordapp.com/invite/zfEs3K6">Support</a> |
-  <a href="http://donationlink.s^^">Donate</a> |
-  <a href="https://www.atom.io">Atom</a>
+  <a href="https://atom.io/packages/atom-discord">Atom</a>
   <br><br>
 </p>
 
----
+<p align="center">
+  <a href="https://david-dm.org/HelloWorld017/atom-discord">
+    <img src="https://img.shields.io/david/HelloWorld017/atom-discord.svg?style=flat-square" alt="David">
+  </a>
+  
+  <a href="https://github.com/HelloWorld017/atom-discord/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/HelloWorld017/atom-discord.svg?style=flat-square" alt="License">
+  </a>
+  
+  <a href="https://atom.io/packages/atom-discord">
+    <img src="https://img.shields.io/apm/v/atom-discord.svg?style=flat-square" alt="Apm Version">
+  </a>
+  
+  <a href="https://atom.io/packages/atom-discord">
+    <img src="https://img.shields.io/apm/dm/atom-discord.svg?style=flat-square" alt="Apm Version">
+  </a>
+  
+  <a href="https://discord.gg/zfEs3K6">
+    <img src="https://img.shields.io/discord/405937562813726730.svg?logo=discord&style=flat-square&label=Discord&colorA=7289da&colorB=606060" alt="Discord">
+  </a>
+</p>
+
+----
 
 # Installation
 
 To install atom-discord you will need to download the following dependencies:
 
-- GIT
+- Git
 
-Download the [latest](https://git-scm.com/download/win) version of git and make sure to select `Run git from the windows command prompt`.
+Download the [latest](https://git-scm.com/download) version of git.
 
 
+## Installing from Atom Package Manager
 Then either download the package via the built in package repo (Atom Settings > Install > atom-discord) or run `apm install atom-discord` in your terminal of choice.
 
-Then restart atom to see the effects.
 
----
+## Installing from Source Code
+
+It is fairly easy to install from the source code, here's how to do it!
+
+Navigate to a empty folder then click `Git Bash Here`, then enter the following into the terminal:
+
+```
+git clone https://github.com/HelloWorld017/atom-discord.git
+cd atom-discord
+npm i
+apm link
+```
+
+Then add atom to discord game list and restart atom to see the effects.  
+
+:tada: You installed atom-discord.
+
+----
 
 # FAQ / Know Errors
 
@@ -32,7 +70,9 @@ Then restart atom to see the effects.
 
 # Todos
 
- - INSERT TODO LIST HERE
+ - Icon Chooser, Custom Icons
+ - Rich Presence Text Editor
+ - Teletype Integration
 
 ---
 
