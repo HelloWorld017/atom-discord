@@ -64,6 +64,17 @@ Then **add atom to discord game list** and restart atom to see the effects.
 
 ----
 
+# Checklist when Rich Presence is not showing
+
+* Check if the Atom is added in the games tab.  
+* Check if the option `Display currently running game as a status message.` is turned on.  
+![Imgur](https://i.imgur.com/OjFerWL.png)
+* Check if you restarted the Atom. (If not works, please restart discord, too.)
+* Check if there are some outputs in developer tools `(ctrl + shift + i)`.
+
+If you checked all of them but you couldn't find the reason why, please come to discord and send your symptom with your operating system and console output when you run atom in terminal.
+
+
 # FAQ / Know Errors
 
 [Please visit here to see all the known errors / questions](https://github.com/HelloWorld017/atom-discord/blob/master/faq.md)
