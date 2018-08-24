@@ -1,6 +1,6 @@
 {
 	"working-project": "Working on %projectName%",
-	"working-no-project": "Working on some stuffs",
+	"working-no-project": "Working on a project",
 	"editing-file": "Editing %fileName%",
 	"editing-idle": "Idle",
 	"atom-description": "Working with Atom",
