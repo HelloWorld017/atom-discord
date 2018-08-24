@@ -6,5 +6,21 @@
 	"atom-description": "Lavora con Atom",
 	"type-description": "Sta modificando un file %type%",
 	"type-unknown": "Sta modificando un file",
-	"developer-idle": "Si prende una pausa fermo al semaforo #FF0000."
+	"developer-idle": "Si prende una pausa fermo al semaforo #FF0000.",
+	"generate-failed": "Impossibile generare %file% nella directory di configurazione.",
+	"generate-failed-desc": "C'è stato un errore nella creazione di %file%.",
+	"read-failed": "Impossibile leggere %file% nella directory di configurazione.",
+	"read-failed-desc": "C'è stato un errore nella lettura di %file%.",
+	"write-failed": "Impossibile modificare %file% nella directory di configurazione.",
+	"write-failed-desc": "C'è stato un errore nella modifica di %file%.",
+	"error-is-file": "Impossibile aprire la cartella di atom-discord nella directory di configurazione.",
+	"error-is-file-desc": "atom-discord non è una cartella, è un file!",
+	"error-is-file-detail": "Per favore controlla %directory%.",
+	"error-is-directory": "Impossibile aprire %file% nella directory di configurazione.",
+	"error-is-directory-desc": "%file% is not a file, but a directory!",
+	"error-is-directory-detail": "Pre favore controlla %directory%.",
+	"not-in-project": "Non ci sono progetti aperti!",
+	"custom-name": "Nome del progetto personalizzato",
+	"custom-name-primary": "OK",
+	"custom-name-secondary": "USE DEFAULT"
 }
