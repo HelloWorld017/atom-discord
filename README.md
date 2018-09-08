@@ -88,6 +88,9 @@ If you checked all of them but you couldn't find the reason why, please come to 
 
 ---
 
+# Screenshots
+![Discord Integration](https://i.imgur.com/EMd4eZg.png)
+
 # License
 
 Released under the [MIT](https://en.wikipedia.org/wiki/MIT_License) License.
