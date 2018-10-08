@@ -64,6 +64,17 @@ Then **add atom to discord game list** and restart atom to see the effects.
 
 ----
 
+# Checklist when Rich Presence is not showing
+
+* Check if the Atom is added in the games tab.  
+* Check if the option `Display currently running game as a status message.` is turned on.  
+![Imgur](https://i.imgur.com/OjFerWL.png)
+* Check if you restarted the Atom. (If not works, please restart discord, too.)
+* Check if there are some outputs in developer tools `(ctrl + shift + i)`.
+
+If you checked all of them but you couldn't find the reason why, please come to discord and send your symptom with your operating system and console output when you run atom in terminal.
+
+
 # FAQ / Know Errors
 
 [Please visit here to see all the known errors / questions](https://github.com/HelloWorld017/atom-discord/blob/master/faq.md)
@@ -77,24 +88,27 @@ Then **add atom to discord game list** and restart atom to see the effects.
 
 ---
 
+# Screenshots
+![Discord Integration](https://i.imgur.com/EMd4eZg.png)
+
 # License
 
 Released under the [MIT](https://en.wikipedia.org/wiki/MIT_License) License.
 
-MIT License
-
-Copyright (c) 2018 HelloWorld017
-
+>MIT License
+>
+>Copyright (c) 2018 HelloWorld017
+>
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
+>
 > The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
+>
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE

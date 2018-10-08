@@ -448,6 +448,11 @@ module.exports = {
 				{
 					value: "ja-JP",
 					description: "Japanese (Japan)"
+				},
+
+				{
+					value: "zh-CN",
+					description: "Chinese (China)"
 				}
 			],
 
