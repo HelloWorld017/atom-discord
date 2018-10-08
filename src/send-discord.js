@@ -60,7 +60,7 @@ class DiscordSender {
 		this.projectName = null;
 		this.fileName = null;
 		this.largeImage = null;
-		this.startTimestamp = new Date().getTime() / 1000;
+		this.startTimestamp = Math.floor(Date.now() / 1000);
 
 		this.onlineRenderers = {};
 		this.rpc = null;
@@ -187,7 +187,7 @@ class DiscordSender {
 
 	clearActivity() {
 		// TODO change when discord-rpc#25 is uploaded to npm
-		
+
 		const pid = process.pid;
 
 		this.rpc.request('SET_ACTIVITY', {
