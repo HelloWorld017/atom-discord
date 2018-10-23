@@ -98,4 +98,14 @@ You can execute the command by changing 'apm' to whole path of apm.cmd, 'npm' to
 ---
 
 # Not Showing
-If you rich presence isn't showing in discord, make sure you have got Atom-Editor added as a program, and if that doesnt work try [installing from the source code](#installing-from-source), and if that doesn't work ask for help in our support server!
+If you rich presence isn't showing in discord, make sure you have got Atom-Editor added as a program, and if that doesnt work try [installing from the source code](https://github.com/HelloWorld017/atom-discord#installing-from-source-code), and if that doesn't work, try the following:
+
+Open the terminal by using `Ctrl + R` and type the following:
+
+```
+apm uninstall atom-discord
+```
+
+Then, [reinstall atom-discord from the source code](https://github.com/HelloWorld017/atom-discord#installing-from-source-code)
+
+If you're still running into trouble, please ask for help in our [support server](https://discordapp.com/invite/zfEs3K6)!
