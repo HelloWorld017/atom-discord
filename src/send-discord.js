@@ -55,12 +55,17 @@ const normalize = (object) => {
 	return object;
 };
 
+const log = text => {
+	ipcMain.send('atom-discord.log', text);
+	console.log(text);
+};
+
 class DiscordSender {
 	constructor() {
 		this.projectName = null;
 		this.fileName = null;
 		this.largeImage = null;
-		this.startTimestamp = Math.floor(Date.now() / 1000);
+		this.startTimestamp = new Date;
 
 		this.onlineRenderers = {};
 		this.rpc = null;
@@ -73,12 +78,12 @@ class DiscordSender {
 		if(this.onlineRenderers[id]) return;
 
 		let sendAfter = !this.isRendererOnline;
-		console.log(`Editor ${id} became online.`);
+		log(`Editor ${id} became online.`);
 
 		this.onlineRenderers[id] = true;
 
 		if(sendAfter){
-			console.log(`New editor confirmed, sending activities...`);
+			log(`New editor confirmed, sending activities...`);
 			this.sendActivity();
 		}
 	}
@@ -86,12 +91,12 @@ class DiscordSender {
 	setOffline(id) {
 		if(!this.onlineRenderers[id]) return;
 
-		console.log(`Editor ${id} became offline.`);
+		log(`Editor ${id} became offline.`);
 
 		this.onlineRenderers[id] = false;
 
 		if(!this.isRendererOnline) {
-			console.log(`No editor remained, destroying rpc clients...`);
+			log(`No editor remained, destroying rpc clients...`);
 			this.destroyRpc();
 		}
 	}
@@ -103,9 +108,24 @@ class DiscordSender {
 			if(typeof Client === 'undefined') return reject("No client available!");
 
 			const rpc = new Client({ transport: 'ipc' });
+
+			let previousPath = process.env.XDG_RUNTIME_DIR;
+			if(config.behaviour.ubuntuPatch) {
+				const { env: { XDG_RUNTIME_DIR, TMPDIR, TMP, TEMP } } = process;
+				const prefix = XDG_RUNTIME_DIR || TMPDIR || TMP || TEMP || '/tmp';
+
+				prefix += '/snap.discord';
+
+				process.env.XDG_RUNTIME_DIR = prefix;
+			}
+
 			rpc.on('ready', () => {
 				this.rpc = rpc;
 				this.destroied = false;
+
+				if(config.behaviour.ubuntuPatch) {
+					process.env.XDG_RUNTIME_DIR = previousPath;
+				}
 				resolve();
 			});
 			rpc.login(DISCORD_ID).catch(reject);
@@ -116,14 +136,14 @@ class DiscordSender {
 		if(this.destroied) return;
 		if(this.rpc === null) return;
 
-		console.log("Destroying RPC Client...");
+		log("Destroying RPC Client...");
 		this.destroied = true;
 
 		const _rpc = this.rpc;
 		this.rpc = null;
 
 		await _rpc.destroy();
-		console.log("Done destroying RPC Client. It is now safe to turn off the computer.")
+		log("Done destroying RPC Client. It is now safe to turn off the computer.")
 	}
 
 	sendActivity() {
@@ -186,13 +206,7 @@ class DiscordSender {
 	}
 
 	clearActivity() {
-		// TODO change when discord-rpc#25 is uploaded to npm
-
-		const pid = process.pid;
-
-		this.rpc.request('SET_ACTIVITY', {
-			pid
-		});
+		this.rpc.clearActivity();
 	}
 
 	updateActivity(projectName, fileName) {
@@ -239,7 +253,8 @@ class DiscordSender {
 		try {
 			if(this.destroied) await this.setupRpc(Client)
 		} catch(e) {
-			console.error(e);
+			log(e.stack);
+			ipcMain.send('atom-discord.noDiscord');
 		}
 
 		if(this.isRendererOnline) this.sendActivity();

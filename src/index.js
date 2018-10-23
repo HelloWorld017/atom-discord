@@ -39,8 +39,10 @@ const config = {
 	},
 	directory: path.join(atom.getConfigDirPath(), 'atom-discord'),
 	path: path.join(atom.getConfigDirPath(), 'atom-discord', 'customize.json'),
+	logPath: path.join(atom.getConfigDirPath(), 'atom-discord', 'log.txt'),
 	customization: {},
-	usable: true
+	usable: true,
+	loggable: atom.config.get('atom-discord.behaviour.debugLog')
 };
 
 
@@ -74,6 +76,7 @@ const initialize = async () => {
 		if(!configStat.isDirectory()) {
 			showError('error-is-file', {directory: config.directory});
 			config.usable = false;
+			config.loggable = false;
 		}
 	} catch(err) {
 		try {
@@ -81,6 +84,7 @@ const initialize = async () => {
 		} catch(err) {
 			showError('generate-failed', {file: 'atom-discord'}, err.stack);
 			config.usable = false;
+			config.loggable = false;
 		}
 	}
 
@@ -111,6 +115,15 @@ const initialize = async () => {
 		} catch(err) {
 			showError('read-failed', {file: 'customize.json'}, err.stack);
 			config.usable = false;
+		}
+	}
+
+	if(config.loggable) {
+		try {
+			await promisify(fs.writeFile)(config.logPath, '');
+		} catch(err) {
+			showError('generate-failed', {file: 'log.txt'}, err.stack);
+			config.loggable = false;
 		}
 	}
 };
@@ -260,6 +273,32 @@ const createLoop = () => {
 
 	const rendererId = Math.random().toString(36).slice(2);
 	ipcRenderer.send('atom-discord.online', {id: rendererId});
+
+	if(config.loggable) {
+		let logs = [];
+		let lastFlush = 0;
+		const flushLog = () => {
+			if(lastFlush + 5000 > Date.now()) {
+				fs.appendFile(config.logPath, logs.join('\n'), err => {
+					if(!err) logs = [];
+
+					lastFlush = Date.now();
+				});
+			}
+		};
+
+		ipcRenderer.on('atom-discord.log', log => {
+			const date = new Date;
+			logs.push(`[${date.toTimeString()}] ${log}`);
+			flushLog();
+		});
+	}
+
+	if(atom.config.get('atom-discord.behaviour.noDiscordNotification')) {
+		ipcRenderer.once('atom-discord.noDiscord', () => {
+			showError('error-no-discord');
+		});
+	}
 };
 
 atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
@@ -369,6 +408,27 @@ module.exports = {
 					description: "Use rest icon for idle status.",
 					type: "boolean",
 					default: true
+				},
+
+				ubuntuPatch: {
+					title: "Patch Ubuntu 18.04 Bug",
+					description: "Patch Discord Rich Presence not showing on Ubuntu 18.04",
+					type: "boolean",
+					default: false
+				},
+
+				debugLog: {
+					title: "Debug Mode",
+					description: "Log debugging messages in atom-discord directory",
+					type: "boolean",
+					default: false
+				},
+
+				noDiscordNotification: {
+					title: "No Discord Notification",
+					description: "Show warning notification when discord IPC wasn't established",
+					type: "boolean",
+					default: false
 				}
 			},
 			order: 1

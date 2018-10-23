@@ -2652,22 +2652,12 @@
       }
     },
     "discord-rpc": {
-      "version": "3.0.0-beta.10",
-      "resolved": "https://registry.npmjs.org/discord-rpc/-/discord-rpc-3.0.0-beta.10.tgz",
-      "integrity": "sha512-b0G6O0WJkxoLQSopyNRqByXCrpBL68HXPMULVZXLjRgj+sStwOmbABM+HwBDJWF6s/uhkB/+cAgq+19x4w0SPA==",
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/discord-rpc/-/discord-rpc-3.0.1.tgz",
+      "integrity": "sha512-PvkVpIlbFowih2mPIOAwUlX+w+9AGtpVUpQrGP6Mu7TPHDjfclsYoRuquIYiSHsS/n5EfhFgMZfsSTRPkvj22w==",
       "requires": {
-        "discord.js": "github:discordjs/discord.js#b186472785db6bbe7de37e1a75104d79dd0cc44f",
-        "snekfetch": "3.6.4"
-      }
-    },
-    "discord.js": {
-      "version": "github:discordjs/discord.js#b186472785db6bbe7de37e1a75104d79dd0cc44f",
-      "requires": {
-        "pako": "1.0.6",
-        "prism-media": "0.2.1",
-        "snekfetch": "3.6.4",
-        "tweetnacl": "1.0.0",
-        "ws": "4.1.0"
+        "node-fetch": "2.2.0",
+        "ws": "5.2.2"
       }
     },
     "dns-equal": {
@@ -6693,6 +6683,11 @@
       "integrity": "sha1-VfuN62mQcHB/tn+RpGDwRIKUx30=",
       "dev": true
     },
+    "node-fetch": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.2.0.tgz",
+      "integrity": "sha512-OayFWziIxiHY8bCUyLX6sTpDH8Jsbp4FfYd1j1f7vZyfgkcOnAyM4oQR16f8a0s7Gl/viMGRey8eScYk4V4EZA=="
+    },
     "node-forge": {
       "version": "0.7.1",
       "resolved": "https://registry.npmjs.org/node-forge/-/node-forge-0.7.1.tgz",
@@ -7201,7 +7196,8 @@
     "pako": {
       "version": "1.0.6",
       "resolved": "https://registry.npmjs.org/pako/-/pako-1.0.6.tgz",
-      "integrity": "sha512-lQe48YPsMJAig+yngZ87Lus+NF+3mtu7DVOBu6b/gHO1YpKwIj5AWjZ/TOS7i46HD/UixzWb1zeWDZfGZ3iYcg=="
+      "integrity": "sha512-lQe48YPsMJAig+yngZ87Lus+NF+3mtu7DVOBu6b/gHO1YpKwIj5AWjZ/TOS7i46HD/UixzWb1zeWDZfGZ3iYcg==",
+      "dev": true
     },
     "parallel-transform": {
       "version": "1.1.0",
@@ -8033,11 +8029,6 @@
       "integrity": "sha1-sr+C5zUNZcbDOqlaqlpPYyf2HNk=",
       "dev": true
     },
-    "prism-media": {
-      "version": "0.2.1",
-      "resolved": "https://registry.npmjs.org/prism-media/-/prism-media-0.2.1.tgz",
-      "integrity": "sha512-Kfp1+6gzjY6X8mqKHa6D3brX+BtMUPFwzAkz4zgtVPgbkA2XxhITROdfQXVurU4fuJsylFRwqo7ciQlQCm9hAw=="
-    },
     "private": {
       "version": "0.1.8",
       "resolved": "https://registry.npmjs.org/private/-/private-0.1.8.tgz",
@@ -8694,7 +8685,8 @@
     "safe-buffer": {
       "version": "5.1.1",
       "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.1.tgz",
-      "integrity": "sha512-kKvNJn6Mm93gAczWVJg7wH+wGYWNrDHdWvpUmHyEsgCtIwwo3bqPtV4tR5tuPaUhTOo/kvhVwd8XwwOllGYkbg=="
+      "integrity": "sha512-kKvNJn6Mm93gAczWVJg7wH+wGYWNrDHdWvpUmHyEsgCtIwwo3bqPtV4tR5tuPaUhTOo/kvhVwd8XwwOllGYkbg==",
+      "dev": true
     },
     "safe-regex": {
       "version": "1.1.0",
@@ -9021,11 +9013,6 @@
           }
         }
       }
-    },
-    "snekfetch": {
-      "version": "3.6.4",
-      "resolved": "https://registry.npmjs.org/snekfetch/-/snekfetch-3.6.4.tgz",
-      "integrity": "sha512-NjxjITIj04Ffqid5lqr7XdgwM7X61c/Dns073Ly170bPQHLm6jkmelye/eglS++1nfTWktpP6Y2bFXjdPlQqdw=="
     },
     "sntp": {
       "version": "2.1.0",
@@ -9630,11 +9617,6 @@
       "requires": {
         "safe-buffer": "5.1.1"
       }
-    },
-    "tweetnacl": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-1.0.0.tgz",
-      "integrity": "sha1-cT2LgY2kIGh0C/aDhtBHnmb8ins="
     },
     "type-is": {
       "version": "1.6.16",
@@ -10783,12 +10765,11 @@
       }
     },
     "ws": {
-      "version": "4.1.0",
-      "resolved": "https://registry.npmjs.org/ws/-/ws-4.1.0.tgz",
-      "integrity": "sha512-ZGh/8kF9rrRNffkLFV4AzhvooEclrOH0xaugmqGsIfFgOE/pIz4fMc4Ef+5HSQqTEug2S9JZIWDR47duDSLfaA==",
+      "version": "5.2.2",
+      "resolved": "https://registry.npmjs.org/ws/-/ws-5.2.2.tgz",
+      "integrity": "sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==",
       "requires": {
-        "async-limiter": "1.0.0",
-        "safe-buffer": "5.1.1"
+        "async-limiter": "1.0.0"
       }
     },
     "xtend": {

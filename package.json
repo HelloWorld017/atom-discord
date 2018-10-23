@@ -14,7 +14,7 @@
     "dev": "webpack-dev-server"
   },
   "dependencies": {
-    "discord-rpc": "^3.0.0-beta.10",
+    "discord-rpc": "^3.0.1",
     "vue": "^2.5.16",
     "vue-ripple-directive": "^2.0.1"
   },
