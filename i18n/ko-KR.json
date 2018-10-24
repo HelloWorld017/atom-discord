@@ -22,6 +22,8 @@
 	"error-no-discord": "디스코드가 실행중이 아닙니다!",
 	"error-no-discord-desc": "디스코드를 켠 후 아톰을 재시작하지 않을 시, Rich Presence가 보여지지 않을 것입니다.",
 	"error-no-discord-detail": "이 알림을 설정에서 끌 수 있습니다.",
+	"error-while-require": "디스코드 전송 코드 실행 중 오류가 발생했습니다! :(",
+	"error-while-require-desc": "Rich Presence가 보여지지 않을 것입니다. 하단의 오류와 함께 이슈에 올려주세요!",
 	"not-in-project": "어떤 프로젝트도 열려있지 않습니다!",
 	"custom-name": "커스텀 프로젝트명",
 	"custom-name-primary": "확인",

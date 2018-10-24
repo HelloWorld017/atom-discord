@@ -7,12 +7,14 @@
 	"type-description": "Editing a %type% file",
 	"type-unknown": "Editing a file",
 	"developer-idle": "The Developer is RESTful enough to rest!",
+
 	"generate-failed": "Couldn't generate %file% in config directory.",
 	"generate-failed-desc": "While generating %file%, an error was thrown.",
 	"read-failed": "Couldn't read %file% in config directory.",
 	"read-failed-desc": "While reading %file%, an error was thrown.",
 	"write-failed": "Couldn't write %file% in config directory.",
 	"write-failed-desc": "While writing %file%, an error was thrown.",
+
 	"error-is-file": "Couldn't open atom-discord folder in config directory.",
 	"error-is-file-desc": "atom-discord is not a folder, it is a file!",
 	"error-is-file-detail": "Please check %directory%.",
@@ -22,8 +24,21 @@
 	"error-no-discord": "Discord is not running!",
 	"error-no-discord-desc": "Unless discord is turned on and atom is restarted, rich presence will not be shown.",
 	"error-no-discord-detail": "You can suppress this notification in settings.",
+	"error-while-require": "Error while executing discord sending code! :(",
+	"error-while-require-desc": "Rich presence will not be shown. Please upload issue with this stacktrace.",
+
 	"not-in-project": "No projects are opened!",
+
 	"custom-name": "Custom project name",
 	"custom-name-primary": "OK",
-	"custom-name-secondary": "USE DEFAULT"
+	"custom-name-secondary": "USE DEFAULT",
+
+	"config-behaviour": "Behaviour",
+	"config-behaviour-sendSmallImage": "Display small Atom logo",
+	"config-behaviour-sendLargeImage": "Display large file type image",
+	"config-behaviour-preferType": "Prefer file type",
+	"config-behaviour-preferType-desc": "Send file type as description instead of file name.",
+	"config-behaviour-showFilenameOnLargeImage": "Show file name on large image",
+	"config-behaviour-updateTick": "Update tick",
+	"config-behaviour-updateTick-desc": "Interval between state update (ms)"
 }

@@ -1,6 +1,6 @@
-const {ipcMain} = require('electron');
+const {ipcMain, webContents} = require('electron');
 const path = require('path');
-const {Client} = require('../node_modules/discord-rpc/');
+const {Client} = require('../dist/rpc.bundle.js');
 const matched = require('../data/matched.json');
 
 const DISCORD_ID = '380510159094546443';
@@ -55,9 +55,32 @@ const normalize = (object) => {
 	return object;
 };
 
-const log = text => {
-	ipcMain.send('atom-discord.log', text);
-	console.log(text);
+const logging = {
+	enabled: true,
+	lastFlush: 0,
+	path: '',
+	logs: [],
+	flushLog() {
+		if(this.path === '') return;
+
+		const text = this.logs.join('\n');
+		this.logs = [];
+
+		if(text.length > 0) fs.appendFile(this.path, text, () => {});
+	},
+
+	log(text) {
+		if(this.enabled) {
+			const date = new Date;
+			this.logs.push(`[${date.toTimeString()}] ${text}`);
+			if(this.lastFlush + 5000 > Date.now()) {
+				setTimeout(() => this.flushLog(), 6000);
+				this.lastFlush = Date.now();
+			}
+		}
+
+		console.log(text);
+	}
 };
 
 class DiscordSender {
@@ -78,12 +101,12 @@ class DiscordSender {
 		if(this.onlineRenderers[id]) return;
 
 		let sendAfter = !this.isRendererOnline;
-		log(`Editor ${id} became online.`);
+		logging.log(`Editor ${id} became online.`);
 
 		this.onlineRenderers[id] = true;
 
 		if(sendAfter){
-			log(`New editor confirmed, sending activities...`);
+			logging.log(`New editor confirmed, sending activities...`);
 			this.sendActivity();
 		}
 	}
@@ -91,12 +114,12 @@ class DiscordSender {
 	setOffline(id) {
 		if(!this.onlineRenderers[id]) return;
 
-		log(`Editor ${id} became offline.`);
+		logging.log(`Editor ${id} became offline.`);
 
 		this.onlineRenderers[id] = false;
 
 		if(!this.isRendererOnline) {
-			log(`No editor remained, destroying rpc clients...`);
+			logging.log(`No editor remained, destroying rpc clients...`);
 			this.destroyRpc();
 		}
 	}
@@ -136,14 +159,14 @@ class DiscordSender {
 		if(this.destroied) return;
 		if(this.rpc === null) return;
 
-		log("Destroying RPC Client...");
+		logging.log("Destroying RPC Client...");
 		this.destroied = true;
 
 		const _rpc = this.rpc;
 		this.rpc = null;
 
 		await _rpc.destroy();
-		log("Done destroying RPC Client. It is now safe to turn off the computer.")
+		logging.log("Done destroying RPC Client. It is now safe to turn off the computer.")
 	}
 
 	sendActivity() {
@@ -253,8 +276,12 @@ class DiscordSender {
 		try {
 			if(this.destroied) await this.setupRpc(Client)
 		} catch(e) {
-			log(e.stack);
-			ipcMain.send('atom-discord.noDiscord');
+			logging.log(e.stack);
+
+			const focusedContents = webContents.getFocusedWebContents();
+			if(focusedContents) {
+				focusedContents.send('atom-discord.noDiscord');
+			}
 		}
 
 		if(this.isRendererOnline) this.sendActivity();
@@ -306,6 +333,17 @@ ipcMain.on('atom-discord.config-update', (event, {i18n, privacy: _privacy, behav
 	config.translations = i18n;
 	config.behaviour = _behaviour;
 	config.privacy = _privacy;
+});
+
+ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
+	logging.enabled = loggable;
+	logging.path = path;
+
+	if(logging.enabled) {
+		logging.flushLog();
+	} else {
+		logging.logs = [];
+	}
 });
 
 ipcMain.on('atom-discord.data-update', (event, {projectName, currEditor: fileName}) => {

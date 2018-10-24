@@ -63,11 +63,18 @@ const showError = (key, args, detail) => {
 			detail: detail || translate(`${key}-detail`, args)
 		}
 	);
+
+	if(detail) console.error("[atom-discord ERROR]", detail);
 };
 
 const initialize = async () => {
 	I18N_VALUE = require(`../i18n/${atom.config.get('atom-discord.i18n')}.json`);
-	remote.require(SEND_DISCORD_PATH);
+
+	try {
+		remote.require(SEND_DISCORD_PATH);
+	} catch(err) {
+		showError('error-while-require', {}, err.stack);
+	}
 
 	// Generating directory
 	try {
@@ -126,6 +133,8 @@ const initialize = async () => {
 			config.loggable = false;
 		}
 	}
+
+	ipcRenderer.send('atom-discord.logging', {loggable: config.loggable, path: config.logPath});
 };
 
 const showCustomizeProject = () => {
@@ -274,26 +283,6 @@ const createLoop = () => {
 	const rendererId = Math.random().toString(36).slice(2);
 	ipcRenderer.send('atom-discord.online', {id: rendererId});
 
-	if(config.loggable) {
-		let logs = [];
-		let lastFlush = 0;
-		const flushLog = () => {
-			if(lastFlush + 5000 > Date.now()) {
-				fs.appendFile(config.logPath, logs.join('\n'), err => {
-					if(!err) logs = [];
-
-					lastFlush = Date.now();
-				});
-			}
-		};
-
-		ipcRenderer.on('atom-discord.log', log => {
-			const date = new Date;
-			logs.push(`[${date.toTimeString()}] ${log}`);
-			flushLog();
-		});
-	}
-
 	if(atom.config.get('atom-discord.behaviour.noDiscordNotification')) {
 		ipcRenderer.once('atom-discord.noDiscord', () => {
 			showError('error-no-discord');
@@ -412,7 +401,8 @@ module.exports = {
 
 				ubuntuPatch: {
 					title: "Patch Ubuntu 18.04 Bug",
-					description: "Patch Discord Rich Presence not showing on Ubuntu 18.04",
+					description: "Patch Discord Rich Presence not showing on Ubuntu 18.04. " +
+						"Tick this when you installed discord from Ubuntu Software",
 					type: "boolean",
 					default: false
 				},
