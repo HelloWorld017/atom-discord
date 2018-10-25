@@ -1,0 +1,76 @@
+[
+	{
+		"value": "nl-NL",
+		"description": "Dutch (Netherlands)"
+	},
+
+	{
+		"value": "en-US",
+		"description": "English (United States)"
+	},
+
+	{
+		"value": "fr-FR",
+		"description": "French (France)"
+	},
+
+	{
+		"value": "de-DE",
+		"description": "German (Germany)"
+	},
+
+	{
+		"value": "he-IL",
+		"description": "Hebrew (Israel)"
+	},
+
+	{
+		"value": "it-IT",
+		"description": "Italian (Italy)"
+	},
+
+	{
+		"value": "ko-KR",
+		"description": "Korean (Korea)"
+	},
+
+	{
+		"value": "no-NO",
+		"description": "Norwegian (Bokmal)"
+	},
+
+	{
+		"value": "pl-PL",
+		"description": "Polish (Poland)"
+	},
+
+	{
+		"value": "pt-BR",
+		"description": "Portuguese (Brazil)"
+	},
+
+	{
+		"value": "ro-RO",
+		"description": "Romanian (Romania)"
+	},
+
+	{
+		"value": "ru-RU",
+		"description": "Russian (Russia)"
+	},
+
+	{
+		"value": "es-ES",
+		"description": "Spanish (Spain)"
+	},
+
+	{
+		"value": "ja-JP",
+		"description": "Japanese (Japan)"
+	},
+
+	{
+		"value": "zh-CN",
+		"description": "Chinese (China)"
+	}
+]

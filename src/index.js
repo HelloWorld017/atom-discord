@@ -1,6 +1,7 @@
 const DisUI = require('../dist/disui.bundle.js');
 const fs = require('fs');
 const {ipcRenderer, remote} = require('electron');
+const i18nList = require('../i18n/index.json');
 const matched = require('../data/matched.json');
 const path = require('path');
 const Vue = require('vue');
@@ -42,7 +43,7 @@ const config = {
 	logPath: path.join(atom.getConfigDirPath(), 'atom-discord', 'log.txt'),
 	customization: {},
 	usable: true,
-	loggable: atom.config.get('atom-discord.behaviour.debugLog')
+	loggable: atom.config.get('atom-discord.troubleShooting.debugLog')
 };
 
 
@@ -127,7 +128,7 @@ const initialize = async () => {
 
 	if(config.loggable) {
 		try {
-			await promisify(fs.writeFile)(config.logPath, '');
+			if(!fs.existsSync(config.logPath)) await promisify(fs.writeFile)(config.logPath, '');
 		} catch(err) {
 			showError('generate-failed', {file: 'log.txt'}, err.stack);
 			config.loggable = false;
@@ -194,16 +195,20 @@ const saveCustomization = async () => {
 };
 
 const updateConfig = (
+	isInit = false,
 	i18n = atom.config.get('atom-discord.i18n'),
 	privacy = atom.config.get('atom-discord.privacy'),
-	behaviour = atom.config.get('atom-discord.behaviour')
+	behaviour = atom.config.get('atom-discord.behaviour'),
+	troubleShooting = atom.config.get('atom-discord.troubleShooting')
 ) => {
 	config.i18n.value = require(`../i18n/${i18n}.json`);
 
 	ipcRenderer.send('atom-discord.config-update', {
+		isInit,
 		i18n: config.i18n.value,
 		privacy,
-		behaviour
+		behaviour,
+		troubleShooting
 	});
 };
 
@@ -283,7 +288,7 @@ const createLoop = () => {
 	const rendererId = Math.random().toString(36).slice(2);
 	ipcRenderer.send('atom-discord.online', {id: rendererId});
 
-	if(atom.config.get('atom-discord.behaviour.noDiscordNotification')) {
+	if(atom.config.get('atom-discord.troubleShooting.noDiscordNotification')) {
 		ipcRenderer.once('atom-discord.noDiscord', () => {
 			showError('error-no-discord');
 		});
@@ -291,21 +296,25 @@ const createLoop = () => {
 };
 
 atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
-	updateConfig(newValue);
+	updateConfig(false, newValue);
 });
 
 atom.config.onDidChange('atom-discord.privacy', ({newValue}) => {
-	updateConfig(undefined, newValue);
+	updateConfig(false, undefined, newValue);
 });
 
 atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
-	updateConfig(undefined, undefined, newValue)
+	updateConfig(false, undefined, undefined, newValue);
+});
+
+atom.config.onDidChange('atom-discord.troubleShooting', ({newValue}) => {
+	updateConfig(false, undefined, undefined, undefined, newValue);
 });
 
 module.exports = {
 	activate() {
 		initialize().then(() => {
-			updateConfig();
+			updateConfig(true);
 			createLoop();
 
 			atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
@@ -320,105 +329,98 @@ module.exports = {
 
 	config: {
 		behaviour: {
-			title: "Behaviour",
+			title: translate('config-behaviour'),
 			description: "",
 			type: "object",
 			properties: {
 				sendSmallImage: {
-					title: "Display small Atom logo",
+					title: translate('config-behaviour-sendSmallImage'),
 					description: "",
 					type: "boolean",
-					default: true
+					default: true,
+					order: 1
 				},
 
 				sendLargeImage: {
-					title: "Display large file type image",
+					title: translate('config-behaviour-sendLargeImage'),
 					description: "",
 					type: "boolean",
-					default: true
+					default: true,
+					order: 2
 				},
 
 				preferType: {
-					title: "Prefer file type",
-					description: "Send file type as description instead of file name.",
+					title: translate('config-behaviour-preferType'),
+					description: translate('config-behaviour-preferType-desc'),
 					type: "boolean",
-					default: false
+					default: false,
+					order: 3
 				},
 
 				showFilenameOnLargeImage: {
-					title: "Show file name on large image",
-					description: "",
+					title: translate('config-behaviour-showFilenameOnLargeImage'),
+					description: translate('config-behaviour-showFilenameOnLargeImage-desc'),
 					type: "boolean",
-					default: false
-				},
-
-				updateTick: {
-					title: "Update tick",
-					description: "Interval between state update (ms)",
-					type: "number",
-					default: 15e3
+					default: false,
+					order: 4
 				},
 
 				alternativeIcon: {
-					title: "Atom Icon",
-					description: "Select icon for small icons",
+					title: translate('config-behaviour-alternativeIcon'),
+					description: translate('config-behaviour-alternativeIcon-desc'),
 					type: "string",
 					enum: [
 						{
 							value: "atom-original",
-							description: "Original Atom Icon"
+							description: translate('config-behaviour-alternativeIcon-atom-original')
 						},
 
 						{
 							value: "atom",
-							description: "Atom Alternative Icon 1 (Monotone)"
+							description: translate('config-behaviour-alternativeIcon-atom')
 						},
 
 						{
 							value: "atom-2",
-							description: "Atom Alternative Icon 2 (Gradient)"
+							description: translate('config-behaviour-alternativeIcon-atom-2')
 						},
 
 						{
 							value: "atom-3",
-							description: "Atom Alternative Icon 3 (Polyhedron)"
+							description: translate('config-behaviour-alternativeIcon-atom-3')
 						},
 
 						{
 							value: "atom-5",
-							description: "Atom Alternative Icon 4 (Dark, Rhombus)"
+							description: translate('config-behaviour-alternativeIcon-atom-5')
 						}
 					],
-					default: "atom"
+					default: "atom",
+					order: 5
 				},
 
 				useRestIcon: {
-					title: "Use rest icon",
-					description: "Use rest icon for idle status.",
+					title: translate('config-behaviour-useRestIcon'),
+					description: translate('config-behaviour-useRestIcon-desc'),
 					type: "boolean",
-					default: true
+					default: true,
+					order: 6
 				},
 
-				ubuntuPatch: {
-					title: "Patch Ubuntu 18.04 Bug",
-					description: "Patch Discord Rich Presence not showing on Ubuntu 18.04. " +
-						"Tick this when you installed discord from Ubuntu Software",
-					type: "boolean",
-					default: false
+				updateTick: {
+					title: translate('config-behaviour-updateTick'),
+					description: translate('config-behaviour-updateTick-desc'),
+					type: "number",
+					default: 15e3,
+					order: 7
 				},
 
-				debugLog: {
-					title: "Debug Mode",
-					description: "Log debugging messages in atom-discord directory",
-					type: "boolean",
-					default: false
-				},
-
-				noDiscordNotification: {
-					title: "No Discord Notification",
-					description: "Show warning notification when discord IPC wasn't established",
-					type: "boolean",
-					default: false
+				customAppId: {
+					title: translate('config-behaviour-customAppId'),
+					description: translate('config-behaviour-customAppId-desc'),
+					type: "string",
+					default: '380510159094546443',
+					order: 8
 				}
 			},
 			order: 1
@@ -429,128 +431,78 @@ module.exports = {
 			description: "Select Language",
 			type: "string",
 			default: "en-US",
-			enum: [
-				{
-					value: "nl-NL",
-					description: "Dutch (Netherlands)"
-				},
-
-				{
-					value: "en-US",
-					description: "English (United States)"
-				},
-
-				{
-					value: "fr-FR",
-					description: "French (France)"
-				},
-
-				{
-					value: "de-DE",
-					description: "German (Germany)"
-				},
-
-				{
-					value: "he-IL",
-					description: "Hebrew (Israel)"
-				},
-
-				{
-					value: "it-IT",
-					description: "Italian (Italy)"
-				},
-
-				{
-					value: "ko-KR",
-					description: "Korean (Korea)"
-				},
-
-				{
-					value: "no-NO",
-					description: "Norwegian (Bokmal)"
-				},
-
-				{
-					value: "pl-PL",
-					description: "Polish (Poland)"
-				},
-
-				{
-					value: "pt-BR",
-					description: "Portuguese (Brazil)"
-				},
-
-				{
-					value: "ro-RO",
-					description: "Romanian (Romania)"
-				},
-
-				{
-					value: "ru-RU",
-					description: "Russian (Russia)"
-				},
-
-				{
-					value: "es-ES",
-					description: "Spanish (Spain)"
-				},
-
-				{
-					value: "ja-JP",
-					description: "Japanese (Japan)"
-				},
-
-				{
-					value: "zh-CN",
-					description: "Chinese (China)"
-				}
-			],
-
+			enum: i18nList,
 			order: 2
 		},
 
 		privacy: {
-			title: "Privacy",
-			description: "Select things to integrate",
+			title: translate('config-privacy'),
+			description: translate('config-privacy-desc'),
 			type: "object",
 			properties: {
-				sendLargeImage: {
-					title: "Display large file type image",
-					description: "",
-					type: "boolean",
-					default: true
-				},
-
 				sendFilename: {
-					title: "Send File name",
-					description: "Integrate file name.",
+					title: translate('config-privacy-sendFilename'),
+					description: translate('config-privacy-sendFilename-desc'),
 					type: "boolean",
 					default: true
 				},
 
 				sendProject: {
-					title: "Send Project name",
-					description: "Integrate project name.",
+					title: translate('config-privacy-sendProject'),
+					description: translate('config-privacy-sendProject-desc'),
 					type: "boolean",
 					default: true
 				},
 
 				sendFileType: {
-					title: "Send file type",
-					description: "Integrate type of files.",
+					title: translate('config-privacy-sendFileType'),
+					description: translate('config-privacy-sendFileType-desc'),
 					type: "boolean",
 					default: true
 				},
 
 				sendElapsed: {
-					title: "Send elapsed time",
-					description: "Integrate elapsed time when you started coding.",
+					title: translate('config-privacy-sendElapsed'),
+					description: translate('config-privacy-sendElapsed-desc'),
 					type: "boolean",
 					default: true
 				}
 			},
 
 			order: 3
+		},
+
+		troubleShooting: {
+			title: translate('config-troubleshooting'),
+			description: translate('config-troubleshooting-desc'),
+			type: "object",
+			properties: {
+				ubuntuPatch: {
+					title: translate('config-troubleshooting-ubuntuPatch'),
+					description: translate('config-troubleshooting-ubuntuPatch-desc'),
+					type: "boolean",
+					default: false,
+					order: 1
+				},
+
+				debugLog: {
+					title: translate('config-troubleshooting-debugLog'),
+					description: translate('config-troubleshooting-debugLog-desc'),
+					type: "boolean",
+					default: false,
+					order: 2
+				},
+
+				noDiscordNotification: {
+					title: translate('config-troubleshooting-noDiscordNotification'),
+					description: translate('config-troubleshooting-noDiscordNotification-desc'),
+					type: "boolean",
+					default: false,
+					order: 3
+				}
+			},
+
+			order: 4
 		}
 	}
 };

@@ -1,9 +1,9 @@
+const fs = require('fs');
 const {ipcMain, webContents} = require('electron');
 const path = require('path');
+const util = require('util');
 const {Client} = require('../dist/rpc.bundle.js');
 const matched = require('../data/matched.json');
-
-const DISCORD_ID = '380510159094546443';
 
 if (!String.prototype.padStart) {
 	String.prototype.padStart = function padStart(targetLength,padString) {
@@ -29,6 +29,7 @@ const config = {
 	translations: {},
 	privacy: {},
 	behaviour: {},
+	troubleShooting: {},
 	getTranslation(key, args = {}) {
 		let tr = config.translations[key];
 		if(!tr) return "UNDEFINED_TRANSLATION";
@@ -73,7 +74,7 @@ const logging = {
 		if(this.enabled) {
 			const date = new Date;
 			this.logs.push(`[${date.toTimeString()}] ${text}`);
-			if(this.lastFlush + 5000 > Date.now()) {
+			if(this.lastFlush + 5000 < Date.now()) {
 				setTimeout(() => this.flushLog(), 6000);
 				this.lastFlush = Date.now();
 			}
@@ -125,7 +126,8 @@ class DiscordSender {
 	}
 
 	setupRpc() {
-		if(this.rpc) return;
+		if(this.rpc) return new Promise(resolve => resolve());
+		const clientId = config.behaviour.customAppId;
 
 		return new Promise((resolve, reject) => {
 			if(typeof Client === 'undefined') return reject("No client available!");
@@ -133,25 +135,34 @@ class DiscordSender {
 			const rpc = new Client({ transport: 'ipc' });
 
 			let previousPath = process.env.XDG_RUNTIME_DIR;
-			if(config.behaviour.ubuntuPatch) {
+			if(config.troubleShooting.ubuntuPatch) {
 				const { env: { XDG_RUNTIME_DIR, TMPDIR, TMP, TEMP } } = process;
 				const prefix = XDG_RUNTIME_DIR || TMPDIR || TMP || TEMP || '/tmp';
 
 				prefix += '/snap.discord';
 
 				process.env.XDG_RUNTIME_DIR = prefix;
+
+				logging.log("Experimental Ubuntu Snap Patch Enabled.");
 			}
 
 			rpc.on('ready', () => {
 				this.rpc = rpc;
 				this.destroied = false;
 
-				if(config.behaviour.ubuntuPatch) {
+				if(config.troubleShooting.ubuntuPatch) {
 					process.env.XDG_RUNTIME_DIR = previousPath;
 				}
+
+				logging.log("Logged in successfully.");
 				resolve();
 			});
-			rpc.login(DISCORD_ID).catch(reject);
+
+			logging.log(`Logging in RPC with ID ${clientId}`);
+
+			rpc.login({
+				clientId
+			}).catch(reject);
 		});
 	}
 
@@ -201,13 +212,17 @@ class DiscordSender {
 			if(this.largeImage.text === config.getTranslation('developer-idle'))
 				details = config.getTranslation('editing-idle');
 			else
-				details = this.largeImage.text;
+				details = largeImageText
 		}
+
 		if(config.behaviour.showFilenameOnLargeImage) {
 			largeImageText = this.fileName ? config.getTranslation('editing-file', {
 				fileName: this.fileName
 			}) : config.getTranslation('developer-idle');
+
+			if(!config.privacy.sendFilename) largeImageText = config.getTranslation('type-unknown');
 		}
+
 		if(config.behaviour.useRestIcon && !this.fileName) largeImageKey = 'rest';
 		if(!config.behaviour.sendSmallImage) smallImageKey = null, smallImageText = null;
 		if(!config.behaviour.sendLargeImage) largeImageKey = null, largeImageText = null;
@@ -325,15 +340,32 @@ class DiscordSender {
 }
 
 const sender = new DiscordSender();
-sender.setupRpc().then((v) => {
-	sender.loop();
-});
 
-ipcMain.on('atom-discord.config-update', (event, {i18n, privacy: _privacy, behaviour: _behaviour}) => {
-	config.translations = i18n;
-	config.behaviour = _behaviour;
-	config.privacy = _privacy;
-});
+ipcMain.on(
+	'atom-discord.config-update',
+	(event, {
+		isInit,
+		i18n,
+		privacy: _privacy,
+		behaviour: _behaviour,
+		troubleShooting: _troubleShooting
+	}) => {
+		config.translations = i18n;
+		config.behaviour = _behaviour;
+		config.privacy = _privacy;
+		config.troubleShooting = _troubleShooting;
+
+		if(isInit) {
+			logging.log("Initializing Configurations, RPC");
+
+			sender.setupRpc().then((v) => {
+				sender.loop();
+			}).catch(err => {
+				logging.log(util.inspect(err));
+			});
+		}
+	}
+);
 
 ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
 	logging.enabled = loggable;

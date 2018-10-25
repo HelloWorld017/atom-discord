@@ -1,3 +1,3 @@
-import rpc from "discord-rpc";
+const rpc = require("discord-rpc");
 
-export default rpc;
+module.exports = rpc;
