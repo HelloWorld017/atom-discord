@@ -4,7 +4,7 @@
   <b>Atom-Discord</b><br>
   <a href="https://discord.gg/zfEs3K6">Support</a> |
   <a href="https://atom.io/packages/atom-discord">Atom</a> |
-  <a href="https://github.com/HelloWorld017/atom-discord/blob/master/faq.md">FAQ</a>
+  <a href="https://github.com/HelloWorld017/atom-discord/blob/master/FAQ.md">FAQ</a>
   <br><br>
 </p>
 
@@ -12,19 +12,19 @@
   <a href="https://david-dm.org/HelloWorld017/atom-discord">
     <img src="https://img.shields.io/david/HelloWorld017/atom-discord.svg?style=flat-square" alt="David">
   </a>
-  
+
   <a href="https://github.com/HelloWorld017/atom-discord/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/HelloWorld017/atom-discord.svg?style=flat-square" alt="License">
   </a>
-  
+
   <a href="https://atom.io/packages/atom-discord">
     <img src="https://img.shields.io/apm/v/atom-discord.svg?style=flat-square" alt="Apm Version">
   </a>
-  
+
   <a href="https://atom.io/packages/atom-discord">
     <img src="https://img.shields.io/apm/dm/atom-discord.svg?style=flat-square" alt="Apm Version">
   </a>
-  
+
   <a href="https://discord.gg/zfEs3K6">
     <img src="https://img.shields.io/discord/405937562813726730.svg?logo=discord&style=flat-square&label=Discord&colorA=7289da&colorB=606060" alt="Discord">
   </a>
@@ -72,12 +72,12 @@ Then **add atom to discord game list** and restart atom to see the effects.
 * Check if you restarted the Atom. (If not works, please restart discord, too.)
 * Check if there are some outputs in developer tools `(ctrl + shift + i)`.
 
-If you checked all of them but you couldn't find the reason why, please come to discord and send your symptom with your operating system and console output when you run atom in terminal.
+If you checked all of them but you couldn't find the reason why, please come to discord and send your symptom with your operating system and `~/.atom/atom-discord/log.txt`
 
 
 # FAQ / Know Errors
 
-[Please visit here to see all the known errors / questions](https://github.com/HelloWorld017/atom-discord/blob/master/faq.md)
+[Please visit here to see all the known errors / questions](https://github.com/HelloWorld017/atom-discord/blob/master/FAQ.md)
 
 
 # Todos

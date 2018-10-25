@@ -41,13 +41,13 @@ Click [Here](https://discordapp.com/developers/applications/me) and create a new
 2. **Set your app name and turn on rich presence.**  
 ![Set App Name](https://i.imgur.com/2iSR7Q3.png)
 ![Turn on Rich Presence](https://i.imgur.com/GydIB7q.png)
-> Make sure to click `Create App` first or you won't see the `Enable Rich Presence` button! 
+> Make sure to click `Create App` first or you won't see the `Enable Rich Presence` button!
 
 3. **Set Client ID to your application.**   
 Copy your `Client ID` (found here)
-![Copy](https://i.imgur.com/vVw7XjC.png) 
-And replace `DISCORD_ID` in `(UserDirectory)/.atom/packages/atom-discord/src/send-discord.js` to your `Client ID`.  
-![Replace](https://i.imgur.com/6mUbGWd.png)
+![Copy](https://i.imgur.com/vVw7XjC.png)
+
+And change `Settings > Behaviour > Custom Client ID` into your Client ID.
 
 > Now your playing status will have changed, but the icon's wont work unless you do the following.
 
