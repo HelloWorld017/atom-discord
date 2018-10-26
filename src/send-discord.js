@@ -64,7 +64,7 @@ const logging = {
 	flushLog() {
 		if(this.path === '') return;
 
-		const text = this.logs.join('\n');
+		const text = this.logs.join('\n') + '\n';
 		this.logs = [];
 
 		if(text.length > 0) fs.appendFile(this.path, text, () => {});
@@ -203,7 +203,7 @@ class DiscordSender {
 
 		// Remove privacy-related things
 		if(!config.privacy.sendProject) state = config.getTranslation('working-no-project');
-		if(!config.privacy.sendFilename) details = config.getTranslation('type-unknown');
+		if(!config.privacy.sendFilename && this.fileName) details = config.getTranslation('type-unknown');
 		if(!config.privacy.sendFileType) largeImageKey = 'text', largeImageText = config.getTranslation('type-unknown');
 		if(!config.privacy.sendElapsed) startTimestamp = null;
 
@@ -220,7 +220,7 @@ class DiscordSender {
 				fileName: this.fileName
 			}) : config.getTranslation('developer-idle');
 
-			if(!config.privacy.sendFilename) largeImageText = config.getTranslation('type-unknown');
+			if(!config.privacy.sendFilename && this.fileName) largeImageText = config.getTranslation('type-unknown');
 		}
 
 		if(config.behaviour.useRestIcon && !this.fileName) largeImageKey = 'rest';

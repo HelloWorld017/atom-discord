@@ -36,7 +36,7 @@ const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 const config = {
 	i18n: {
 		default: require('../i18n/en-US.json'),
-		value: {}
+		value: require(`../i18n/${atom.config.get('atom-discord.i18n')}.json`)
 	},
 	directory: path.join(atom.getConfigDirPath(), 'atom-discord'),
 	path: path.join(atom.getConfigDirPath(), 'atom-discord', 'customize.json'),
@@ -69,8 +69,6 @@ const showError = (key, args, detail) => {
 };
 
 const initialize = async () => {
-	I18N_VALUE = require(`../i18n/${atom.config.get('atom-discord.i18n')}.json`);
-
 	try {
 		remote.require(SEND_DISCORD_PATH);
 	} catch(err) {
@@ -128,7 +126,7 @@ const initialize = async () => {
 
 	if(config.loggable) {
 		try {
-			if(!fs.existsSync(config.logPath)) await promisify(fs.writeFile)(config.logPath, '');
+			await promisify(fs.writeFile)(config.logPath, '');
 		} catch(err) {
 			showError('generate-failed', {file: 'log.txt'}, err.stack);
 			config.loggable = false;
