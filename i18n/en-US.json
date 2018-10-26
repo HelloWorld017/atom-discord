@@ -36,7 +36,7 @@
 	"config-behaviour": "Behaviour",
 	"config-behaviour-sendSmallImage": "Display small Atom logo",
 	"config-behaviour-sendLargeImage": "Display large file type image",
-	"config-behaviour-preferType": "Prefer file type",
+	"config-behaviour-preferType": "Show file type on description",
 	"config-behaviour-preferType-desc": "Send file type as description instead of file name.",
 	"config-behaviour-showFilenameOnLargeImage": "Show file name on large image",
 	"config-behaviour-showFilenameOnLargeImage-desc": "Send file name as large image instead of file type.",
