@@ -58,8 +58,11 @@ const config = {
 
 	customIcons: {},
 
-	initConfig() {
-		config.translations = require(`../i18n/${atomApplication.config.get('atom-discord.i18n')}.json`);
+	updateConfig(configObject) {
+		logging.log(`[Configs]\n${util.inspect(configObject)}`);
+
+		if(Object.keys(config.translations).length === 0)
+			config.translations = require(`../i18n/${configObject.i18n}.json`);
 
 		[
 			'behaviour',
@@ -71,10 +74,7 @@ const config = {
 			'rest',
 			'troubleShooting'
 		].forEach(k => {
-			config[k] = atomApplication.config.get(`atom-discord.${k}`);
-			atomApplication.config.onDidChange(`atom-discord.${k}`, ({newValue, oldValue}) => {
-				config[k] = newValue;
-			});
+			config[k] = configObject[k];
 		});
 	}
 };
@@ -121,7 +121,7 @@ class DiscordSender {
 	constructor() {
 		this.projectName = null;
 		this.fileName = null;
-		this.typeDescriptor = null;
+		this.typeDescriptor = undefined;
 		this.textSets = {};
 		this.imageSets = {};
 		this.startTimestamp = Date.now();
@@ -167,7 +167,7 @@ class DiscordSender {
 		const clientId = config.behaviour.customAppId;
 
 		return new Promise((resolve, reject) => {
-			logging.log("Initializing RPC");
+			logging.log("Initializing RPC...");
 
 			if(typeof Client === 'undefined') return reject("No client available!");
 
@@ -220,6 +220,8 @@ class DiscordSender {
 	}
 
 	fillValues() {
+		if(this.typeDescriptor === undefined) return;
+
 		this.textSets["false"] = null;
 
 		this.textSets["working-project"] = this.projectName ? config.getTranslation('working-project', {
@@ -238,33 +240,35 @@ class DiscordSender {
 		this.imageSets["currentType"] = this.typeDescriptor.icon;
 
 		if(this.isResting) {
-			this.textSets["editing-file"] = this.getTextValue(config.rest.fileName, config.fileNameCustom);
-			this.textSets["type-description"] = this.getTextValue(config.rest.typeName, config.typeNameCustom);
+			this.textSets["editing-file"] = this.getTextValue(config.rest.fileName, config.rest.fileNameCustom);
+			this.textSets["type-description"] = this.getTextValue(config.rest.typeName, config.rest.typeNameCustom);
 		}
 	}
 
 	getTextValue(type, custom) {
-		if(this.textSets[type]) return this.textSets[type];
+		if(this.textSets[type] !== undefined) return this.textSets[type];
+
+		const args = {
+			projectName: this.projectName,
+			fileName: this.fileName,
+			type: this.typeDescriptor.text
+		};
 
 		if(type === 'custom') {
-			return config.replaceTranslationArgs(custom, {
-				projectName: this.projectName,
-				fileName: this.fileName,
-				type: this.typeDescriptor.text
-			});
+			return config.replaceTranslationArgs(custom, args);
 		}
 
-		return config.getTranslation(type);
+		return config.getTranslation(type, args);
 	}
 
 	getImageValue(type, custom) {
-		if(this.imageSets[type]) return this.imageSets[type];
+		if(this.imageSets[type] !== undefined) return this.imageSets[type];
 
 		if(type === 'custom') {
 			type = custom;
 		}
 
-		if(config.customIcons[type]) return config.customIcons[type];
+		if(config.customIcons[type] !== undefined) return config.customIcons[type];
 
 		return type;
 	}
@@ -290,7 +294,7 @@ class DiscordSender {
 		packet.smallImageText = this.getTextValue(config.smallImage.text, config.smallImage.textCustom);
 
 		// Fill elapsed
-		const timestamp = this.startTimestamp.getTime();
+		const timestamp = this.startTimestamp;
 		if(config.elapsed.handleRest === 'pause') {
 			if(this.isResting) {
 				timestamp += (Date.now() - this.restStartTimestamp);
@@ -298,12 +302,15 @@ class DiscordSender {
 				timestamp += this.restedAmount;
 			}
 		}
-		packet.startTimestamp = config.elapsed.send ? timestamp : null;
+		packet.startTimestamp = config.elapsed.send ? Math.floor(timestamp / 1000) : null;
 
 		// Resting
 		if(this.isResting) {
-			packet.smallImageKey = this.getImageValue(config.rest.smallImage, config.rest.smallImageCustom);
-			packet.largeImageKey = this.getImageValue(config.rest.largeImage, config.rest.largeImageCustom);
+			if(config.rest.smallImage !== 'default')
+				packet.smallImageKey = this.getImageValue(config.rest.smallImage, config.rest.smallImageCustom);
+
+			if(config.rest.largeImage !== 'default')
+				packet.largeImageKey = this.getImageValue(config.rest.largeImage, config.rest.largeImageCustom);
 		}
 
 
@@ -314,7 +321,7 @@ class DiscordSender {
 		this.rpc.clearActivity();
 	}
 
-	updateActivity(projectName, fileName) {
+	updateActivity(projectName, fileName, focus) {
 		// Stopped resting
 		const resumedActivity = fileName && this.isResting;
 
@@ -349,6 +356,10 @@ class DiscordSender {
 				icon: 'text',
 				text: ''
 			};
+		}
+
+		if(!focus && config.rest.restOnBlur) {
+			this.fileName = null;
 		}
 
 		// Update text, images
@@ -387,7 +398,7 @@ class DiscordSender {
 
 	async loop() {
 		try {
-			if(this.destroied) await this.setupRpc(Client)
+			if(this.isRendererOnline && this.destroied) await this.setupRpc(Client)
 		} catch(e) {
 			logging.log(e.stack);
 
@@ -437,18 +448,30 @@ class DiscordSender {
 	}
 
 	get isResting() {
-		return !!this.fileName;
+		return !this.fileName;
 	}
 }
 
-logging.log("Initializing configs...");
-config.initConfig();
-
 const sender = new DiscordSender();
-sender.setupRpc().then((v) => {
-	sender.loop();
-}).catch(err => {
-	logging.log(util.inspect(err));
+
+ipcMain.on('atom-discord.initialize', event => {
+	logging.log("Initializing configs...");
+	event.sender.executeJavaScript("atom.config.get('atom-discord')").then(configObject => {
+		config.updateConfig(configObject);
+		sender.fillValues();
+		sender.setupRpc().then((v) => {
+			sender.loop();
+		}).catch(err => {
+			logging.log(util.inspect(err));
+		});
+	});
+});
+
+ipcMain.on('atom-discord.updateConfig', event => {
+	event.sender.executeJavaScript("atom.config.get('atom-discord')").then(configObject => {
+		config.updateConfig(configObject);
+		sender.fillValues();
+	});
 });
 
 ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
@@ -462,8 +485,8 @@ ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
 	}
 });
 
-ipcMain.on('atom-discord.data-update', (event, {projectName, currEditor: fileName}) => {
-	sender.updateActivity(projectName, fileName);
+ipcMain.on('atom-discord.data-update', (event, {projectName, currEditor: fileName, pluginOnline: focus}) => {
+	sender.updateActivity(projectName, fileName, focus);
 });
 
 ipcMain.on('atom-discord.online', (event, {id}) => {
@@ -477,3 +500,5 @@ ipcMain.on('atom-discord.offline', (event, {id}) => {
 ipcMain.on('atom-discord.toggle', (event) => {
 	sender.toggle();
 });
+
+global.$ATOM_DISCORD = true;

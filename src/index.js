@@ -70,7 +70,12 @@ const showError = (key, args, detail) => {
 
 const initialize = async () => {
 	try {
+		const notInitialized = !remote.getGlobal("$ATOM_DISCORD");
 		remote.require(SEND_DISCORD_PATH);
+
+		if(notInitialized) {
+			ipcRenderer.send('atom-discord.initialize');
+		}
 	} catch(err) {
 		showError('error-while-require', {}, err.stack);
 	}
@@ -192,53 +197,36 @@ const saveCustomization = async () => {
 	}
 };
 
-const updateConfig = (
-	isInit = false,
-	i18n = atom.config.get('atom-discord.i18n'),
-	privacy = atom.config.get('atom-discord.privacy'),
-	behaviour = atom.config.get('atom-discord.behaviour'),
-	troubleShooting = atom.config.get('atom-discord.troubleShooting')
-) => {
-	config.i18n.value = require(`../i18n/${i18n}.json`);
-
-	ipcRenderer.send('atom-discord.config-update', {
-		isInit,
-		i18n: config.i18n.value,
-		privacy,
-		behaviour,
-		troubleShooting
-	});
-};
-
 const updater = {};
 const createLoop = () => {
+	//Get current editor and subscribe updates.
+
+	let currEditor = null;
+	let projectName = null;
 	let pluginOnline = true;
+
+	const updateData = () => {
+		ipcRenderer.send('atom-discord.data-update', {
+			currEditor,
+			projectName,
+			pluginOnline
+		});
+	};
 
 	atom.getCurrentWindow().on('blur', () => {
 		pluginOnline = false;
+		updateData();
 	});
 
 	atom.getCurrentWindow().on('focus', () => {
 		pluginOnline = true;
+		updateData();
 	});
 
 	atom.getCurrentWindow().on('close', () => {
 		ipcRenderer.send('atom-discord.offline', {id: rendererId});
 		pluginOnline = false;
 	});
-
-	//Get current editor and subscribe updates.
-
-	let currEditor = null;
-	let projectName = null;
-
-	const updateData = () => {
-		ipcRenderer.send('atom-discord.data-update', {
-			currEditor,
-			projectName
-		});
-	};
-
 
 	let onlineEditor = atom.workspace.getActiveTextEditor();
 	if(onlineEditor && onlineEditor.getTitle) currEditor = onlineEditor.getTitle();
@@ -304,6 +292,10 @@ module.exports = {
 
 			atom.commands.add('atom-text-editor', "atom-discord:project-customize", (ev) => {
 				showCustomizeProject();
+			});
+
+			atom.config.onDidChange('atom-discord', ev => {
+				setTimeout(() => ipcRenderer.send('atom-discord.updateConfig'), 500);
 			});
 		});
 	},

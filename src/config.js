@@ -29,7 +29,7 @@ module.exports = function createConfig(translate) {
 
 		{
 			value: 'atom-description',
-			description: translate('config-text-atom')
+			description: translate('atom-description')
 		},
 
 		{
@@ -290,7 +290,7 @@ module.exports = function createConfig(translate) {
 		rest: {
 			title: translate('config-rest'),
 			description: translate('config-rest-desc'),
-			type: 'objects',
+			type: 'object',
 			properties: {
 				restOnBlur: {
 					title: translate('config-rest-restOnBlur'),
