@@ -27,23 +27,56 @@ const REGEX_REGEX = /^\/(.*)\/([mgiy]+)$/;
 
 const config = {
 	translations: {},
-	privacy: {},
 	behaviour: {},
+	smallImage: {},
+	largeImage: {},
+	state: {},
+	detail: {},
+	elapsed: {},
+	rest: {},
 	troubleShooting: {},
+
 	getTranslation(key, args = {}) {
 		let tr = config.translations[key];
 		if(!tr) return "UNDEFINED_TRANSLATION";
 
+		return config.replaceTranslationArgs(tr, args);
+	},
+
+	replaceTranslationArgs(tr, args) {
 		Object.keys(args).forEach((i) => tr = tr.replace(new RegExp(`%${i}%`, 'g'), args[i]));
 
 		return tr;
 	},
+
 	icon: new Map(Object.keys(matched).map((key) => {
 		let match = key.match(REGEX_REGEX);
 		if(!match) return [key, matched[key]];
 
 		return [new RegExp(match[1], match[2]), matched[key]];
-	}))
+	})),
+
+	customIcons: {},
+
+	initConfig() {
+		config.translations = require(`../i18n/${atomApplication.config.get('atom-discord.i18n')}.json`);
+
+		[
+			'behaviour',
+			'smallImage',
+			'largeImage',
+			'state',
+			'detail',
+			'elapsed',
+			'rest',
+			'troubleShooting'
+		].forEach(k => {
+			config[k] = atomApplication.config.get(`atom-discord.${k}`);
+			atomApplication.config.onDidChange(`atom-discord.${k}`, ({newValue, oldValue}) => {
+				config[k] = newValue;
+			});
+		});
+	}
 };
 
 const normalize = (object) => {
@@ -88,8 +121,12 @@ class DiscordSender {
 	constructor() {
 		this.projectName = null;
 		this.fileName = null;
-		this.largeImage = null;
-		this.startTimestamp = new Date;
+		this.typeDescriptor = null;
+		this.textSets = {};
+		this.imageSets = {};
+		this.startTimestamp = Date.now();
+		this.restStartTimestamp = null;
+		this.restedAmount = null;
 
 		this.onlineRenderers = {};
 		this.rpc = null;
@@ -130,6 +167,8 @@ class DiscordSender {
 		const clientId = config.behaviour.customAppId;
 
 		return new Promise((resolve, reject) => {
+			logging.log("Initializing RPC");
+
 			if(typeof Client === 'undefined') return reject("No client available!");
 
 			const rpc = new Client({ transport: 'ipc' });
@@ -180,67 +219,95 @@ class DiscordSender {
 		logging.log("Done destroying RPC Client. It is now safe to turn off the computer.")
 	}
 
+	fillValues() {
+		this.textSets["false"] = null;
+
+		this.textSets["working-project"] = this.projectName ? config.getTranslation('working-project', {
+				projectName: this.projectName
+			}) : config.getTranslation('working-no-project');
+
+		this.textSets["editing-file"] = this.fileName ? config.getTranslation('editing-file', {
+				fileName: this.fileName
+			}) : null;
+
+		this.textSets["type-description"] = this.typeDescriptor.text ? config.getTranslation('type-description', {
+				type: this.typeDescriptor.text
+			}) : null;
+
+		this.imageSets["false"] = null;
+		this.imageSets["currentType"] = this.typeDescriptor.icon;
+
+		if(this.isResting) {
+			this.textSets["editing-file"] = this.getTextValue(config.rest.fileName, config.fileNameCustom);
+			this.textSets["type-description"] = this.getTextValue(config.rest.typeName, config.typeNameCustom);
+		}
+	}
+
+	getTextValue(type, custom) {
+		if(this.textSets[type]) return this.textSets[type];
+
+		if(type === 'custom') {
+			return config.replaceTranslationArgs(custom, {
+				projectName: this.projectName,
+				fileName: this.fileName,
+				type: this.typeDescriptor.text
+			});
+		}
+
+		return config.getTranslation(type);
+	}
+
+	getImageValue(type, custom) {
+		if(this.imageSets[type]) return this.imageSets[type];
+
+		if(type === 'custom') {
+			type = custom;
+		}
+
+		if(config.customIcons[type]) return config.customIcons[type];
+
+		return type;
+	}
+
 	sendActivity() {
 		if(!this.rpc) return;
 		if(!this.isRendererOnline) return;
 
-		// Set packet variables
-		let state = this.projectName ? config.getTranslation('working-project', {
-			projectName: this.projectName
-		}) : config.getTranslation('working-no-project');
+		const packet = {};
 
-		let details = this.fileName ? config.getTranslation('editing-file', {
-			fileName: this.fileName
-		}) : config.getTranslation('editing-idle');
+		// Fill state
+		packet.state = this.getTextValue(config.state.text, config.state.textCustom);
 
-		let largeImageKey = this.largeImage ? this.largeImage.icon : null;
-		let largeImageText = this.largeImage ? this.largeImage.text : null;
+		// Fill details
+		packet.details = this.getTextValue(config.detail.text, config.detail.textCustom);
 
-		let smallImageKey = config.behaviour.alternativeIcon;
-		let smallImageText = config.getTranslation('atom-description');
+		// Fill largeImage
+		packet.largeImageKey = this.getImageValue(config.largeImage.image, config.largeImage.imageCustom);
+		packet.largeImageText = this.getTextValue(config.largeImage.text, config.largeImage.textCustom);
 
-		let startTimestamp = this.startTimestamp;
+		// Fill smallImage
+		packet.smallImageKey = this.getImageValue(config.smallImage.image, config.smallImage.imageCustom);
+		packet.smallImageText = this.getTextValue(config.smallImage.text, config.smallImage.textCustom);
 
-		// Remove privacy-related things
-		if(!config.privacy.sendProject) state = config.getTranslation('working-no-project');
-		if(!config.privacy.sendFilename && this.fileName) details = config.getTranslation('type-unknown');
-		if(!config.privacy.sendFileType) largeImageKey = 'text', largeImageText = config.getTranslation('type-unknown');
-		if(!config.privacy.sendElapsed) startTimestamp = null;
+		// Fill elapsed
+		const timestamp = this.startTimestamp.getTime();
+		if(config.elapsed.handleRest === 'pause') {
+			if(this.isResting) {
+				timestamp += (Date.now() - this.restStartTimestamp);
+			} else {
+				timestamp += this.restedAmount;
+			}
+		}
+		packet.startTimestamp = config.elapsed.send ? timestamp : null;
 
-		// Respect behaviour setting
-		if(config.behaviour.preferType) {
-			if(this.largeImage.text === config.getTranslation('developer-idle'))
-				details = config.getTranslation('editing-idle');
-			else
-				details = largeImageText
+		// Resting
+		if(this.isResting) {
+			packet.smallImageKey = this.getImageValue(config.rest.smallImage, config.rest.smallImageCustom);
+			packet.largeImageKey = this.getImageValue(config.rest.largeImage, config.rest.largeImageCustom);
 		}
 
-		if(config.behaviour.showFilenameOnLargeImage) {
-			largeImageText = this.fileName ? config.getTranslation('editing-file', {
-				fileName: this.fileName
-			}) : config.getTranslation('developer-idle');
 
-			if(!config.privacy.sendFilename && this.fileName) largeImageText = config.getTranslation('type-unknown');
-		}
-
-		if(config.behaviour.useRestIcon && !this.fileName) largeImageKey = 'rest';
-		if(!config.behaviour.sendSmallImage) smallImageKey = null, smallImageText = null;
-		if(!config.behaviour.sendLargeImage) largeImageKey = null, largeImageText = null;
-
-		let packet = normalize({
-			state,
-			details,
-
-			largeImageKey,
-			largeImageText,
-
-			smallImageKey,
-			smallImageText,
-
-			startTimestamp
-		});
-
-		this.rpc.setActivity(packet);
+		this.rpc.setActivity(normalize(packet));
 	}
 
 	clearActivity() {
@@ -248,9 +315,14 @@ class DiscordSender {
 	}
 
 	updateActivity(projectName, fileName) {
+		// Stopped resting
+		const resumedActivity = fileName && this.isResting;
+
+		// Set current activity
 		this.projectName = projectName;
 		this.fileName = fileName;
 
+		// Set type
 		if(this.fileName && config.icon) {
 			let found = false;
 
@@ -263,27 +335,53 @@ class DiscordSender {
 
 				if(result) {
 					found = true;
-					this.largeImage = value;
+					this.typeDescriptor = value;
 				}
 			});
 
-			if(!found) this.largeImage = {
+			if(!found) this.typeDescriptor = {
 				icon: 'text',
 				text: path.extname(this.fileName)
 			};
 
-			this.largeImage = {
-				icon: this.largeImage.icon,
-				text: config.getTranslation('type-description', {
-					type: this.largeImage.text
-				})
-			};
-
 		} else {
-			this.largeImage = {
+			this.typeDescriptor = {
 				icon: 'text',
-				text: config.getTranslation('developer-idle')
+				text: ''
 			};
+		}
+
+		// Update text, images
+		this.fillValues();
+
+		// Update rest-related timestamps
+		if(this.isResting) {
+			switch(config.elapsed.handleRest) {
+				case 'false':
+					break;
+
+				case 'reset':
+					this.startTimestamp = Date.now();
+					break;
+
+				case 'pause':
+					this.restStartTimestamp = Date.now();
+					break;
+			}
+		} else if(resumedActivity) {
+			switch(config.elapsed.handleRest) {
+				case 'false':
+					break;
+
+				case 'reset':
+					this.startTimestamp = Date.now();
+					break;
+
+				case 'pause':
+					this.restedAmount += Date.now() - this.restStartTimestamp;
+					this.restStartTimestamp = null;
+					break;
+			}
 		}
 	}
 
@@ -337,35 +435,21 @@ class DiscordSender {
 	get isRendererOnline() {
 		return Object.keys(this.onlineRenderers).some((v) => this.onlineRenderers[v]);
 	}
+
+	get isResting() {
+		return !!this.fileName;
+	}
 }
 
+logging.log("Initializing configs...");
+config.initConfig();
+
 const sender = new DiscordSender();
-
-ipcMain.on(
-	'atom-discord.config-update',
-	(event, {
-		isInit,
-		i18n,
-		privacy: _privacy,
-		behaviour: _behaviour,
-		troubleShooting: _troubleShooting
-	}) => {
-		config.translations = i18n;
-		config.behaviour = _behaviour;
-		config.privacy = _privacy;
-		config.troubleShooting = _troubleShooting;
-
-		if(isInit) {
-			logging.log("Initializing Configurations, RPC");
-
-			sender.setupRpc().then((v) => {
-				sender.loop();
-			}).catch(err => {
-				logging.log(util.inspect(err));
-			});
-		}
-	}
-);
+sender.setupRpc().then((v) => {
+	sender.loop();
+}).catch(err => {
+	logging.log(util.inspect(err));
+});
 
 ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
 	logging.enabled = loggable;

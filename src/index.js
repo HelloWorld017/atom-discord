@@ -1,7 +1,7 @@
+const createConfig = require('./config');
 const DisUI = require('../dist/disui.bundle.js');
 const fs = require('fs');
 const {ipcRenderer, remote} = require('electron');
-const i18nList = require('../i18n/index.json');
 const matched = require('../data/matched.json');
 const path = require('path');
 const Vue = require('vue');
@@ -293,26 +293,9 @@ const createLoop = () => {
 	}
 };
 
-atom.config.onDidChange('atom-discord.i18n', ({newValue}) => {
-	updateConfig(false, newValue);
-});
-
-atom.config.onDidChange('atom-discord.privacy', ({newValue}) => {
-	updateConfig(false, undefined, newValue);
-});
-
-atom.config.onDidChange('atom-discord.behaviour', ({newValue}) => {
-	updateConfig(false, undefined, undefined, newValue);
-});
-
-atom.config.onDidChange('atom-discord.troubleShooting', ({newValue}) => {
-	updateConfig(false, undefined, undefined, undefined, newValue);
-});
-
 module.exports = {
 	activate() {
 		initialize().then(() => {
-			updateConfig(true);
 			createLoop();
 
 			atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
@@ -325,182 +308,5 @@ module.exports = {
 		});
 	},
 
-	config: {
-		behaviour: {
-			title: translate('config-behaviour'),
-			description: "",
-			type: "object",
-			properties: {
-				sendSmallImage: {
-					title: translate('config-behaviour-sendSmallImage'),
-					description: "",
-					type: "boolean",
-					default: true,
-					order: 1
-				},
-
-				sendLargeImage: {
-					title: translate('config-behaviour-sendLargeImage'),
-					description: "",
-					type: "boolean",
-					default: true,
-					order: 2
-				},
-
-				preferType: {
-					title: translate('config-behaviour-preferType'),
-					description: translate('config-behaviour-preferType-desc'),
-					type: "boolean",
-					default: false,
-					order: 3
-				},
-
-				showFilenameOnLargeImage: {
-					title: translate('config-behaviour-showFilenameOnLargeImage'),
-					description: translate('config-behaviour-showFilenameOnLargeImage-desc'),
-					type: "boolean",
-					default: false,
-					order: 4
-				},
-
-				alternativeIcon: {
-					title: translate('config-behaviour-alternativeIcon'),
-					description: translate('config-behaviour-alternativeIcon-desc'),
-					type: "string",
-					enum: [
-						{
-							value: "atom-original",
-							description: translate('config-behaviour-alternativeIcon-atom-original')
-						},
-
-						{
-							value: "atom",
-							description: translate('config-behaviour-alternativeIcon-atom')
-						},
-
-						{
-							value: "atom-2",
-							description: translate('config-behaviour-alternativeIcon-atom-2')
-						},
-
-						{
-							value: "atom-3",
-							description: translate('config-behaviour-alternativeIcon-atom-3')
-						},
-
-						{
-							value: "atom-5",
-							description: translate('config-behaviour-alternativeIcon-atom-5')
-						}
-					],
-					default: "atom",
-					order: 5
-				},
-
-				useRestIcon: {
-					title: translate('config-behaviour-useRestIcon'),
-					description: translate('config-behaviour-useRestIcon-desc'),
-					type: "boolean",
-					default: true,
-					order: 6
-				},
-
-				updateTick: {
-					title: translate('config-behaviour-updateTick'),
-					description: translate('config-behaviour-updateTick-desc'),
-					type: "number",
-					default: 15e3,
-					order: 7
-				},
-
-				customAppId: {
-					title: translate('config-behaviour-customAppId'),
-					description: translate('config-behaviour-customAppId-desc'),
-					type: "string",
-					default: '380510159094546443',
-					order: 8
-				}
-			},
-			order: 1
-		},
-
-		i18n: {
-			title: "i18n",
-			description: "Select Language",
-			type: "string",
-			default: "en-US",
-			enum: i18nList,
-			order: 2
-		},
-
-		privacy: {
-			title: translate('config-privacy'),
-			description: translate('config-privacy-desc'),
-			type: "object",
-			properties: {
-				sendFilename: {
-					title: translate('config-privacy-sendFilename'),
-					description: translate('config-privacy-sendFilename-desc'),
-					type: "boolean",
-					default: true
-				},
-
-				sendProject: {
-					title: translate('config-privacy-sendProject'),
-					description: translate('config-privacy-sendProject-desc'),
-					type: "boolean",
-					default: true
-				},
-
-				sendFileType: {
-					title: translate('config-privacy-sendFileType'),
-					description: translate('config-privacy-sendFileType-desc'),
-					type: "boolean",
-					default: true
-				},
-
-				sendElapsed: {
-					title: translate('config-privacy-sendElapsed'),
-					description: translate('config-privacy-sendElapsed-desc'),
-					type: "boolean",
-					default: true
-				}
-			},
-
-			order: 3
-		},
-
-		troubleShooting: {
-			title: translate('config-troubleshooting'),
-			description: translate('config-troubleshooting-desc'),
-			type: "object",
-			properties: {
-				ubuntuPatch: {
-					title: translate('config-troubleshooting-ubuntuPatch'),
-					description: translate('config-troubleshooting-ubuntuPatch-desc'),
-					type: "boolean",
-					default: false,
-					order: 1
-				},
-
-				debugLog: {
-					title: translate('config-troubleshooting-debugLog'),
-					description: translate('config-troubleshooting-debugLog-desc'),
-					type: "boolean",
-					default: false,
-					order: 2
-				},
-
-				noDiscordNotification: {
-					title: translate('config-troubleshooting-noDiscordNotification'),
-					description: translate('config-troubleshooting-noDiscordNotification-desc'),
-					type: "boolean",
-					default: false,
-					order: 3
-				}
-			},
-
-			order: 4
-		}
-	}
+	config: createConfig(translate)
 };
