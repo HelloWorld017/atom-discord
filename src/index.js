@@ -204,6 +204,7 @@ const createLoop = () => {
 	let currEditor = null;
 	let projectName = null;
 	let pluginOnline = true;
+	let pluginAfk = false;
 
 	const rendererId = Math.random().toString(36).slice(2);
 
@@ -211,12 +212,13 @@ const createLoop = () => {
 		ipcRenderer.send('atom-discord.data-update', {
 			currEditor,
 			projectName,
-			pluginOnline
+			pluginOnline: pluginOnline && !pluginAfk
 		});
 	};
 
 	atom.getCurrentWindow().on('blur', () => {
-		pluginOnline = false;
+		if(atom.config.get('atom-discord.rest.restOnBlur')) pluginOnline = false;
+		
 		updateData();
 	});
 
@@ -241,11 +243,11 @@ const createLoop = () => {
 		const afkLoop = () => {
 			const isAFK = Date.now() > lastSeen + atom.config.get('atom-discord.rest.restOnAfkThreshold') * 1000;
 
-			if(pluginOnline && isAFK) {
-				pluginOnline = false;
+			if(pluginAfk && isAFK) {
+				pluginAfk = false;
 				updateData();
-			} else if(!pluginOnline && !isAFK) {
-				pluginOnline = true;
+			} else if(!pluginAfk && !isAFK) {
+				pluginAfk = true;
 				updateData();
 			}
 

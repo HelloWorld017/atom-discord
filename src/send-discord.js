@@ -316,14 +316,14 @@ class DiscordSender {
 
 		try {
 			this.rpc.setActivity(normalize(packet)).catch(err => {
-				this.handleActivityError(err);
+				this.handleActivityError(err, packet);
 			});
 		} catch(err) {
-			this.handleActivityError(err);
+			this.handleActivityError(err, packet);
 		}
 	}
 
-	handleActivityError(err) {
+	handleActivityError(err, packet) {
 		logging.log("Error while sending Activity : " + util.inspect(err));
 		logging.log("Activity: " + util.inspect(packet));
 	}
@@ -334,8 +334,7 @@ class DiscordSender {
 
 	updateActivity(projectName, fileName, focus) {
 		// Stopped resting
-		const resumedActivity = fileName && this.isResting;
-		const pausedActivity = !this.isResting && !fileName;
+		const previousResting = this.isResting;
 
 		// Set current activity
 		this.projectName = projectName;
@@ -370,9 +369,12 @@ class DiscordSender {
 			};
 		}
 
-		if(!focus && config.rest.restOnBlur) {
+		if(!focus) {
 			this.fileName = null;
 		}
+
+		const resumedActivity = !this.isResting && previousResting;
+		const pausedActivity = this.isResting && !previousResting;
 
 		// Update text, images
 		this.fillValues();
@@ -392,7 +394,9 @@ class DiscordSender {
 					this.restStartTimestamp = Date.now();
 					break;
 			}
-		} else if(resumedActivity) {
+		}
+
+		if(resumedActivity) {
 			switch(config.elapsed.handleRest) {
 				case 'false':
 					break;
@@ -408,8 +412,10 @@ class DiscordSender {
 					break;
 
 				case 'pause':
-					this.startTimestamp += Date.now() - this.restStartTimestamp;
-					this.restStartTimestamp = null;
+					if(this.restStartTimestamp) {
+						this.startTimestamp += Date.now() - this.restStartTimestamp;
+						this.restStartTimestamp = null;
+					}
 					break;
 			}
 		}
