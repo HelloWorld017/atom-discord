@@ -125,8 +125,7 @@ class DiscordSender {
 		this.textSets = {};
 		this.imageSets = {};
 		this.startTimestamp = Date.now();
-		this.restStartTimestamp = null;
-		this.restedAmount = null;
+		this.restStartTimestamp = Date.now();
 
 		this.onlineRenderers = {};
 		this.rpc = null;
@@ -294,14 +293,16 @@ class DiscordSender {
 		packet.smallImageText = this.getTextValue(config.smallImage.text, config.smallImage.textCustom);
 
 		// Fill elapsed
-		const timestamp = this.startTimestamp;
-		if(config.elapsed.handleRest === 'pause') {
-			if(this.isResting) {
-				timestamp += (Date.now() - this.restStartTimestamp);
-			} else {
-				timestamp += this.restedAmount;
-			}
+		let timestamp = this.startTimestamp;
+
+		if(config.elapsed.handleRest === 'pause' && this.isResting) {
+			timestamp += (Date.now() - this.restStartTimestamp);
 		}
+
+		if(config.elapsed.handleRest === 'resetAfterDelay' && this.isResting) {
+			timestamp = this.restStartTimestamp;
+		}
+
 		packet.startTimestamp = config.elapsed.send ? Math.floor(timestamp / 1000) : null;
 
 		// Resting
@@ -313,8 +314,18 @@ class DiscordSender {
 				packet.largeImageKey = this.getImageValue(config.rest.largeImage, config.rest.largeImageCustom);
 		}
 
+		try {
+			this.rpc.setActivity(normalize(packet)).catch(err => {
+				this.handleActivityError(err);
+			});
+		} catch(err) {
+			this.handleActivityError(err);
+		}
+	}
 
-		this.rpc.setActivity(normalize(packet));
+	handleActivityError(err) {
+		logging.log("Error while sending Activity : " + util.inspect(err));
+		logging.log("Activity: " + util.inspect(packet));
 	}
 
 	clearActivity() {
@@ -324,6 +335,7 @@ class DiscordSender {
 	updateActivity(projectName, fileName, focus) {
 		// Stopped resting
 		const resumedActivity = fileName && this.isResting;
+		const pausedActivity = !this.isResting && !fileName;
 
 		// Set current activity
 		this.projectName = projectName;
@@ -366,7 +378,7 @@ class DiscordSender {
 		this.fillValues();
 
 		// Update rest-related timestamps
-		if(this.isResting) {
+		if(pausedActivity) {
 			switch(config.elapsed.handleRest) {
 				case 'false':
 					break;
@@ -375,6 +387,7 @@ class DiscordSender {
 					this.startTimestamp = Date.now();
 					break;
 
+				case 'resetAfterDelay':
 				case 'pause':
 					this.restStartTimestamp = Date.now();
 					break;
@@ -388,8 +401,14 @@ class DiscordSender {
 					this.startTimestamp = Date.now();
 					break;
 
+				case 'resetAfterDelay':
+					if(Date.now() > this.restStartTimestamp + config.elapsed.handleRestDelay * 1000) {
+						this.startTimestamp = Date.now();
+					}
+					break;
+
 				case 'pause':
-					this.restedAmount += Date.now() - this.restStartTimestamp;
+					this.startTimestamp += Date.now() - this.restStartTimestamp;
 					this.restStartTimestamp = null;
 					break;
 			}

@@ -264,24 +264,42 @@ module.exports = function createConfig(translate) {
 					enum: [
 						{
 							value: 'false',
-							label: translate('config-elapsed-handleRest-disabled'),
-							description: translate('config-elapsed-handleRest-disabled-desc')
+							description:
+								`[${translate('config-elapsed-handleRest-disabled')}] ` +
+								translate('config-elapsed-handleRest-disabled-desc')
 						},
 
 						{
 							value: 'reset',
-							label: translate('config-elapsed-handleRest-reset'),
-							description: translate('config-elapsed-handleRest-reset-desc')
+							description:
+								`[${translate('config-elapsed-handleRest-reset')}] ` +
+								translate('config-elapsed-handleRest-reset-desc')
+						},
+
+						{
+							value: 'resetAfterDelay',
+							description:
+								`[${translate('config-elapsed-handleRest-resetAfterDelay')}] ` +
+								translate('config-elapsed-handleRest-resetAfterDelay-desc')
 						},
 
 						{
 							value: 'pause',
-							label: translate('config-elapsed-handleRest-pause'),
-							description: translate('config-elapsed-handleRest-pause-desc')
+							description:
+								`[${translate('config-elapsed-handleRest-pause')}] ` +
+								translate('config-elapsed-handleRest-pause-desc')
 						}
 					],
 					default: 'false',
 					order: 2
+				},
+
+				handleRestDelay: {
+					title: translate('config-elapsed-handleRestDelay'),
+					description: translate('config-elapsed-handleRestDelay-desc'),
+					type: 'number',
+					default: 60,
+					order: 3
 				}
 			},
 			order: 7
@@ -300,13 +318,29 @@ module.exports = function createConfig(translate) {
 					order: 1
 				},
 
+				restOnAfk: {
+					title: translate('config-rest-restOnAfk'),
+					description: translate('config-rest-restOnAfk-desc'),
+					type: 'boolean',
+					default: false,
+					order: 2
+				},
+
+				restOnAfkThreshold: {
+					title: translate('config-rest-restOnAfkThreshold'),
+					description: translate('config-rest-restOnAfkThreshold-desc'),
+					type: 'number',
+					default: 180,
+					order: 3
+				},
+
 				smallImage: {
 					title: translate('config-rest-smallImage'),
 					description: translate('config-rest-smallImage-desc'),
 					type: 'string',
 					enum: imageEnumRest,
 					default: 'default',
-					order: 2
+					order: 4
 				},
 
 				smallImageCustom: {
@@ -314,7 +348,7 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-smallImageCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 3
+					order: 5
 				},
 
 				largeImage: {
@@ -323,7 +357,7 @@ module.exports = function createConfig(translate) {
 					type: 'string',
 					enum: imageEnumRest,
 					default: 'rest',
-					order: 4
+					order: 6
 				},
 
 				largeImageCustom: {
@@ -331,7 +365,7 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-largeImageCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 5
+					order: 7
 				},
 
 				typeName: {
@@ -340,7 +374,7 @@ module.exports = function createConfig(translate) {
 					type: 'string',
 					enum: textEnumRest,
 					default: 'developer-idle',
-					order: 6
+					order: 8
 				},
 
 				typeNameCustom: {
@@ -348,7 +382,7 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-typeNameCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 7
+					order: 9
 				},
 
 				fileName: {
@@ -357,7 +391,7 @@ module.exports = function createConfig(translate) {
 					type: 'string',
 					enum: textEnumRest,
 					default: 'editing-idle',
-					order: 8
+					order: 10
 				},
 
 				fileNameCustom: {
@@ -365,7 +399,7 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-fileNameCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 9
+					order: 11
 				}
 			},
 			order: 8

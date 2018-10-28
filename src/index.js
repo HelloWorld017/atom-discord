@@ -205,6 +205,8 @@ const createLoop = () => {
 	let projectName = null;
 	let pluginOnline = true;
 
+	const rendererId = Math.random().toString(36).slice(2);
+
 	const updateData = () => {
 		ipcRenderer.send('atom-discord.data-update', {
 			currEditor,
@@ -227,6 +229,33 @@ const createLoop = () => {
 		ipcRenderer.send('atom-discord.offline', {id: rendererId});
 		pluginOnline = false;
 	});
+
+	const afkHandle = () => {
+		let lastSeen = Date.now();
+		const updateAfk = () => lastSeen = Date.now();
+
+		document.addEventListener('mousemove', () => updateAfk());
+		document.addEventListener('mousedown', () => updateAfk());
+		atom.views.getView(atom.workspace).addEventListener('keydown', () => updateAfk());
+
+		const afkLoop = () => {
+			const isAFK = Date.now() > lastSeen + atom.config.get('atom-discord.rest.restOnAfkThreshold') * 1000;
+
+			if(pluginOnline && isAFK) {
+				pluginOnline = false;
+				updateData();
+			} else if(!pluginOnline && !isAFK) {
+				pluginOnline = true;
+				updateData();
+			}
+
+			setTimeout(afkLoop, 1000);
+		};
+
+		afkLoop();
+	};
+
+	if(atom.config.get('atom-discord.rest.restOnAfk')) afkHandle();
 
 	let onlineEditor = atom.workspace.getActiveTextEditor();
 	if(onlineEditor && onlineEditor.getTitle) currEditor = onlineEditor.getTitle();
@@ -271,7 +300,6 @@ const createLoop = () => {
 	updater.updateProjectName = updateProjectName;
 	updater.updateData = updateData;
 
-	const rendererId = Math.random().toString(36).slice(2);
 	ipcRenderer.send('atom-discord.online', {id: rendererId});
 
 	if(atom.config.get('atom-discord.troubleShooting.noDiscordNotification')) {
