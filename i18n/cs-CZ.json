@@ -1,7 +1,7 @@
 {
 	"working-project": "Pracuje na %projectName%",
 	"working-no-project": "Pracuje na projektu",
-	"editing-file": "Efituje %fileName%",
+	"editing-file": "Edituje %fileName%",
 	"editing-idle": "Odpočívá",
 	"atom-description": "Pracuje v Atomu",
 	"type-description": "Edituje %type% soubor",
