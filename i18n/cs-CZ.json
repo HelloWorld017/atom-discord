@@ -234,8 +234,7 @@
 	"config-troubleshooting-debugLog": "Debug Mód",
 	"config-troubleshooting-debugLog-desc": "Log debugging messages in atom-discord directory",
 	"config-troubleshooting-noDiscordNotification": "No Discord Notification",
-	"config-troubleshooting-noDiscordNotification-desc": "Show warning notification when discord is turned off or connection wasn't established"
-",
+	"config-troubleshooting-noDiscordNotification-desc": "Show warning notification when discord is turned off or connection wasn't established",
 	"config-rest-typeNameCustom-desc": "Set this to the custom text if you selected 'Custom' on Type Name. %projectName% is supported.",
 	"config-rest-fileName": "File Name",
 	"config-rest-fileName-desc": "This will be shown instead of the filename.",
