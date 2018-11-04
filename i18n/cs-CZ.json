@@ -248,5 +248,5 @@
 	"config-troubleshooting-debugLog": "Debug Mód",
 	"config-troubleshooting-debugLog-desc": "Log debugging messages in atom-discord directory",
 	"config-troubleshooting-noDiscordNotification": "No Discord Notification",
-	"config-troubleshooting-noDiscordNotification-desc": "Show warning notification when discord is turned off or connection wasn't established"
+	"config-troubleshooting-noDiscordNotification-desc": "Show warning notification when discord is turned off or connection wasn't established", 
 }
