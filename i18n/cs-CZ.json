@@ -4,7 +4,7 @@
 	"editing-file": "Efituje %fileName%",
 	"editing-idle": "Odpočívá",
 	"atom-description": "Pracuje v Atomu",
-	"type-description": "Bearbeitet eine %type% Datei",
-	"type-unknown": "Bearbeitet eine Datei",
-	"developer-idle": "Tento vývojář dokonce dokáže i ODPOCUVAT!"
+	"type-description": "Edituje %type% soubor",
+	"type-unknown": "Edituje soubor",
+	"developer-idle": "Tento vývojář dokonce dokáže i ODPOČÍVAT!"
 }
