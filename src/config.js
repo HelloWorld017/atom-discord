@@ -439,3 +439,94 @@ module.exports = function createConfig(translate) {
 		}
 	};
 };
+
+module.exports.migrateV1toV2 = () => {
+	const behaviour = atom.config.get('atom-discord.behaviour');
+	if(behaviour.sendSmallImage !== undefined) {
+		if(!behaviour.sendSmallImage) {
+			atom.config.set('atom-discord.smallImage.image', 'false');
+		}
+		atom.config.unset('atom-discord.behaviour.sendSmallImage');
+	}
+
+	if(behaviour.sendLargeImage !== undefined) {
+		if(!behaviour.sendLargeImage) {
+			atom.config.set('atom-discord.largeImage.image', 'false');
+		}
+		atom.config.unset('atom-discord.behaviour.sendLargeImage');
+	}
+
+	if(behaviour.preferType !== undefined) {
+		if(behaviour.preferType) {
+			atom.config.set('atom-discord.state.text', 'type-description');
+		}
+		atom.config.unset('atom-discord.behaviour.preferType');
+	}
+
+	if(behaviour.showFilenameOnLargeImage !== undefined) {
+		if(behaviour.showFilenameOnLargeImage) {
+			atom.config.set('atom-discord.largeImage.text', 'editing-file');
+		}
+		atom.config.unset('atom-discord.behaviour.showFilenameOnLargeImage');
+	}
+
+	if(behaviour.alternativeIcon !== undefined) {
+		atom.config.set('atom-discord.smallImage.image', behaviour.alternativeIcon);
+		atom.config.unset('atom-discord.behaviour.alternativeIcon');
+	}
+
+	if(behaviour.useRestIcon !== undefined) {
+		if(!behaviour.useRestIcon) {
+			atom.config.set('atom-discord.rest.largeImage', 'text');
+		}
+		atom.config.unset('atom-discord.behaviour.useRestIcon');
+	}
+
+	const privacy = atom.config.get('atom-discord.privacy');
+	if(privacy.sendLargeImage !== undefined) {
+		// Useless configuration
+		atom.config.unset('atom-discord.privacy.sendLargeImage');
+	}
+
+	if(privacy.sendFilename !== undefined) {
+		if(!privacy.sendFilename) {
+			if(!behaviour.preferType) {
+				atom.config.set('atom-discord.state.text', 'type-unknown');
+			}
+
+			if(behaviour.showFilenameOnLargeImage) {
+				atom.config.set('atom-discord.largeImage.text', 'type-unknown');
+			}
+		}
+		atom.config.unset('atom-discord.privacy.sendFilename');
+	}
+
+	if(privacy.sendProject !== undefined) {
+		if(!privacy.sendProject) {
+			atom.config.set('atom-discord.detail.text', 'working-no-project');
+		}
+		atom.config.unset('atom-discord.privacy.sendProject');
+	}
+
+	if(privacy.sendFileType !== undefined) {
+		if(!privacy.sendFilename) {
+			atom.config.set('atom-discord.largeImage.image', 'text');
+
+			if(behaviour.preferType) {
+				atom.config.set('atom-discord.state.text', 'type-unknown');
+			}
+
+			if(!behaviour.showFilenameOnLargeImage) {
+				atom.config.set('atom-discord.largeImage.text', 'type-unknown');
+			}
+		}
+		atom.config.unset('atom-discord.privacy.sendFileType');
+	}
+
+	if(privacy.sendElapsed !== undefined) {
+		if(!privacy.sendElapsed) {
+			atom.config.set('atom-discord.elapsed.send', false);
+		}
+		atom.config.unset('atom-discord.privacy.sendElapsed');
+	}
+};
