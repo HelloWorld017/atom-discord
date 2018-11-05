@@ -218,7 +218,7 @@ const createLoop = () => {
 
 	atom.getCurrentWindow().on('blur', () => {
 		if(atom.config.get('atom-discord.rest.restOnBlur')) pluginOnline = false;
-		
+
 		updateData();
 	});
 
@@ -243,10 +243,10 @@ const createLoop = () => {
 		const afkLoop = () => {
 			const isAFK = Date.now() > lastSeen + atom.config.get('atom-discord.rest.restOnAfkThreshold') * 1000;
 
-			if(pluginAfk && isAFK) {
+			if(pluginAfk && !isAFK) {
 				pluginAfk = false;
 				updateData();
-			} else if(!pluginAfk && !isAFK) {
+			} else if(!pluginAfk && isAFK) {
 				pluginAfk = true;
 				updateData();
 			}
