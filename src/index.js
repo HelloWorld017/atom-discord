@@ -36,7 +36,7 @@ const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 const config = {
 	i18n: {
 		default: require('../i18n/en-US.json'),
-		value: require(`../i18n/${atom.config.get('atom-discord.i18n')}.json`)
+		value: require(`../i18n/${atom.config.get('atom-discord.i18n') || 'en-US'}.json`)
 	},
 	directory: path.join(atom.getConfigDirPath(), 'atom-discord'),
 	path: path.join(atom.getConfigDirPath(), 'atom-discord', 'customize.json'),
