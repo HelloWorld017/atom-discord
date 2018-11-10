@@ -26,7 +26,9 @@ if (!String.prototype.padStart) {
 const REGEX_REGEX = /^\/(.*)\/([mgiy]+)$/;
 
 const config = {
-	translations: {},
+	translations: {
+		key: null
+	},
 	behaviour: {},
 	smallImage: {},
 	largeImage: {},
@@ -61,8 +63,10 @@ const config = {
 	updateConfig(configObject) {
 		logging.log(`[Configs]\n${util.inspect(configObject)}`);
 
-		if(Object.keys(config.translations).length === 0)
+		if(config.translations.key !== configObject.i18n) {
 			config.translations = require(`../i18n/${configObject.i18n}.json`);
+			config.translations.key = configObject.i18n;
+		}
 
 		[
 			'behaviour',
@@ -175,7 +179,7 @@ class DiscordSender {
 			let previousPath = process.env.XDG_RUNTIME_DIR;
 			if(config.troubleShooting.ubuntuPatch) {
 				const { env: { XDG_RUNTIME_DIR, TMPDIR, TMP, TEMP } } = process;
-				const prefix = XDG_RUNTIME_DIR || TMPDIR || TMP || TEMP || '/tmp';
+				let prefix = XDG_RUNTIME_DIR || TMPDIR || TMP || TEMP || '/tmp';
 
 				prefix += '/snap.discord';
 
