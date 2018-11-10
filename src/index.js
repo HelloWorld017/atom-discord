@@ -203,7 +203,7 @@ const createLoop = () => {
 
 	let currEditor = null;
 	let projectName = null;
-	let pluginOnline = true;
+	let pluginBlur = false;
 	let pluginAfk = false;
 
 	const rendererId = Math.random().toString(36).slice(2);
@@ -212,24 +212,12 @@ const createLoop = () => {
 		ipcRenderer.send('atom-discord.data-update', {
 			currEditor,
 			projectName,
-			pluginOnline: pluginOnline && !pluginAfk
+			pluginOnline: !pluginBlur && !pluginAfk
 		});
 	};
 
-	atom.getCurrentWindow().on('blur', () => {
-		if(atom.config.get('atom-discord.rest.restOnBlur')) pluginOnline = false;
-
-		updateData();
-	});
-
-	atom.getCurrentWindow().on('focus', () => {
-		pluginOnline = true;
-		updateData();
-	});
-
 	atom.getCurrentWindow().on('close', () => {
 		ipcRenderer.send('atom-discord.offline', {id: rendererId});
-		pluginOnline = false;
 	});
 
 	const afkHandle = () => {
@@ -258,6 +246,32 @@ const createLoop = () => {
 	};
 
 	if(atom.config.get('atom-discord.rest.restOnAfk')) afkHandle();
+
+
+	const blurHandle = () => {
+		let lastBlur = null;
+
+		atom.getCurrentWindow().on('focus', () => {
+			pluginBlur = false;
+			lastBlur = null;
+			updateData();
+		});
+
+		atom.getCurrentWindow().on('blur', () => {
+			const blurDate = Date.now();
+			lastBlur = blurDate;
+
+			setTimeout(() => {
+				if(lastBlur === blurDate) {
+					pluginBlur = true;
+					updateData();
+				}
+			}, atom.config.get('atom-discord.rest.restOnBlurThreshold'));
+		});
+	};
+
+	if(atom.config.get('atom-discord.rest.restOnBlur')) blurHandle();
+
 
 	let onlineEditor = atom.workspace.getActiveTextEditor();
 	if(onlineEditor && onlineEditor.getTitle) currEditor = onlineEditor.getTitle();
