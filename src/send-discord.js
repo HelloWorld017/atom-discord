@@ -61,7 +61,7 @@ const config = {
 	customIcons: {},
 
 	updateConfig(configObject) {
-		logging.log(`[Configs]\n${util.inspect(configObject)}`);
+		logging.log(`[Configs]\n${util.inspect(configObject)}`, false);
 
 		if(config.translations.key !== configObject.i18n) {
 			config.translations = require(`../i18n/${configObject.i18n}.json`);
@@ -107,7 +107,7 @@ const logging = {
 		if(text.length > 0) fs.appendFile(this.path, text, () => {});
 	},
 
-	log(text) {
+	log(text, logToTerminal=true) {
 		if(this.enabled) {
 			const date = new Date;
 			this.logs.push(`[${date.toTimeString()}] ${text}`);
@@ -117,7 +117,7 @@ const logging = {
 			}
 		}
 
-		console.log(text);
+		if(logToTerminal) console.log(text);
 	}
 };
 
@@ -181,11 +181,12 @@ class DiscordSender {
 				const { env: { XDG_RUNTIME_DIR, TMPDIR, TMP, TEMP } } = process;
 				let prefix = XDG_RUNTIME_DIR || TMPDIR || TMP || TEMP || '/tmp';
 
-				prefix += '/snap.discord';
+				prefix = prefix.replace(/\/$/, '') + '/snap.discord';
 
 				process.env.XDG_RUNTIME_DIR = prefix;
 
 				logging.log("Experimental Ubuntu Snap Patch Enabled.");
+				logging.log(`Redirected XDG_RUNTIME_DIR into ${prefix}`);
 			}
 
 			rpc.on('ready', () => {
@@ -194,6 +195,8 @@ class DiscordSender {
 
 				if(config.troubleShooting.ubuntuPatch) {
 					process.env.XDG_RUNTIME_DIR = previousPath;
+
+					if(previousPath === undefined) delete process.env.XDG_RUNTIME_DIR;
 				}
 
 				logging.log("Logged in successfully.");
@@ -241,11 +244,6 @@ class DiscordSender {
 
 		this.imageSets["false"] = null;
 		this.imageSets["currentType"] = this.typeDescriptor.icon;
-
-		if(this.isResting) {
-			this.textSets["editing-file"] = this.getTextValue(config.rest.fileName, config.rest.fileNameCustom);
-			this.textSets["type-description"] = this.getTextValue(config.rest.typeName, config.rest.typeNameCustom);
-		}
 	}
 
 	getTextValue(type, custom) {
@@ -316,6 +314,11 @@ class DiscordSender {
 
 			if(config.rest.largeImage !== 'default')
 				packet.largeImageKey = this.getImageValue(config.rest.largeImage, config.rest.largeImageCustom);
+
+			packet.state = this.getTextValue(config.rest.fileName, config.rest.fileNameCustom);
+			packet.details = this.getTextValue(config.rest.detail, config.rest.detailCustom);
+			packet.largeImageText = this.getTextValue(config.rest.typeName, config.rest.typeNameCustom);
+			packet.smallImageText = this.getTextValue(config.rest.smallImageText, config.rest.smallImageTextCustom);
 		}
 
 		try {
