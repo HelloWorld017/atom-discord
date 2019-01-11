@@ -359,13 +359,55 @@ module.exports = function createConfig(translate) {
 					order: 6
 				},
 
+				smallImageText: {
+					title: translate('config-rest-smallImageText'),
+					description: translate('config-rest-smallImageText-desc'),
+					type: 'string',
+					enum: [
+						{
+							value: 'false',
+							description: translate('config-text-disabled')
+						},
+
+						{
+							value: 'atom-description',
+							description: translate('atom-description')
+						},
+
+						{
+							value: 'editing-idle',
+							description: translate('editing-idle')
+						},
+
+						{
+							value: 'developer-idle',
+							description: translate('developer-idle')
+						},
+
+						{
+							value: 'custom',
+							description: translate('config-text-custom')
+						}
+					],
+					default: 'atom-description',
+					order: 7
+				},
+
+				smallImageTextCustom: {
+					title: translate('config-rest-smallImageTextCustom'),
+					description: translate('config-rest-smallImageTextCustom-desc'),
+					type: 'string',
+					default: '',
+					order: 8
+				},
+
 				largeImage: {
 					title: translate('config-rest-largeImage'),
 					description: translate('config-rest-largeImage-desc'),
 					type: 'string',
 					enum: imageEnumRest,
 					default: 'rest',
-					order: 7
+					order: 9
 				},
 
 				largeImageCustom: {
@@ -373,16 +415,17 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-largeImageCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 8
+					order: 10
 				},
 
+				// Large Image Text (for backward-compatibility)
 				typeName: {
 					title: translate('config-rest-typeName'),
 					description: translate('config-rest-typeName-desc'),
 					type: 'string',
 					enum: textEnumRest,
 					default: 'developer-idle',
-					order: 9
+					order: 11
 				},
 
 				typeNameCustom: {
@@ -390,16 +433,17 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-typeNameCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 10
+					order: 12
 				},
 
+				// State (for backward-compatibility)
 				fileName: {
 					title: translate('config-rest-fileName'),
 					description: translate('config-rest-fileName-desc'),
 					type: 'string',
 					enum: textEnumRest,
 					default: 'editing-idle',
-					order: 11
+					order: 13
 				},
 
 				fileNameCustom: {
@@ -407,7 +451,49 @@ module.exports = function createConfig(translate) {
 					description: translate('config-rest-fileNameCustom-desc'),
 					type: 'string',
 					default: '',
-					order: 12
+					order: 14
+				},
+
+				detail: {
+					title: translate('config-rest-detail'),
+					description: translate('config-rest-detail-desc'),
+					type: 'string',
+					enum: [
+						{
+							value: 'false',
+							description: translate('config-text-disabled')
+						},
+
+						{
+							value: 'working-project',
+							description: translate('working-project')
+						},
+
+						{
+							value: 'editing-idle',
+							description: translate('editing-idle')
+						},
+
+						{
+							value: 'developer-idle',
+							description: translate('developer-idle')
+						},
+
+						{
+							value: 'custom',
+							description: translate('config-text-custom')
+						}
+					],
+					default: 'working-project',
+					order: 15
+				},
+
+				detailCustom: {
+					title: translate('config-rest-detailCustom'),
+					description: translate('config-rest-detailCustom-desc'),
+					type: 'string',
+					default: '',
+					order: 16
 				}
 			},
 			order: 8

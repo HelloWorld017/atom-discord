@@ -33,6 +33,7 @@
 	"custom-name-primary": "OK",
 	"custom-name-secondary": "USE DEFAULT",
 
+
 	"config-image": "Image",
 	"config-image-desc": "Change Image",
 	"config-imageCustom": "Image Custom",
@@ -49,6 +50,7 @@
 	"config-image-rest": "Rest Icon",
 	"config-image-default": "Default",
 
+
 	"config-text": "Text",
 	"config-text-desc": "Change Text",
 	"config-textCustom": "Text Custom",
@@ -56,23 +58,29 @@
 	"config-text-disabled": "No Text",
 	"config-text-custom": "Custom",
 
+
 	"config-behaviour": "Behaviour",
 	"config-behaviour-updateTick": "Update tick",
 	"config-behaviour-updateTick-desc": "Interval between state update (ms)",
 	"config-behaviour-customAppId": "Custom Client ID",
 	"config-behaviour-customAppId-desc": "Use custom app to change icon, app names. WARNING: changing this may result in Rich Presence malfunction",
 
+
 	"config-smallImage": "Small Image",
 	"config-smallImage-desc": "Change content of small image on Rich Presence",
 
+
 	"config-largeImage": "Large Image",
-	"config-smallImage-desc": "Change content of large image on Rich Presence",
+	"config-largeImage-desc": "Change content of large image on Rich Presence",
+
 
 	"config-state": "State",
-	"config-state-desc": "Change content of primary text on Rich Presence",
+	"config-state-desc": "Change content of secondary text on Rich Presence",
+
 
 	"config-detail": "Detail",
-	"config-detail-desc": "Change content of secondary text on Rich Presence",
+	"config-detail-desc": "Change content of primary text on Rich Presence",
+
 
 	"config-elapsed": "Elapsed Time",
 	"config-elapsed-desc": "Change content of elapsed time on Rich Presence",
@@ -91,6 +99,7 @@
 	"config-elapsed-handleRestDelay": "Delay for 'Reset After Delay'",
 	"config-elapsed-handleRestDelay-desc": "If you selected 'Reset After Delay', resting more than this time(seconds) will reset the elapsed time.",
 
+
 	"config-rest": "Rest",
 	"config-rest-description": "Change behaviour while you're resting",
 	"config-rest-restOnBlur": "Rest on focus out",
@@ -101,22 +110,36 @@
 	"config-rest-restOnAfk-desc": "Change status to rest if there's no mouse or keyboard action for a while. (Needs restart atom)",
 	"config-rest-restOnAfkThreshold": "AFK Threshold",
 	"config-rest-restOnAfkThreshold-desc": "If you turned on 'Rest On AFK', no interactions more than this time(seconds) will set your status as 'rest'.",
+
 	"config-rest-smallImage": "Small Image",
 	"config-rest-smallImage-desc": "Change the small image icon",
 	"config-rest-smallImageCustom": "Small Image Custom Key",
 	"config-rest-smallImageCustom-desc": "Set this to the custom key if you selected 'Custom' on Small Image",
+	"config-rest-smallImageText": "Small Image Text",
+	"config-rest-smallImageText-desc": "This will be shown instead of the small image text.",
+	"config-rest-smallImageTextCustom": "Small Image Text Custom",
+	"config-rest-smallImageTextCustom-desc": "Set this to the custom text if you selected 'Custom' on Small Image Text. %projectName% is supported.",
+
 	"config-rest-largeImage": "Large Image",
 	"config-rest-largeImage-desc": "Change the large image icon",
 	"config-rest-largeImageCustom": "Large Image Custom Key",
 	"config-rest-largeImageCustom-desc": "Set this to the custom key if you selected 'Custom' on Large Image",
-	"config-rest-typeName": "Type Name",
-	"config-rest-typeName-desc": "This will be shown instead of the type.",
-	"config-rest-typeNameCustom": "Type Name Custom",
-	"config-rest-typeNameCustom-desc": "Set this to the custom text if you selected 'Custom' on Type Name. %projectName% is supported.",
-	"config-rest-fileName": "File Name",
-	"config-rest-fileName-desc": "This will be shown instead of the filename.",
-	"config-rest-fileNameCustom": "File Name Custom",
-	"config-rest-fileNameCustom-desc": "Set this to the custom text if you selected 'Custom' on File Name. %projectName% is supported.",
+
+	"config-rest-typeName": "Large Image Text",
+	"config-rest-typeName-desc": "This will be shown instead of the large image text",
+	"config-rest-typeNameCustom": "Large Image Text Custom",
+	"config-rest-typeNameCustom-desc": "Set this to the custom text if you selected 'Custom' on Large Image Text. %projectName% is supported.",
+
+	"config-rest-fileName": "State",
+	"config-rest-fileName-desc": "This will be shown instead of the state.",
+	"config-rest-fileNameCustom": "State Custom",
+	"config-rest-fileNameCustom-desc": "Set this to the custom text if you selected 'Custom' on State. %projectName% is supported.",
+
+	"config-rest-detail": "Details",
+	"config-rest-detail-desc": "This will be shown instead of the details.",
+	"config-rest-detailCustom": "Details Custom",
+	"config-rest-detailCustom-desc": "Set this to the custom text if you selected 'Custom' on Details. %projectName% is supported.",
+
 
 	"config-troubleshooting": "Trouble Shooting",
 	"config-troubleshooting-desc": "Options to handle discord integration troubles",
