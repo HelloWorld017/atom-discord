@@ -207,6 +207,14 @@ module.exports = function createConfig(translate) {
 					type: "string",
 					default: '380510159094546443',
 					order: 2
+				},
+
+				defaultProjectName: {
+					title: translate('config-behaviour-defaultProjectName'),
+					description: translate('config-behaviour-defaultProjectName-desc'),
+					type: 'string',
+					default: translate('config-behaviour-defaultProjectName-default'),
+					order: 3
 				}
 			},
 			order: 2

@@ -250,7 +250,7 @@ class DiscordSender {
 		if(this.textSets[type] !== undefined) return this.textSets[type];
 
 		const args = {
-			projectName: this.projectName,
+			projectName: this.projectName || config.behaviour.defaultProjectName,
 			fileName: this.fileName,
 			type: this.typeDescriptor.text
 		};

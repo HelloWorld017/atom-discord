@@ -330,8 +330,12 @@ module.exports = {
 		initialize().then(() => {
 			createLoop();
 
-			atom.commands.add('atom-text-editor', "atom-discord:toggle", (ev) => {
+			atom.commands.add('atom-workspace', "atom-discord:toggle", (ev) => {
 				ipcRenderer.send('atom-discord.toggle');
+			});
+
+			atom.commands.add('atom-workspace', "atom-discord:migrate", (ev) => {
+				createConfig.migrateV1toV2();
 			});
 
 			atom.commands.add('atom-text-editor', "atom-discord:project-customize", (ev) => {

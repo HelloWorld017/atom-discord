@@ -64,6 +64,9 @@
 	"config-behaviour-updateTick-desc": "Interval between state update (ms)",
 	"config-behaviour-customAppId": "Custom Client ID",
 	"config-behaviour-customAppId-desc": "Use custom app to change icon, app names. WARNING: changing this may result in Rich Presence malfunction",
+	"config-behaviour-defaultProjectName": "Default Project Name",
+	"config-behaviour-defaultProjectName-desc": "If some custom text uses %projectName% but there's no project, %projectName% will be substituted with this.",
+	"config-behaviour-defaultProjectName-default": "a project",
 
 
 	"config-smallImage": "Small Image",
