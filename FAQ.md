@@ -108,4 +108,16 @@ apm uninstall atom-discord
 
 Then, [reinstall atom-discord from the source code](https://github.com/HelloWorld017/atom-discord#installing-from-source-code)
 
+
+## Notes for Ubuntu users
+There are a known bug that discord **installed from snap / software center** doesn't show rich presence.
+
+If you're using ubuntu, installed discord from snap and rich presence isn't showing, please check you've turned on the `Ubuntu 18.04 fix` option.
+After turning the option and restarting atom, and if the problem still exists, please follow these steps.
+
+ * `sudo snap remove vscode discord`
+ * download the .deb files from the official websites
+ * install the .deb files using the `sudo dpkg -i package.dpkg` command
+ * DO NOT USE UBUNTU SOFTWARE CENTER, AS IT USES SNAP.
+
 If you're still running into trouble, please ask for help in our [support server](https://discordapp.com/invite/zfEs3K6)!
