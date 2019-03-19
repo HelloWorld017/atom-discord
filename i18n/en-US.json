@@ -66,7 +66,7 @@
 	"config-smallImage-desc": "Change content of small image on Rich Presence",
 
 	"config-largeImage": "Large Image",
-	"config-smallImage-desc": "Change content of large image on Rich Presence",
+	"config-largeImage-desc": "Change content of large image on Rich Presence",
 
 	"config-state": "State",
 	"config-state-desc": "Change content of primary text on Rich Presence",
@@ -92,7 +92,7 @@
 	"config-elapsed-handleRestDelay-desc": "If you selected 'Reset After Delay', resting more than this time(seconds) will reset the elapsed time.",
 
 	"config-rest": "Rest",
-	"config-rest-description": "Change behaviour while you're resting",
+	"config-rest-desc": "Change behaviour while you're resting",
 	"config-rest-restOnBlur": "Rest on focus out",
 	"config-rest-restOnBlur-desc": "Change status to rest if atom is not focused.",
 	"config-rest-restOnAfk": "Rest on AFK (Away-From-Keyboard)",
