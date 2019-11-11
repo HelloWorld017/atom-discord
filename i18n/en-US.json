@@ -76,7 +76,6 @@
 	"config-largeImage": "Large Image",
 	"config-largeImage-desc": "Change content of large image on Rich Presence",
 
-
 	"config-state": "State",
 	"config-state-desc": "Change content of secondary text on Rich Presence",
 
@@ -104,7 +103,7 @@
 
 
 	"config-rest": "Rest",
-	"config-rest-description": "Change behaviour while you're resting",
+	"config-rest-desc": "Change behaviour while you're resting",
 	"config-rest-restOnBlur": "Rest on focus out",
 	"config-rest-restOnBlur-desc": "Change status to rest if atom is not focused for a while.",
 	"config-rest-restOnBlurThreshold": "Rest on focus out Threshold",

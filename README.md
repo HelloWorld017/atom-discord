@@ -70,6 +70,7 @@ Then **add atom to discord game list** and restart atom to see the effects.
 * Check if the option `Display currently running game as a status message.` is turned on.  
 ![Imgur](https://i.imgur.com/OjFerWL.png)
 * Check if you restarted the Atom. (If not works, please restart discord, too.)
+* Please follow the [steps from FAQ](https://github.com/HelloWorld017/atom-discord/blob/master/FAQ.md#not-showing).  
 * Check if there are some outputs in developer tools `(ctrl + shift + i)`.
 
 If you checked all of them but you couldn't find the reason why, please come to discord and send your symptom with your operating system and `~/.atom/atom-discord/log.txt`
