@@ -16,7 +16,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "discord-rpc": "^3.0.1",
-    "vue": "^2.5.16",
+    "vue": "^2.6.10",
     "vue-ripple-directive": "^2.0.1"
   },
   "devDependencies": {
