@@ -1,0 +1,154 @@
+{
+	"working-project": "%projectName% üzerinde çalışıyor",
+	"working-no-project": "Bir proje üzerinde çalışıyor",
+	"editing-file": "%fileName% düzenliyor",
+	"editing-idle": "Boşta",
+	"atom-description": "Atom ile çalışıyor",
+	"type-description": "Bir %type% dosyası düzenliyor",
+	"type-unknown": "Bir dosya düzenliyor",
+	"developer-idle": "Geliştirici dinleneceği kadar dinlendi.",
+
+	"generate-failed": "config klasöründe %file% oluşturulamadı.",
+	"generate-failed-desc": "%file% oluşturulurken, bir hata ortaya çıktı.",
+	"read-failed": "config klasöründe %file% okunamadı.",
+	"read-failed-desc": "%file% okurken, bir hata ortaya çıktı.",
+	"write-failed": "config klasöründe %file% yazılamadı.",
+	"write-failed-desc": "%file% yazılırken, bir hata ortaya çıktı.",
+
+	"error-is-file": "config klasöründe atom-discord klasörü açılamadı.",
+	"error-is-file-desc": "atom-discord bir klasör değil, o bir dosya!",
+	"error-is-file-detail": "Lütfen %directory% kontrol edin.",
+	"error-is-directory": "config klasöründe %file% açılamadı.",
+	"error-is-directory-desc": "%file% bir dosya değil, ama bir klasör!",
+	"error-is-directory-detail": "Lütfen %directory% kontrol edin.",
+	"error-no-discord": "Discord açık değil!",
+	"error-no-discord-desc": "Discord açılana ve Atom yeniden başlatılana kadar rich presence görünmeyecektir.",
+	"error-no-discord-detail": "Bu bildirimi ayarlardan susturabilirsin.",
+	"error-while-require": "Discord gönderim kodunu çalıştırırken bir hata oluştu! :(",
+	"error-while-require-desc": "Rich presence görünmeyecek. Lütfen bu hatayı, hata koduyla birlikte upload edin.",
+
+	"not-in-project": "Hiçbir proje açılmadı!",
+
+	"custom-name": "Özel proje adı",
+	"custom-name-primary": "TAMAM",
+	"custom-name-secondary": "VARSAYILANI KULLAN",
+
+
+	"config-image": "Resim",
+	"config-image-desc": "Resmi değiştir",
+	"config-imageCustom": "Özel resim",
+	"config-imageCustom-desc": "Eğer Resim ayarını Özel seçtiysen buraya özel anahtarı gir",
+	"config-image-disabled": "Resim yok",
+	"config-image-currentType": "Dosya tipi simgesi",
+	"config-image-customImage": "Özel",
+	"config-image-atom-original": "Orijinal Atom simgesi",
+	"config-image-atom": "Alternatif Atom simgesi 1 (Monotone)",
+	"config-image-atom-2": "Alternatif Atom simgesi 2 (Gradient)",
+	"config-image-atom-3": "Alternatif Atom simgesi 3 (Polyhedron)",
+	"config-image-atom-5": "Alternatif Atom simgesi 4 (Dark, Rhombus)",
+	"config-image-text": "Yazı simgesi",
+	"config-image-rest": "Dinlenme simgesi",
+	"config-image-default": "Varsayılan",
+
+
+	"config-text": "Yazı",
+	"config-text-desc": "Yazıyı değiştir",
+	"config-textCustom": "Özel yazı",
+	"config-textCustom-desc": "Yazı ayarını Özel seçtiysen buraya özel yazını gir. %projectName%, %fileName%, %type% kullanılabilir.",
+	"config-text-disabled": "Yazı yok",
+	"config-text-custom": "Özel",
+
+
+	"config-behaviour": "Davranış",
+	"config-behaviour-updateTick": "Güncelleme aralığı",
+	"config-behaviour-updateTick-desc": "Durum güncellemesi yapılırkenki zaman aralığı (ms)",
+	"config-behaviour-customAppId": "Özel istemci(client) ID",
+	"config-behaviour-customAppId-desc": "Özel uygulama kullanarak simgeyi ve uygulama adını değiştirebilirsin. UYARI: bunu değiştirmek Rich Presence bozulmasına sebep olabilir",
+	"config-behaviour-defaultProjectName": "Varsayılan proje adı",
+	"config-behaviour-defaultProjectName-desc": "Eğer bir özel yazı %projectName% kullanıyorsa ama proje yoksa, %projectName% yerine bu kullanılacak.",
+	"config-behaviour-defaultProjectName-default": "bir proje",
+
+
+	"config-smallImage": "Küçük resim",
+	"config-smallImage-desc": "Rich Presence'deki küçük resmin içeriğini değiştir",
+
+
+	"config-largeImage": "Büyük resim",
+	"config-largeImage-desc": "Rich Presence'deki büyük resmin içeriğini değiştir",
+
+	"config-state": "Durum",
+	"config-state-desc": "Rich Presence'deki ikinci yazının içeriğini değiştir",
+
+
+	"config-detail": "Detay",
+	"config-detail-desc": "Rich Presence'deki ilk yazının içeriğini değiştir",
+
+
+	"config-elapsed": "Geçen süre",
+	"config-elapsed-desc": "Rich Presence'deki geçen süre içeriğini değiştir",
+	"config-elapsed-send": "Geçen süreyi gönder",
+	"config-elapsed-send-desc": "Eğer geçen sürenin görünmesini sitiyorsan bunu işaretle.",
+	"config-elapsed-handleRest": "Dinlenirken geçen süre",
+	"config-elapsed-handleRest-desc": "Dinlenirkenki davranışı değiştir",
+	"config-elapsed-handleRest-disabled": "Varsayılan",
+	"config-elapsed-handleRest-disabled-desc": "Geçen süre dinlenirken bile artmaya devam eder",
+	"config-elapsed-handleRest-reset": "Sıfırla",
+	"config-elapsed-handleRest-reset-desc": "Dinlenirken geçen süreyi sıfırla",
+	"config-elapsed-handleRest-resetAfterDelay": "Gecikmeden Sonra Sıfırla",
+	"config-elapsed-handleRest-resetAfterDelay-desc": "Bir süre dinlendikten sonra geçen süreyi sıfırla",
+	"config-elapsed-handleRest-pause": "Durdur",
+	"config-elapsed-handleRest-pause-desc": "Dinlenirken geçen sürenin artışını durdur.",
+	"config-elapsed-handleRestDelay": "'Gecikmeden Sonra Sıfırla' için gecikme süresi",
+	"config-elapsed-handleRestDelay-desc": "Eğer 'Gecikmeden Sonra Sıfırla' seçtiysen, bu süre(saniye) sonunda geçen süre sıfırlanacak.",
+
+
+	"config-rest": "Dinlenme",
+	"config-rest-desc": "Dinlenirkenki davranışı değiştir.",
+	"config-rest-restOnBlur": "Odak bozulunca dinlenmeye geç",
+	"config-rest-restOnBlur-desc": "Eğer Atom bir süredir odakta değilse durumu dinlenme olarak değiştir.",
+	"config-rest-restOnBlurThreshold": "Odakta değilken dinlenme",
+	"config-rest-restOnBlurThreshold-desc": "Eğer Atom bundan daha uzun bir süredir(saniye) odakta değilse, durumun dinlenmede olarak değiştirilir. (0: anında)",
+	"config-rest-restOnAfk": "AFK iken dinlenme (klavyeden-uzakta)",
+	"config-rest-restOnAfk-desc": "Bir süredir herhangi bir fare veya klavye hareketi olmazsa durumu dinlenme olarak değiştir. (Atom'u yeniden başlatmak gerekir)",
+	"config-rest-restOnAfkThreshold": "AFK Süresi",
+	"config-rest-restOnAfkThreshold-desc": "Eğer 'AFK iken dinlenme'yi açtıysan, bundan daha uzun bir süredir(saniye) bir etkileşim olmazsa durumun dinlenmede olarak değiştirilir.",
+
+	"config-rest-smallImage": "Küçük Resim",
+	"config-rest-smallImage-desc": "Küçük resim simgesini değiştir",
+	"config-rest-smallImageCustom": "Küçük Resim Özel Anahtarı",
+	"config-rest-smallImageCustom-desc": "Küçük Resim ayarında Özel seçtiysen buraya özel anahtarını gir.",
+	"config-rest-smallImageText": "Küçük Resim Yazısı",
+	"config-rest-smallImageText-desc": "Küçük resim yazısı yerine bu gösterilecek.",
+	"config-rest-smallImageTextCustom": "Özel Küçük Resim Yazısı",
+	"config-rest-smallImageTextCustom-desc": "Eğer Küçük Resim Yazısı ayarını Özel seçtiysen buraya özel yazını gir. %projectName% kullanılabilir.",
+
+	"config-rest-largeImage": "Büyük Resim",
+	"config-rest-largeImage-desc": "Büyük resim simgesini değiştir",
+	"config-rest-largeImageCustom": "Büyük Resim Özel Anahtarı",
+	"config-rest-largeImageCustom-desc": "Eğer Büyük Resim ayarını Özel seçtiysen buraya özel anahtarını gir.",
+
+	"config-rest-typeName": "Büyük Resim Yazısı",
+	"config-rest-typeName-desc": "Büyük resim yazısı yerine bu gösterilecek.",
+	"config-rest-typeNameCustom": "Özel Büyük Resim Yazısı",
+	"config-rest-typeNameCustom-desc": "Eğer Büyük Resim Yazısı ayarını Özel seçtiysen buraya özel yazını gir. %projectName% kullanılabilir.",
+
+	"config-rest-fileName": "Durum",
+	"config-rest-fileName-desc": "Durum yerine bu gösterilecek.",
+	"config-rest-fileNameCustom": "Özel Durum",
+	"config-rest-fileNameCustom-desc": "Eğer Büyük Resim Yazısı ayarını Özel seçtiysen buraya özel yazını gir. %projectName% kullanılabilir.",
+
+	"config-rest-detail": "Detaylar",
+	"config-rest-detail-desc": "Detaylar yerine bu gösterilecek.",
+	"config-rest-detailCustom": "Özel Detaylar",
+	"config-rest-detailCustom-desc": "Eğer Detaylar ayarını Özel seçtiysen buraya özel yazını gir. %projectName% kullanılabilir.",
+
+
+	"config-troubleshooting": "Sorun Giderme",
+	"config-troubleshooting-desc": "Discord entegrasyon sorunlarını giderecek seçenekler.",
+	"config-troubleshooting-ubuntuPatch": "Ubuntu 18.04 Bugu Yaması",
+	"config-troubleshooting-ubuntuPatch-desc": "Ubuntu 18.04'de Discord Rich Presence görünmeme sorunu için yama. Discord'u Ubuntu Software'den yüklediysen bunu işaretle.",
+	"config-troubleshooting-debugLog": "Hata Ayıklama Modu",
+	"config-troubleshooting-debugLog-desc": "Hata ayıklama mesajlarını atom-discord klasörüne kaydet.",
+	"config-troubleshooting-noDiscordNotification": "Discord bildirimi yok",
+	"config-troubleshooting-noDiscordNotification-desc": "Discord kapatıldığında veya bağlantı sağlanamadığında bir uyarı bildirimi göster."
+}

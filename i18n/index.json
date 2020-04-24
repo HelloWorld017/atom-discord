@@ -75,6 +75,11 @@
 	},
 
 	{
+		"value": "tr-TR",
+		"description": "Turkish (Turkey)"
+	},
+
+	{
 		"value": "zh-CN",
 		"description": "Chinese (China)"
 	}
