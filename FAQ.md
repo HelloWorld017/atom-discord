@@ -109,6 +109,8 @@ apm uninstall atom-discord
 Then, [reinstall atom-discord from the source code](https://github.com/HelloWorld017/atom-discord#installing-from-source-code)
 
 
+And, if _that_ doesn't work, you can try quitting Atom via Task Manager or <kbd>cmd</kbd> + <kbd>q</kbd>
+
 ## Notes for Ubuntu users
 There are a known bug that discord **installed from snap / software center** doesn't show rich presence.
 
