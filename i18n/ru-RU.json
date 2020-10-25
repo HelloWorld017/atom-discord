@@ -1,10 +1,10 @@
 {
 	"working-project": "Работает над %projectName%",
-	"working-no-project": "Работает над некоторыми вещами",
+	"working-no-project": "Работает над проектом",
 	"editing-file": "Редактирует %fileName%",
-	"editing-idle": "Отошел",
+	"editing-idle": "Отошёл",
 	"atom-description": "Работает в Atom",
-	"type-description": "Редактирует файл %type%",
+	"type-description": "Редактирует %type% файл",
 	"type-unknown": "Редактирует файл",
 	"developer-idle": "Разработчику тоже нужен отдых!"
 }
