@@ -95,6 +95,14 @@ Example:
 
 You can execute the command by changing 'apm' to whole path of apm.cmd, 'npm' to path of npm.cmd
 
+
+Another thing you could do is go to the directory, and then drag the exe into the terminal. It'll copy the directory for you, and make sure to leave the quotes. For example:
+```
+"C:\Users\USERNAME\AppData\Local\atom\app-1.53.0\resources\app\apm\bin\npm.cmd" install
+"C:\Users\USERNAME\AppData\Local\atom\app-1.53.0\resources\app\apm\bin\apm.cmd" install atom-discord
+```
+
+Please note that if you have a slow comptuer, the packages downloading may take awhile. It isn't an error so please don't close the terminal while the packages are installing.
 ---
 
 # Not Showing
