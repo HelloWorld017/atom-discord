@@ -3,6 +3,10 @@
 		"icon": "as",
 		"text": "ActionScript"
 	},
+	".svelte": {
+		"icon": "svelte",
+		"text": "Svelte"
+	},
 	".as": {
 		"icon": "as",
 		"text": "ActionScript"
